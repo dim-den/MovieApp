@@ -19,7 +19,6 @@ namespace MovieApp.Domain.Models
         public ClientType ClientType { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public DateTime Bday { get; set; }
         public string Status { get; set; }
         public byte[] ImageData { get; set; }
         public ICollection<FilmReview> FilmReviews { get; set; }

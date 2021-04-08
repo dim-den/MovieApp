@@ -30,20 +30,16 @@ namespace MovieApp.EntityFramework.Services
 
         public async Task<T> Get(int id)
         {
-            using (MovieAppDbContext context = new MovieAppDbContext())
-            {
-                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
-                return entity;
-            }
+            using MovieAppDbContext context = new MovieAppDbContext();
+            T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
+            return entity;
         }
 
         public async Task<ICollection<T>> GetAll()
         {
-            using (MovieAppDbContext context = new())
-            {
-                ICollection<T> entities = await context.Set<T>().ToListAsync();
-                return entities;
-            }
+            using MovieAppDbContext context = new();
+            ICollection<T> entities = await context.Set<T>().ToListAsync();
+            return entities;
         }
 
         public async Task<T> Update(int id, T entity)

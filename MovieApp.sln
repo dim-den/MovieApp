@@ -8,6 +8,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieApp.EntityFramework", "MovieApp.EntityFramework\MovieApp.EntityFramework.csproj", "{AE668331-B306-42E6-9706-061AAD713A3D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieApp.WPF", "MovieApp.WPF\MovieApp.WPF.csproj", "{279E653D-31CF-4E58-9920-461AEB961CED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AE668331-B306-42E6-9706-061AAD713A3D} = {AE668331-B306-42E6-9706-061AAD713A3D}
+		{F32386FC-CD44-4254-9925-57E184C8E726} = {F32386FC-CD44-4254-9925-57E184C8E726}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
