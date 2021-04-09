@@ -9,6 +9,12 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <PackageReference Include="PasswordBoxMVVM" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieApp.Domain\MovieApp.Domain.csproj" />
+    <ProjectReference Include="..\MovieApp.EntityFramework\MovieApp.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

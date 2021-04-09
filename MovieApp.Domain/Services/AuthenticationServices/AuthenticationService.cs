@@ -11,12 +11,13 @@ namespace MovieApp.Domain.Services.AuthenticationServices
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IPasswordHasher _passwordHasher = new PasswordHasher();
+        private readonly IPasswordHasher _passwordHasher;
         private readonly IUserDataService _userDataService;
 
         public AuthenticationService(IUserDataService userDataService)
         {
             _userDataService = userDataService;
+            _passwordHasher = new PasswordHasher();
         }
 
         public async Task<User> Login(string username, string password)

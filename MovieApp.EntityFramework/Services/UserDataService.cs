@@ -14,9 +14,9 @@ namespace MovieApp.Domain.Services
     {
         private readonly NonQueryDataService<User> _nonQueryDataService;
 
-        public UserDataService(NonQueryDataService<User> nonQueryDataService)
+        public UserDataService()
         {
-            _nonQueryDataService = nonQueryDataService;
+            _nonQueryDataService = new NonQueryDataService<User>();
         }
 
         public async Task<User> Create(User entity)
@@ -55,10 +55,10 @@ namespace MovieApp.Domain.Services
 
         public async Task<User> GetByUsername(string username)
         {
-            using MovieAppDbContext context = new();
-            return await context.Users
-                .Include(u => u.FilmReviews)
-                .FirstOrDefaultAsync((e) => e.Username == username);
+            using (MovieAppDbContext context = new())
+            {
+                return await context.Users.FirstOrDefaultAsync((e) => e.Username == username);
+            }
         }
 
         public async Task<User> Update(int id, User entity)
