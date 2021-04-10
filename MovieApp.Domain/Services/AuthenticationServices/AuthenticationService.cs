@@ -39,45 +39,38 @@ namespace MovieApp.Domain.Services.AuthenticationServices
             return user;
         }
 
-        public async Task<RegistrationResult> Register(string username, string email, string password, string confirmPassword, string name, string surname)
+        public async Task<User> Register(string username, string email, string password, string confirmPassword, string name, string surname)
         {
-            RegistrationResult result = RegistrationResult.Success;
-
             if (password != confirmPassword)
             {
-                result = RegistrationResult.PasswordsDoNotMatch;
+                throw new PasswordsMismatchException(password, confirmPassword);
             }
 
             User userAccount = await _userDataService.GetByEmail(email);
             if (userAccount != null)
             {
-                result = RegistrationResult.EmailAlreadyExists;
+                throw new EmailAlreadyExistsException(email);
             }
 
             User userUsername = await _userDataService.GetByUsername(username);
             if (userUsername != null)
             {
-                result = RegistrationResult.UsernameAlreadyExists;
+                throw new UsernameAlreadyExists(username);
             }
 
-            if (result == RegistrationResult.Success)
+            string hashedPassword = _passwordHasher.HashPassword(password);
+
+            User user = new User()
             {
-                string hashedPassword = _passwordHasher.HashPassword(password);
+                Username = username,
+                Email = email,
+                PasswordHash = hashedPassword,
+                Name = name,
+                Surname = surname,
+                ClientType = ClientType.User
+            };
 
-                User user = new User()
-                {
-                    Username = username,
-                    Email = email,
-                    PasswordHash = hashedPassword,
-                    Name = name,
-                    Surname = surname,
-                    ClientType = ClientType.User
-                };
-
-                await _userDataService.Create(user);
-            }
-
-            return result;
+            return await _userDataService.Create(user);
         }
     }
 }

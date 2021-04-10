@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:components="clr-namespace:PasswordBoxMVVM.Components;assembly=PasswordBoxMVVM"
              xmlns:local="clr-namespace:MovieApp.WPF.Views"
+             xmlns:viewTypes="clr-namespace:MovieApp.WPF.State.Navigator"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -53,7 +54,7 @@
                     Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                     <Button Command="{Binding RegisterCommand}" Width="150" HorizontalAlignment="Center" VerticalContentAlignment="Center" Background="{StaticResource BrushPrimary1}" Margin="0 10 0 0" Content="Register"/>
-                    <Button Content="Already have an account?" Command="{Binding ChangeViewCommand}" CommandParameter="ToLogin"
+                    <Button Content="Already have an account?" Command="{Binding ChangeViewCommand}" CommandParameter="{x:Static viewTypes:ViewType.Login}"
                             Style="{StaticResource MaterialDesignOutlinedButton}" BorderThickness="0" Margin="0 5" HorizontalAlignment="Center" Foreground="{StaticResource BrushPrimary1}"/>
                 </StackPanel>
 

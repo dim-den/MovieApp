@@ -5,19 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Services.AuthenticationServices;
+using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
 {
     public class RegisterCommand : AsyncCommandBase
     {
-        private readonly AuthenticationService _authenticationService;
+        private readonly IAuthenticator _authenticator;
         private readonly RegisterViewModel _registerViewModel;
-        public RegisterCommand(RegisterViewModel loginViewModel, AuthenticationService authenticationService)
+        private Navigator _navigator;
+        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, Navigator navigator)
         {
             _registerViewModel = loginViewModel;
-            _authenticationService = authenticationService;
+            _authenticator = authenticator;
+            _navigator = navigator;
 
             _registerViewModel.PropertyChanged += RegisterViewModel_PropertyChanged;
         }
@@ -35,7 +40,7 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-                RegistrationResult registrationResult = await _authenticationService.Register(
+                await _authenticator.Register(
                        _registerViewModel.Username,
                        _registerViewModel.Email,
                        _registerViewModel.Password,
@@ -43,24 +48,19 @@ namespace MovieApp.WPF.Commands
                        _registerViewModel.Name,
                        _registerViewModel.Surname);
 
-                switch (registrationResult)
-                {
-                    case RegistrationResult.Success:
-                        // _registerRenavigator.Renavigate(); TODO
-                        break;
-                    case RegistrationResult.PasswordsDoNotMatch:
-                        _registerViewModel.ErrorMessage = "Password does not match confirm password.";
-                        break;
-                    case RegistrationResult.EmailAlreadyExists:
-                        _registerViewModel.ErrorMessage = "An account for this email already exists.";
-                        break;
-                    case RegistrationResult.UsernameAlreadyExists:
-                        _registerViewModel.ErrorMessage = "An account for this username already exists.";
-                        break;
-                    default:
-                        _registerViewModel.ErrorMessage = "Registration failed.";
-                        break;
-                }
+                _navigator.CurrentViewModel = new HomeViewModel(_navigator);
+            }
+            catch(PasswordsMismatchException)
+            {
+                _registerViewModel.ErrorMessage = "Password does not match confirm password.";
+            }
+            catch(EmailAlreadyExistsException)
+            {
+                _registerViewModel.ErrorMessage = "An account for this email already exists.";
+            }
+            catch(UsernameAlreadyExists)
+            {
+                _registerViewModel.ErrorMessage = "An account for this username already exists.";
             }
             catch (Exception)
             {

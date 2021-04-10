@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
 {
     public class ChangeViewCommand : ICommand
     {
-        private MainViewModel viewModel;
-
-        public ChangeViewCommand(MainViewModel viewModel)
+        private Navigator _navigator;
+        private IAuthenticator _authenticator;
+        public ChangeViewCommand(Navigator navigator, IAuthenticator authenticator = null)
         {
-            this.viewModel = viewModel;
+            _navigator = navigator;
+            _authenticator = authenticator;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -26,13 +29,18 @@ namespace MovieApp.WPF.Commands
 
         public void Execute(object parameter)
         {
-            if (parameter.ToString() == "ToLogin")
+            ViewType viewType = (ViewType)parameter;
+            switch (viewType)
             {
-                viewModel.CurrentViewModel = new LoginViewModel(viewModel);
-            }
-            else if (parameter.ToString() == "ToRegister")
-            {
-                viewModel.CurrentViewModel = new RegisterViewModel(viewModel);
+                case ViewType.Login:
+                    _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
+                    break;
+                case ViewType.Register:
+                    _navigator.CurrentViewModel = new RegisterViewModel(_navigator, _authenticator);
+                    break;
+                case ViewType.Home:
+                    _navigator.CurrentViewModel = new HomeViewModel(_navigator);
+                    break;
             }
         }
     }

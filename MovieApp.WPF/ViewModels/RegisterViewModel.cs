@@ -7,6 +7,8 @@ using System.Windows.Input;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
 using MovieApp.WPF.Commands;
+using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -116,12 +118,12 @@ namespace MovieApp.WPF.ViewModels
         public ICommand RegisterCommand { get; }
         public ICommand ChangeViewCommand { get; set; }
 
-        public RegisterViewModel(MainViewModel mainView)
+        public RegisterViewModel(Navigator navigator, IAuthenticator authentificator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            ChangeViewCommand = new ChangeViewCommand(mainView);
-            RegisterCommand = new RegisterCommand(this, new AuthenticationService(new UserDataService()));
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
+            RegisterCommand = new RegisterCommand(this, authentificator, navigator);
         }
     }
 }

@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Services.AuthenticationServices;
+using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -15,8 +17,9 @@ namespace MovieApp.WPF.Commands
     public class LoginCommand : AsyncCommandBase
     {
         public event EventHandler CanExecuteChanged;
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAuthenticator _authenticator;
         private readonly LoginViewModel _loginViewModel;
+        private Navigator _navigator;
 
         public override bool CanExecute(object parameter)
         {
@@ -29,9 +32,9 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-               await _authenticationService.Login(_loginViewModel.Username, _loginViewModel.Password);
+               await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
-               // _renavigator.Renavigate(); TODO
+                _navigator.CurrentViewModel = new HomeViewModel(_navigator); 
             }
             catch (UserNotFoundException)
             {
@@ -47,10 +50,11 @@ namespace MovieApp.WPF.Commands
             }
         }
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticationService authenticationService)
+        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, Navigator navigator)
         {
             _loginViewModel = loginViewModel;
-            _authenticationService = authenticationService;
+            _authenticator = authenticator;
+            _navigator = navigator;
 
             _loginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
         }
