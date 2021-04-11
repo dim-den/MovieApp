@@ -118,7 +118,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand RegisterCommand { get; }
         public ICommand ChangeViewCommand { get; set; }
 
-        public RegisterViewModel(Navigator navigator, IAuthenticator authentificator)
+        public RegisterViewModel(INavigator navigator, IAuthenticator authentificator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 

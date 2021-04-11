@@ -12,9 +12,9 @@ namespace MovieApp.WPF.Commands
 {
     public class ChangeViewCommand : ICommand
     {
-        private Navigator _navigator;
-        private IAuthenticator _authenticator;
-        public ChangeViewCommand(Navigator navigator, IAuthenticator authenticator = null)
+        private readonly INavigator _navigator;
+        private readonly IAuthenticator _authenticator;
+        public ChangeViewCommand(INavigator navigator, IAuthenticator authenticator = null)
         {
             _navigator = navigator;
             _authenticator = authenticator;

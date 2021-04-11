@@ -4,11 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MovieApp.WPF"
+        xmlns:controls="clr-namespace:MovieApp.WPF.Controls" xmlns:viewmodels="clr-namespace:MovieApp.WPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="MovieApp" Height="600" Width="800">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-         
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Rectangle Grid.RowSpan="2" Grid.Row="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.1,1" StartPoint="0.8,0">
+                    <GradientStop Color="{StaticResource ColorPrimary1}"/>
+                    <GradientStop Color="{StaticResource ColorPrimary2}" Offset="1"/>
+                    <GradientStop Color="{StaticResource ColorPrimary3}" Offset="0.7"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        
+        <Grid Grid.Row="0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            
+            <controls:AppHeader DataContext="{Binding AppHeaderViewModel}"/>
+        </Grid>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">         
             <ContentControl Content="{Binding CurrentViewModel}" />
         </ScrollViewer>
     </Grid>

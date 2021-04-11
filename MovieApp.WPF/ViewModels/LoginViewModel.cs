@@ -53,7 +53,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         public ICommand LoginCommand { get; set; }
-        public LoginViewModel(Navigator navigator, IAuthenticator authentificator)
+        public LoginViewModel(INavigator navigator, IAuthenticator authentificator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 

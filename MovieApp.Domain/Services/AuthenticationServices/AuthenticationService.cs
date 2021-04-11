@@ -60,7 +60,7 @@ namespace MovieApp.Domain.Services.AuthenticationServices
 
             string hashedPassword = _passwordHasher.HashPassword(password);
 
-            User user = new User()
+            User user = new()
             {
                 Username = username,
                 Email = email,

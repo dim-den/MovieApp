@@ -9,8 +9,8 @@ namespace MovieApp.WPF.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        private Navigator _navigator;
-        public HomeViewModel(Navigator navigator)
+        private readonly INavigator _navigator;
+        public HomeViewModel(INavigator navigator)
         {
             _navigator = navigator;
         }

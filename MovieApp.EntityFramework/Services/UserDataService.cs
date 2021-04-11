@@ -55,10 +55,8 @@ namespace MovieApp.Domain.Services
 
         public async Task<User> GetByUsername(string username)
         {
-            using (MovieAppDbContext context = new())
-            {
-                return await context.Users.FirstOrDefaultAsync((e) => e.Username == username);
-            }
+            using MovieAppDbContext context = new();
+            return await context.Users.FirstOrDefaultAsync((e) => e.Username == username);
         }
 
         public async Task<User> Update(int id, User entity)

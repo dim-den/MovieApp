@@ -17,8 +17,8 @@ namespace MovieApp.WPF.Commands
     {
         private readonly IAuthenticator _authenticator;
         private readonly RegisterViewModel _registerViewModel;
-        private Navigator _navigator;
-        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, Navigator navigator)
+        private readonly INavigator _navigator;
+        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, INavigator navigator)
         {
             _registerViewModel = loginViewModel;
             _authenticator = authenticator;

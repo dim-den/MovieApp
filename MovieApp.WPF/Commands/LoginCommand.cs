@@ -19,7 +19,7 @@ namespace MovieApp.WPF.Commands
         public event EventHandler CanExecuteChanged;
         private readonly IAuthenticator _authenticator;
         private readonly LoginViewModel _loginViewModel;
-        private Navigator _navigator;
+        private readonly INavigator _navigator;
 
         public override bool CanExecute(object parameter)
         {
@@ -50,7 +50,7 @@ namespace MovieApp.WPF.Commands
             }
         }
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, Navigator navigator)
+        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, INavigator navigator)
         {
             _loginViewModel = loginViewModel;
             _authenticator = authenticator;
