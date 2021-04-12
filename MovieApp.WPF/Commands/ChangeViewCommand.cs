@@ -41,6 +41,9 @@ namespace MovieApp.WPF.Commands
                 case ViewType.Home:
                     _navigator.CurrentViewModel = new HomeViewModel(_navigator);
                     break;
+                case ViewType.Profile:
+                    // TODO
+                    break;
             }
         }
     }

@@ -21,14 +21,13 @@ namespace MovieApp.WPF.ViewModels
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
         public User CurrentUser => _authenticator.CurrentUser;
         public AppHeaderViewModel AppHeaderViewModel { get; }
-
         public MainViewModel()
         {
             _navigator = new Navigator();
             _authenticator = new Authenticator(new AuthenticationService(new UserDataService()), new Account());
 
             _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
-            AppHeaderViewModel = new AppHeaderViewModel();
+            AppHeaderViewModel = new AppHeaderViewModel(_navigator, _authenticator);
 
             _navigator.StateChanged += OnCurrentViewModelChanged;
             _authenticator.StateChanged += Authenticator_StateChanged;

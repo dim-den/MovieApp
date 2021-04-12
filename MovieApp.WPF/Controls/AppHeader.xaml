@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MovieApp.WPF.Controls" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
+             xmlns:viewTypes="clr-namespace:MovieApp.WPF.State.Navigator"
              mc:Ignorable="d" 
              d:DesignWidth="800">
     <UserControl.Resources>
@@ -18,29 +19,69 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <materialDesign:PackIcon Grid.Column="0" Kind="Home" Width="48" Height="48" Margin="5" Foreground="White"/>
-        
-        <TextBox Grid.Column="1" Style="{StaticResource MaterialDesignTextBox}" Margin="20 10" Padding="5" FontSize="18" Background="White"/>
+        <materialDesign:PackIcon Grid.Column="0" Kind="Home" Width="48" Height="48" Margin="5 5 20 5" Foreground="White"/>
 
-        <Grid Grid.Column="2">
-            <StackPanel Orientation="Horizontal">
-                <Image Width="32" Height="32" >
-                    
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ImageData}" Value="{x:Null}">
-                                    <Setter Property="Source" Value="../Resources/default-avatar.png" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ImageData, Converter={StaticResource IsNullConverter}}" Value="False">
-                                    <Setter Property="Source" Value="{Binding ImageData}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
-                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5 5 10 5" FontSize="18"/>               
-            </StackPanel>
-        </Grid>
+        <Border Grid.Column="1" CornerRadius="4" Margin="10" Background="White">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Style="{DynamicResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Kind="Search" Opacity="0.8" Width="24" Height="24"/>
+                </Button>
+
+                <TextBox
+                     Grid.Column="1"
+                     Margin="8 0 0 0"
+                     materialDesign:HintAssist.Hint="a film/actor to find"
+                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"              
+                     BorderThickness="0"
+                     MinWidth="200"
+                     FontSize="16"
+                     VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+
+
+        <Menu Grid.Column="2" VerticalAlignment="Center" Margin="5" Background="{StaticResource BrushPrimary2}" RenderOptions.EdgeMode="Aliased">
+            <MenuItem Foreground="White" >
+                
+                <MenuItem Header="Profile"
+                          Command="{Binding ChangeViewCommand}" 
+                          CommandParameter="{x:Static viewTypes:ViewType.Profile}" />
+                
+                <MenuItem Header="Sign out"
+                          Icon="{materialDesign:PackIcon Kind=SignOut}"
+                          Command="{Binding SignOutCommand}" 
+                          CommandParameter="{x:Static viewTypes:ViewType.Login}"/>
+                
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="32" Height="32" Margin="5">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ImageData, Converter={StaticResource IsNullConverter}}" Value="True">
+                                            <Setter Property="Source" Value="../Resources/default-avatar.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ImageData, Converter={StaticResource IsNullConverter}}" Value="False">
+                                            <Setter Property="Source" Value="{Binding ImageData, TargetNullValue={x:Null}}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                            <Image.Clip>
+                                <EllipseGeometry Center="16,16" RadiusX="16" RadiusY="16" />
+                            </Image.Clip>
+                        </Image>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5" FontSize="18" Foreground="White" />
+                    </StackPanel>
+                </MenuItem.Header>
+                
+            </MenuItem>
+        </Menu>
     </Grid>
 </UserControl>

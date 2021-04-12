@@ -11,7 +11,8 @@ namespace MovieApp.WPF.State.Navigator
     {
         Login,
         Register,
-        Home
+        Home,
+        Profile
     }
     public interface INavigator
     {
