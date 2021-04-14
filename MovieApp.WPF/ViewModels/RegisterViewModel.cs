@@ -109,11 +109,11 @@ namespace MovieApp.WPF.ViewModels
             set => ErrorMessageViewModel.Message = value;
         }
         public bool CanRegister => !string.IsNullOrEmpty(Email) &&
-           !string.IsNullOrEmpty(Username) &&
-           !string.IsNullOrEmpty(Password) &&
-           !string.IsNullOrEmpty(ConfirmPassword) &&
-           !string.IsNullOrEmpty(Name) &&
-           !string.IsNullOrEmpty(Surname);
+                                   !string.IsNullOrEmpty(Username) &&
+                                   !string.IsNullOrEmpty(Password) &&
+                                   !string.IsNullOrEmpty(ConfirmPassword) &&
+                                   !string.IsNullOrEmpty(Name) &&
+                                   !string.IsNullOrEmpty(Surname);
 
         public ICommand RegisterCommand { get; }
         public ICommand ChangeViewCommand { get; set; }

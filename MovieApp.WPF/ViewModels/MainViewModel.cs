@@ -39,7 +39,6 @@ namespace MovieApp.WPF.ViewModels
         }
         private void Authenticator_StateChanged()
         {
-            AppHeaderViewModel.CurrentUser = _authenticator.CurrentUser;
             OnPropertyChanged(nameof(IsLoggedIn));
         }
     }

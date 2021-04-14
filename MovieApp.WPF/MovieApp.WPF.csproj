@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\1917.jpg" />
+    <None Remove="Resources\1917.webp" />
     <None Remove="Resources\default-avatar.png" />
   </ItemGroup>
 
@@ -22,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\1917.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\1917.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\default-avatar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

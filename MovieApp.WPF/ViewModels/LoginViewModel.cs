@@ -47,7 +47,6 @@ namespace MovieApp.WPF.ViewModels
             }
         }
         public MessageViewModel ErrorMessageViewModel { get; }
-
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;

@@ -19,7 +19,12 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <materialDesign:PackIcon Grid.Column="0" Kind="Home" Width="48" Height="48" Margin="5 5 20 5" Foreground="White"/>
+        <materialDesign:PackIcon Grid.Column="0" 
+                                 Kind="Home" 
+                                 Width="48" 
+                                 Height="48" 
+                                 Margin="5 5 20 5" 
+                                 Foreground="White" />
 
         <Border Grid.Column="1" CornerRadius="4" Margin="10" Background="White">
             <Grid >

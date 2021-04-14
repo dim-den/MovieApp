@@ -17,7 +17,6 @@ namespace MovieApp.WPF.State.Authentificator
             _authenticationService = authenticationService;
             _account = account;
         }
-
         public User CurrentUser
         {
             get

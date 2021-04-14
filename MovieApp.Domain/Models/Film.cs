@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieApp.Domain.Models
 {
-    public class Film : DbObject 
+    public class Film : DbObject
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -16,6 +16,7 @@ namespace MovieApp.Domain.Models
         public DateTime ReleaseDate { get; set; }
         public int Budget { get; set; }
         public int Fees { get; set; }
+        public byte[] PosterImageData { get; set; }
         public ICollection<FilmReview> FilmReviews { get; set; }
         public ICollection<FilmCast> FilmCasts { get; set; }
     }

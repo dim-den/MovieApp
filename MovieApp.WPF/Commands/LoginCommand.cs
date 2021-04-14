@@ -10,6 +10,7 @@ using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Services.AuthenticationServices;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
+using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -34,7 +35,7 @@ namespace MovieApp.WPF.Commands
             {
                await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
-                _navigator.CurrentViewModel = new HomeViewModel(_navigator); 
+               _navigator.CurrentViewModel = new HomeViewModel(_navigator); 
             }
             catch (UserNotFoundException)
             {
