@@ -18,7 +18,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <controls:MovieCarousel DataContext="{Binding MovieCarouselViewModel}" Margin="10" />
+        <controls:MovieCarousel Grid.Column="0" Grid.Row="0" DataContext="{Binding MovieCarouselViewModel}" Margin="10" />
+
+        <controls:ActorsSummary Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" DataContext="{Binding ActorsSummaryViewModel}" Margin="10" VerticalAlignment="Top" />
 
     </Grid>
 </UserControl>

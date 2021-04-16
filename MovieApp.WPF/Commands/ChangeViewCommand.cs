@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MovieApp.Domain.Models;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
+using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
 {
-    public class ChangeViewCommand : ICommand
+    public class ChangeViewCommand : AsyncCommandBase
     {
         private readonly INavigator _navigator;
         private readonly IAuthenticator _authenticator;
@@ -22,12 +24,12 @@ namespace MovieApp.WPF.Commands
 
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return true;
         }
 
-        public void Execute(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             ViewType viewType = (ViewType)parameter;
             switch (viewType)
@@ -39,7 +41,13 @@ namespace MovieApp.WPF.Commands
                     _navigator.CurrentViewModel = new RegisterViewModel(_navigator, _authenticator);
                     break;
                 case ViewType.Home:
-                    _navigator.CurrentViewModel = new HomeViewModel(_navigator);
+                    var filmStore = new Store<Film>();
+                    var actorStore = new Store<Actor>();
+
+                    await filmStore.Load();
+                    await actorStore.Load();
+
+                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
                     break;
                 case ViewType.Profile:
                     // TODO

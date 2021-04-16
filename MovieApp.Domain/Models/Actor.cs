@@ -12,5 +12,6 @@ namespace MovieApp.Domain.Models
         public string Surname { get; set; }
         public string Country { get; set; }
         public DateTime Bday { get; set; }
+        public ICollection<FilmCast> FilmCasts { get; set; }
     }
 }

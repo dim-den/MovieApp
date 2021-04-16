@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Exceptions;
+using MovieApp.Domain.Models;
 using MovieApp.Domain.Services.AuthenticationServices;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
+using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -48,7 +50,13 @@ namespace MovieApp.WPF.Commands
                        _registerViewModel.Name,
                        _registerViewModel.Surname);
 
-                _navigator.CurrentViewModel = new HomeViewModel(_navigator);
+                var filmStore = new Store<Film>();
+                var actorStore = new Store<Actor>();
+
+                await filmStore.Load();
+                await actorStore.Load();
+
+                _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
             }
             catch(PasswordsMismatchException)
             {

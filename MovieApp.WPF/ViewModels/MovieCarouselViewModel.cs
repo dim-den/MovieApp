@@ -34,23 +34,26 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(PosterImageData));
                 OnPropertyChanged(nameof(Title));
                 OnPropertyChanged(nameof(Year));
+                OnPropertyChanged(nameof(IsFirst));
             }
         }
+
+        public bool IsFirst => true;
         public Film CurrentFilm => _films[CurrentIndex];
         public byte[] PosterImageData => CurrentFilm.PosterImageData;
         public string Title => CurrentFilm.Title;
         public int Year => CurrentFilm.ReleaseDate.Year;
 
-        private DispatcherTimer _timer;
+        private readonly DispatcherTimer _timer;
         public DispatcherTimer Timer => _timer;
-        public MovieCarouselViewModel(INavigator navigator, IFilmStore filmStore)
+        public MovieCarouselViewModel(INavigator navigator, IStore<Film> filmStore)
         {
-            _films = new ObservableCollection<Film>(filmStore.Films.Take(Math.Min(filmStore.Films.Count, 5)));
+            _films = new ObservableCollection<Film>(filmStore.Entities.Take(5));
             _timer = new DispatcherTimer();
             CurrentIndex = 0;
 
             Timer.Tick += TimerTick;
-            Timer.Interval = TimeSpan.FromSeconds(10);
+            Timer.Interval = TimeSpan.FromSeconds(5);
             Timer.Start();
 
             ChangeMovieCarouselCommand = new ChangeMovieCarouselCommand(this);

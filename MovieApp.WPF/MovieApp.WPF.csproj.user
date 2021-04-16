@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\ActorsListing.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\ActorsSummary.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\AppHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -24,6 +30,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\ActorsListing.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\ActorsSummary.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\AppHeader.xaml">
       <SubType>Designer</SubType>
     </Page>

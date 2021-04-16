@@ -12,5 +12,7 @@ namespace MovieApp.Domain.Models
         public int Score { get; set; }
         public Film Film { get; set; }
         public User User { get; set; }
+        public int? FilmID { get; set; }
+        public int? UserID { get; set; }
     }
 }
