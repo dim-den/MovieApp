@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services.FilmServices;
 using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
@@ -30,6 +29,5 @@ namespace MovieApp.WPF.ViewModels
             MovieCarouselViewModel = new MovieCarouselViewModel(_navigator, _filmStore);
             ActorsSummaryViewModel = new ActorsSummaryViewModel(_navigator, _actorStore);
         }
-
     }
 }

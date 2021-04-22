@@ -4,33 +4,48 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MovieApp.WPF.Controls"
+             xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="250">
+    <UserControl.Resources>
+        <converters:BdayToAgeConverter x:Key="BdayToAgeConverter" />
+    </UserControl.Resources>
+    <Border BorderBrush="Transparent" CornerRadius="10" Background="#2c64e8">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 0">
 
-    <ItemsControl ItemsSource="{Binding Actors}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel Orientation="Vertical" />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
 
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
+            <TextBlock Text="Actors:" FontSize="24"  VerticalAlignment="Center" Foreground="#99b7ff" HorizontalAlignment="Center" />
 
-                <Border BorderBrush="{StaticResource BrushPrimary2}" BorderThickness="0 3 0 0" Margin="10 0" Padding="5">
-                    <StackPanel Orientation="Vertical" MinWidth="250">
-                        <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text="{Binding Name}"    Margin="5" FontFamily="Champagne &amp; Limousines" FontSize="16"/>
-                        <TextBlock Text="{Binding Surname}" Margin="0 5" FontFamily="Champagne &amp; Limousines" FontSize="16" />
-                        <TextBlock Text="{Binding Bday}" Margin="0 5" FontFamily="Champagne &amp; Limousines" FontSize="16" />
-                        </StackPanel>
+            <ItemsControl ItemsSource="{Binding Actors}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                        <TextBlock Text="{Binding Country}" FontSize="16" />
-                    </StackPanel>
-                </Border>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0 5 0 0 " CornerRadius="5"  Background="#99b7ff">
+                            <StackPanel Orientation="Vertical" MinWidth="500">
+                                <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource BrushPrimary2}" Margin="0 0 5 0" FontSize="16"/>
+                                    <TextBlock Text="{Binding Surname}" Foreground="{StaticResource BrushPrimary2}" FontSize="16" TextWrapping="Wrap" />
 
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" MinWidth="250" Margin="15 0 0 5">
+                                    <TextBlock Text="{Binding Country}"  Foreground="#2c64e8" FontSize="14" FontStyle="Italic"/>
+                                    <TextBlock Text="," Foreground="#2c64e8" FontSize="14" FontStyle="Italic" />
+                                    <TextBlock Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}}" Foreground="#2c64e8" FontSize="14" FontStyle="Italic"
+                                               Margin="5 0 0 0"/>
+                                    <TextBlock Text=" y.o." Foreground="#2c64e8" FontSize="14" FontStyle="Italic"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
 
-    </ItemsControl>
+            </ItemsControl>
+            <TextBlock Height="10" />
+        </StackPanel>
+    </Border>
 </UserControl>

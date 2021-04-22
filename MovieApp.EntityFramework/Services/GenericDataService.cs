@@ -5,28 +5,35 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.EntityFramework.Services.Common;
 
 namespace MovieApp.EntityFramework.Services
 {
     public class GenericDataService<T> : IDataService<T> where T : DbObject
     {
-        private readonly NonQueryDataService<T> _nonQueryDataService;
-
-        public GenericDataService()
-        {
-            _nonQueryDataService = new NonQueryDataService<T>();
-        }
         public async Task<T> Create(T entity)
         {
-            return await _nonQueryDataService.Create(entity);
+            using (MovieAppDbContext context = new MovieAppDbContext())
+            {
+                EntityEntry<T> createdResult = await context.Set<T>().AddAsync(entity);
+                await context.SaveChangesAsync();
+
+                return createdResult.Entity;
+            }
         }
 
         public async Task<bool> Delete(int id)
         {
-            return await _nonQueryDataService.Delete(id);
+            using (MovieAppDbContext context = new MovieAppDbContext())
+            {
+                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
+                context.Set<T>().Remove(entity);
+                await context.SaveChangesAsync();
+
+                return true;
+            }
         }
 
         public async Task<T> Get(int id)
@@ -43,9 +50,23 @@ namespace MovieApp.EntityFramework.Services
             return entities;
         }
 
+        public ICollection<T> GetAllSync()
+        {
+            using MovieAppDbContext context = new();
+            return context.Set<T>().AsNoTracking().ToList();
+        }
+
         public async Task<T> Update(int id, T entity)
         {
-            return await _nonQueryDataService.Update(id, entity);
+            using (MovieAppDbContext context = new MovieAppDbContext())
+            {
+                entity.ID = id;
+
+                context.Set<T>().Update(entity);
+                await context.SaveChangesAsync();
+
+                return entity;
+            }
         }
 
         public async Task<IEnumerable<T>> GetWithInclude(params Expression<Func<T, object>>[] includeProperties)
@@ -66,5 +87,6 @@ namespace MovieApp.EntityFramework.Services
             IQueryable<T> query = context.Set<T>().AsNoTracking();
             return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
+
     }
 }

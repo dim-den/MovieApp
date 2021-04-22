@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Nunito-Black.ttf" />
+    <None Remove="Fonts\Nunito-BlackItalic.ttf" />
+    <None Remove="Fonts\Nunito-Bold.ttf" />
+    <None Remove="Fonts\Nunito-BoldItalic.ttf" />
+    <None Remove="Fonts\Nunito-ExtraBold.ttf" />
+    <None Remove="Fonts\Nunito-ExtraBoldItalic.ttf" />
+    <None Remove="Fonts\Nunito-ExtraLight.ttf" />
+    <None Remove="Fonts\Nunito-ExtraLightItalic.ttf" />
+    <None Remove="Fonts\Nunito-Italic.ttf" />
+    <None Remove="Fonts\Nunito-Light.ttf" />
+    <None Remove="Fonts\Nunito-LightItalic.ttf" />
+    <None Remove="Fonts\Nunito-Regular.ttf" />
+    <None Remove="Fonts\Nunito-SemiBold.ttf" />
+    <None Remove="Fonts\Nunito-SemiBoldItalic.ttf" />
     <None Remove="Resources\1917.jpg" />
     <None Remove="Resources\1917.webp" />
     <None Remove="Resources\default-avatar.png" />
@@ -24,6 +38,48 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\Nunito-Black.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-BlackItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-BoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-ExtraBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-ExtraBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-ExtraLight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-ExtraLightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-Italic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-LightItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nunito-SemiBoldItalic.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\1917.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

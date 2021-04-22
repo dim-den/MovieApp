@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services.FilmServices;
 using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Navigator;
@@ -34,11 +33,8 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(PosterImageData));
                 OnPropertyChanged(nameof(Title));
                 OnPropertyChanged(nameof(Year));
-                OnPropertyChanged(nameof(IsFirst));
             }
         }
-
-        public bool IsFirst => true;
         public Film CurrentFilm => _films[CurrentIndex];
         public byte[] PosterImageData => CurrentFilm.PosterImageData;
         public string Title => CurrentFilm.Title;

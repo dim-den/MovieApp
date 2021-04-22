@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services.FilmServices;
 using MovieApp.EntityFramework.Services;
 
 namespace MovieApp.WPF.State.Stores

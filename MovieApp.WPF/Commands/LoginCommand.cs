@@ -35,7 +35,7 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-               await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
+                await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
                 var filmStore = new Store<Film>();
                 var actorStore = new Store<Actor>();

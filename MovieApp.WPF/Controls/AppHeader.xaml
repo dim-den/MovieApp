@@ -19,12 +19,19 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <materialDesign:PackIcon Grid.Column="0" 
-                                 Kind="Home" 
-                                 Width="48" 
-                                 Height="48" 
-                                 Margin="5 5 20 5" 
-                                 Foreground="White" />
+        <Button Command="{Binding ChangeViewCommand}"
+                CommandParameter="{x:Static viewTypes:ViewType.Home}"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Grid.Column="0"
+                Foreground="White"
+                Background="Transparent"
+                Margin="5 5 20 5" 
+                Height="auto" >
+            <materialDesign:PackIcon Kind="Home"
+                                     Width="48"
+                                     Height="48"
+                                     Margin="-10" />
+        </Button>
 
         <Border Grid.Column="1" CornerRadius="4" Margin="10" Background="White">
             <Grid >
@@ -53,19 +60,20 @@
 
         <Menu Grid.Column="2" VerticalAlignment="Center" Margin="5" Background="{StaticResource BrushPrimary2}" RenderOptions.EdgeMode="Aliased">
             <MenuItem Foreground="White" >
-                
+
                 <MenuItem Header="Profile"
                           Command="{Binding ChangeViewCommand}" 
                           CommandParameter="{x:Static viewTypes:ViewType.Profile}" />
-                
+
                 <MenuItem Header="Sign out"
                           Icon="{materialDesign:PackIcon Kind=SignOut}"
                           Command="{Binding SignOutCommand}" 
                           CommandParameter="{x:Static viewTypes:ViewType.Login}"/>
-                
+
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="32" Height="32" Margin="5">
+                        <Border Margin="5" BorderThickness="3" BorderBrush="{StaticResource BrushPrimary3}" CornerRadius="50">                      
+                        <Image Width="32" Height="32" Stretch="Fill">
                             <Image.Style>
                                 <Style TargetType="Image">
                                     <Style.Triggers>
@@ -82,10 +90,11 @@
                                 <EllipseGeometry Center="16,16" RadiusX="16" RadiusY="16" />
                             </Image.Clip>
                         </Image>
+                        </Border>
                         <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5" FontSize="18" Foreground="White" />
                     </StackPanel>
                 </MenuItem.Header>
-                
+
             </MenuItem>
         </Menu>
     </Grid>

@@ -22,8 +22,6 @@ namespace MovieApp.WPF.Commands
             _authenticator = authenticator;
         }
 
-        public event EventHandler CanExecuteChanged;
-
         public override bool CanExecute(object parameter)
         {
             return true;
@@ -50,7 +48,7 @@ namespace MovieApp.WPF.Commands
                     _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
                     break;
                 case ViewType.Profile:
-                    // TODO
+                    _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator);
                     break;
             }
         }

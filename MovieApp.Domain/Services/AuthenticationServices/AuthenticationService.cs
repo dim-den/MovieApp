@@ -34,9 +34,9 @@ namespace MovieApp.Domain.Services.AuthenticationServices
             if (passwordResult != PasswordVerificationResult.Success)
             {
                 throw new InvalidPasswordException(username, password);
-            }
+            }            
 
-            return user;
+            return await _userDataService.Get(user.ID);
         }
 
         public async Task<User> Register(string username, string email, string password, string confirmPassword, string name, string surname)

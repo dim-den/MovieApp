@@ -23,7 +23,7 @@ namespace MovieApp.WPF.State.Authentificator
             {
                 return _account.CurrentUser;
             }
-            private set
+            set
             {
                 _account.CurrentUser = value;
                 StateChanged?.Invoke();
@@ -48,5 +48,6 @@ namespace MovieApp.WPF.State.Authentificator
         {
            CurrentUser = await _authenticationService.Register(username, email, password, confirmPassword, name, surname);
         }
+
     }
 }

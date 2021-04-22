@@ -6,10 +6,5 @@
              xmlns:local="clr-namespace:MovieApp.WPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="250">
-    <Border BorderBrush="{StaticResource BrushPrimary2}" BorderThickness="5" CornerRadius="5">
-        <StackPanel Orientation="Vertical"  Background="{StaticResource BrushPrimary1}">
-            <TextBlock Text="Actors:" FontSize="24"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
-            <local:ActorsListing Grid.Row="1" DataContext="{Binding ActorsListingViewModel}" />
-        </StackPanel>
-    </Border>
+    <local:ActorsListing Grid.Row="1" DataContext="{Binding ActorsListingViewModel}" />
 </UserControl>

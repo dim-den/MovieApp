@@ -6,6 +6,8 @@
              xmlns:viewmodels="clr-namespace:MovieApp.WPF.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Common.xaml" />
@@ -23,6 +25,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ProfileViewModel}">
+                <views:ProfileView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
