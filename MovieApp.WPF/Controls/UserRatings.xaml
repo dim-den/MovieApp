@@ -1,0 +1,250 @@
+﻿<UserControl
+    x:Class="MovieApp.WPF.Controls.UserRatings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:filterTypes="clr-namespace:MovieApp.WPF.Commands"
+    xmlns:local="clr-namespace:MovieApp.WPF.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource MaterialDesignOutlinedButton}" TargetType="Button">
+                    <Setter Property="Foreground" Value="{StaticResource BrushPrimary3}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource BrushPrimary3}" />
+                    <Setter Property="Margin" Value="5" />
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="FontSize" Value="18" />
+                    <Setter Property="FontWeight" Value="Medium" />
+                    <Setter Property="Foreground" Value="{StaticResource BrushPrimary3}" />
+                </Style>
+            </Grid.Resources>
+            <StackPanel Orientation="Vertical">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Sort by:" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.SortByDate}"
+                        Content="date" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.SortByTitle}"
+                        Content="title name" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.SortByScore}"
+                        Content="score" />
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Score:" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreOne}"
+                        Content="1" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreTwo}"
+                        Content="2" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreThree}"
+                        Content="3" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreFour}"
+                        Content="4" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreFive}"
+                        Content="5" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreSix}"
+                        Content="6" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreSeven}"
+                        Content="7" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreEight}"
+                        Content="8" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreNine}"
+                        Content="9" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreTen}"
+                        Content="10" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.SelectAll}"
+                        Content="All" />
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Date from:" />
+                    <DatePicker
+                        Margin="5"
+                        Padding="5"
+                        SelectedDate="{Binding FromDate, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource MaterialDesignDatePicker}" />
+                    <TextBlock Text=", to:" />
+                    <DatePicker
+                        Margin="5"
+                        Padding="5"
+                        SelectedDate="{Binding ToDate, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource MaterialDesignDatePicker}" />
+                    <Button
+                        Command="{Binding FilterReviewsCommand}"
+                        CommandParameter="{x:Static filterTypes:FilterReviewType.DateBetween}"
+                        Content="select"
+                        IsEnabled="{Binding CanUserFilterByDate}" />
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+
+        <Border
+            Grid.Row="1"
+            Margin="10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            BorderBrush="{StaticResource BrushPrimary3}"
+            BorderThickness="4"
+            CornerRadius="4"
+            Visibility="{Binding HasReviews, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Opacity="0.4"
+                    RenderingBias="Quality"
+                    ShadowDepth="3"
+                    Color="Black" />
+            </Border.Effect>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <Grid HorizontalAlignment="Stretch" Background="{StaticResource BrushPrimary3}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.Resources>
+                        <Style x:Key="headerTextBox" TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="18" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                            <Setter Property="Foreground" Value="{StaticResource BrushPrimary1}" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Style="{StaticResource headerTextBox}"
+                        Text="Title:" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Style="{StaticResource headerTextBox}"
+                        Text="Date:" />
+
+                    <TextBlock
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource headerTextBox}"
+                        Text="Score:" />
+                </Grid>
+
+                <ListBox
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    AlternationCount="2"
+                    Background="{StaticResource BrushPrimary1}"
+                    BorderThickness="0"
+                    Foreground="{StaticResource BrushPrimary2}"
+                    ItemsSource="{Binding UserReviews}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    Style="{x:Null}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid MinWidth="600">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="60" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" Margin="10">
+                                    <TextBlock
+                                        FontSize="16"
+                                        FontStyle="Oblique"
+                                        FontWeight="Medium"
+                                        Text="{Binding Film.Title}" />
+                                </Grid>
+
+                                <Grid Grid.Column="1" Margin="10">
+                                    <Grid.Resources>
+                                        <Style x:Key="verticalSeparator" TargetType="Rectangle">
+                                            <Setter Property="Width" Value="1" />
+                                            <Setter Property="Fill" Value="{StaticResource BrushPrimary2}" />
+                                            <Setter Property="Margin" Value="0,-5" />
+                                        </Style>
+                                    </Grid.Resources>
+
+                                    <Rectangle HorizontalAlignment="Left" Style="{StaticResource verticalSeparator}" />
+
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        FontSize="16"
+                                        Text="{Binding Date, StringFormat={}{0:dd.MM.yy, hh:mm}}" />
+                                    <Rectangle HorizontalAlignment="Right" Style="{StaticResource verticalSeparator}" />
+                                </Grid>
+
+                                <Grid
+                                    Grid.Column="2"
+                                    Margin="0,10"
+                                    HorizontalAlignment="Center">
+                                    <TextBlock
+                                        FontSize="16"
+                                        FontWeight="Black"
+                                        Text="{Binding Score}" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Triggers>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                    <Setter Property="Background" Value="{StaticResource BackgroundBrush1}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <TextBlock
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            FontSize="24"
+            Foreground="{StaticResource BrushPrimary3}"
+            Text="No reviews found"
+            Visibility="{Binding HasReviews, Converter={StaticResource InverseBoolToVisConverter}}" />
+    </Grid>
+</UserControl>

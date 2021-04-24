@@ -19,8 +19,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand ChangeViewCommand { get; set; }
         public ICommand SignOutCommand { get; set; }
         public User CurrentUser => _authentificator.CurrentUser;
-        public string Name => CurrentUser?.Name ?? "";
-        public byte[] ImageData => CurrentUser?.ImageData; 
+        public byte[] ImageData => CurrentUser?.ImageData;
         public AppHeaderViewModel(INavigator navigator, IAuthenticator authentificator)
         {
             ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
@@ -33,7 +32,6 @@ namespace MovieApp.WPF.ViewModels
         private void Authenticator_StateChanged()
         {
             OnPropertyChanged(nameof(CurrentUser));
-            OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(ImageData));
         }
     }

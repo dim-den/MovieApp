@@ -64,7 +64,10 @@
                         Color="Black" />
                 </Border.Effect>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled"
+                    Style="{StaticResource MaterialDesignScrollViewer}"
+                    VerticalScrollBarVisibility="Auto">
                     <ContentControl Content="{Binding CurrentViewModel}" />
                 </ScrollViewer>
 

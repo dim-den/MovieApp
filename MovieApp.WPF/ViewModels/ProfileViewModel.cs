@@ -14,31 +14,28 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
+        public UserRatingsViewModel UserRatingsViewModel { get; }
         public AsyncCommandBase ChangeImageCommand { get; set; }
         
         private readonly IAuthenticator _authentificator;
-        private readonly IStore<FilmReview> _filmReviewsStore;
+        private readonly IStore<FilmReview> _userFilmReviewsStore;
 
         public User CurrentUser => _authentificator.CurrentUser;
 
+        public bool HasReviews => CurrentUser != null && CurrentUser?.FilmReviews != null && CurrentUser.FilmReviews.Count > 0;
+
         public byte[] ImageData => CurrentUser?.ImageData;
 
-        public string Name => CurrentUser?.Name;
+        public int FilmsWatched => (HasReviews == true) ? CurrentUser.FilmReviews.Count : 0;
 
-        public string Surname => CurrentUser?.Surname;
+        public double AvgScore => (HasReviews == true) ? CurrentUser.FilmReviews.Average(u => u.Score) : 0.0;
 
-        public string Username => CurrentUser?.Username;
-
-        public int FilmsWatched => CurrentUser?.FilmReviews?.Count ?? 0;
-
-        public double AvgScore => CurrentUser?.FilmReviews?.Average(u => u.Score) ?? 0;
-
-        public List<FilmReview> UserReviews => _filmReviewsStore.Entities;
-
-        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> filmReviewsStore)
+        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> userFilmReviewsStore)
         {
             _authentificator = authentificator;
-            _filmReviewsStore = filmReviewsStore;
+            _userFilmReviewsStore = userFilmReviewsStore;
+
+            UserRatingsViewModel = new UserRatingsViewModel(_userFilmReviewsStore);
 
             ChangeImageCommand = new ChangeImageCommand(_authentificator);
 

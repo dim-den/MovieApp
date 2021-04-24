@@ -19,6 +19,9 @@
     <Compile Update="Controls\MovieCarousel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\UserRatings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +46,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\MovieCarousel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\UserRatings.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
