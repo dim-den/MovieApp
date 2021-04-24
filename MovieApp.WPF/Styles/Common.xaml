@@ -4,18 +4,40 @@
     <!-- Fonts-->
     <FontFamily x:Key="Nunito">pack://application:,,,/Resources/#Nunito</FontFamily>
 
-    <Style TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource Nunito}" />
-        <Setter Property="FontWeight" Value="ExtraLight" />
+    <Style x:Key="WindowStyle" TargetType="Window">
+        
     </Style>
-   
+
+    <Style x:Key="TextBoxBase" TargetType="Control">
+        <Setter Property="FontFamily" Value="{StaticResource Nunito}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <!--Colors-->
-    <Color x:Key="ColorPrimary1">#FF2281D1</Color>
-    <Color x:Key="ColorPrimary2">#FF34268A</Color>
-    <Color x:Key="ColorPrimary3">#FF33288B</Color>
+    <Color x:Key="ColorPrimary1">#c9daff</Color>
+    <Color x:Key="ColorPrimary2">#1f4068</Color>
+    <Color x:Key="ColorPrimary3">#162447</Color>
+    <Color x:Key="ColorPrimary4">#687980</Color>
+    <Color x:Key="BackgroundColor1">#a4b6e0</Color>
+    <Color x:Key="BackgroundColor2">#d1dfff</Color>
 
     <!--Brushes-->
     <SolidColorBrush x:Key="BrushPrimary1" Color="{StaticResource ColorPrimary1}" />
     <SolidColorBrush x:Key="BrushPrimary2" Color="{StaticResource ColorPrimary2}" />
     <SolidColorBrush x:Key="BrushPrimary3" Color="{StaticResource ColorPrimary3}" />
+    <SolidColorBrush x:Key="BrushPrimary4" Color="{StaticResource ColorPrimary4}" />
+    <SolidColorBrush x:Key="BackgroundBrush1" Color="{StaticResource BackgroundColor1}" />
+    <SolidColorBrush x:Key="BackgroundBrush2" Color="{StaticResource BackgroundColor2}" />
 </ResourceDictionary>

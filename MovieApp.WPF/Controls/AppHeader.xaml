@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <converters:IsNullConverter x:Key="IsNullConverter" />
     </UserControl.Resources>
-    <Grid Background="{StaticResource BrushPrimary2}">
+    <Grid Background="{StaticResource BrushPrimary3}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
@@ -58,7 +58,7 @@
         </Border>
 
 
-        <Menu Grid.Column="2" VerticalAlignment="Center" Margin="5" Background="{StaticResource BrushPrimary2}" RenderOptions.EdgeMode="Aliased">
+        <Menu Grid.Column="2" VerticalAlignment="Center" Margin="5" Background="{StaticResource BrushPrimary3}" RenderOptions.EdgeMode="Aliased" >
             <MenuItem Foreground="White" >
 
                 <MenuItem Header="Profile"
@@ -72,8 +72,8 @@
 
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Border Margin="5" BorderThickness="3" BorderBrush="{StaticResource BrushPrimary3}" CornerRadius="50">                      
-                        <Image Width="32" Height="32" Stretch="Fill">
+                        <Border Margin="5" BorderThickness="2" BorderBrush="{StaticResource BrushPrimary2}" CornerRadius="50">
+                            <Image Width="32" Height="32" Stretch="Fill" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased">
                             <Image.Style>
                                 <Style TargetType="Image">
                                     <Style.Triggers>
@@ -91,7 +91,7 @@
                             </Image.Clip>
                         </Image>
                         </Border>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5" FontSize="18" Foreground="White" />
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5" FontSize="18" />
                     </StackPanel>
                 </MenuItem.Header>
 

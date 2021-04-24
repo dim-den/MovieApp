@@ -16,7 +16,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Background="White"
-                    BorderBrush="{StaticResource BrushPrimary1}"
+                    BorderBrush="{StaticResource BrushPrimary2}"
                     BorderThickness="2"
                     CornerRadius="16">
                 
@@ -38,7 +38,6 @@
                                  materialDesign:HintAssist.Hint="username" 
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Width="320"
-                                 FontFamily="Champagne &amp; Limousines" 
                                  FontSize="18" />
                         
                         <TextBox Margin="0 5 0 0" 
@@ -46,46 +45,40 @@
                                  materialDesign:HintAssist.Hint="email"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Width="320"
-                                 FontFamily="Champagne &amp; Limousines"
                                  FontSize="18"/>
                         
                         <TextBox Margin="0 5 0 0" 
                                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                                  materialDesign:HintAssist.Hint="name" 
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                 Width="320" 
-                                 FontFamily="Champagne &amp; Limousines" 
+                                 Width="320"
                                  FontSize="18" />
                         
                         <TextBox Margin="0 5 0 0" 
                                  Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
                                  materialDesign:HintAssist.Hint="surname" 
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                                 Width="320" 
-                                 FontFamily="Champagne &amp; Limousines" 
+                                 Width="320"
                                  FontSize="18"/>
                         
                         <components:BindablePasswordBox 
                             Password="{Binding Password}"
                             Margin="0 20 0 0" 
                             materialDesign:HintAssist.Hint="password" 
-                            Width="320" 
-                            FontFamily="Champagne &amp; Limousines" 
+                            Width="320"
                             FontSize="18" />
                         
                         <components:BindablePasswordBox 
                             Password="{Binding ConfirmPassword}"
                             Margin="0 20 0 0"  
                             materialDesign:HintAssist.Hint="confirm password" 
-                            Width="320" 
-                            FontFamily="Champagne &amp; Limousines" 
+                            Width="320"
                             FontSize="18" />
                         
                         <TextBlock Margin="0 10 0 0"
                                    HorizontalAlignment="Center"
                                    DataContext="{Binding ErrorMessageViewModel}"
-                                   Foreground="DarkRed" 
-                                   FontFamily="Champagne &amp; Limousines" 
+                                   Foreground="DarkRed"
                                    FontSize="16"
                                    Text="{Binding Message}"
                                    Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -93,7 +86,7 @@
                         <Button Command="{Binding RegisterCommand}" 
                                 Width="150" HorizontalAlignment="Center" 
                                 VerticalContentAlignment="Center" 
-                                Background="{StaticResource BrushPrimary1}" 
+                                Background="{StaticResource BrushPrimary2}" 
                                 Margin="0 10 0 0" 
                                 Content="Register" />
                         
@@ -103,7 +96,7 @@
                                  BorderThickness="0"
                                  Margin="0 5" 
                                  HorizontalAlignment="Center" 
-                                 Foreground="{StaticResource BrushPrimary1}"
+                                 Foreground="{StaticResource BrushPrimary4}"
                                  Content="Already have an account?"/>
                     </StackPanel>
                 </Grid>

@@ -15,25 +15,21 @@ namespace MovieApp.EntityFramework.Services
     {
         public async Task<T> Create(T entity)
         {
-            using (MovieAppDbContext context = new MovieAppDbContext())
-            {
-                EntityEntry<T> createdResult = await context.Set<T>().AddAsync(entity);
-                await context.SaveChangesAsync();
+            using MovieAppDbContext context = new();
+            EntityEntry<T> createdResult = await context.Set<T>().AddAsync(entity);
+            await context.SaveChangesAsync();
 
-                return createdResult.Entity;
-            }
+            return createdResult.Entity;
         }
 
         public async Task<bool> Delete(int id)
         {
-            using (MovieAppDbContext context = new MovieAppDbContext())
-            {
-                T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
-                context.Set<T>().Remove(entity);
-                await context.SaveChangesAsync();
+            using MovieAppDbContext context = new();
+            T entity = await context.Set<T>().FirstOrDefaultAsync((e) => e.ID == id);
+            context.Set<T>().Remove(entity);
+            await context.SaveChangesAsync();
 
-                return true;
-            }
+            return true;
         }
 
         public async Task<T> Get(int id)
@@ -58,15 +54,13 @@ namespace MovieApp.EntityFramework.Services
 
         public async Task<T> Update(int id, T entity)
         {
-            using (MovieAppDbContext context = new MovieAppDbContext())
-            {
-                entity.ID = id;
+            using MovieAppDbContext context = new();
+            entity.ID = id;
 
-                context.Set<T>().Update(entity);
-                await context.SaveChangesAsync();
+            context.Set<T>().Update(entity);
+            await context.SaveChangesAsync();
 
-                return entity;
-            }
+            return entity;
         }
 
         public async Task<IEnumerable<T>> GetWithInclude(params Expression<Func<T, object>>[] includeProperties)
@@ -83,7 +77,6 @@ namespace MovieApp.EntityFramework.Services
         private IQueryable<T> Include(params Expression<Func<T, object>>[] includeProperties)
         {
             MovieAppDbContext context = new();
-
             IQueryable<T> query = context.Set<T>().AsNoTracking();
             return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }

@@ -10,11 +10,9 @@
     <UserControl.Resources>
         <converters:BdayToAgeConverter x:Key="BdayToAgeConverter" />
     </UserControl.Resources>
-    <Border BorderBrush="Transparent" CornerRadius="10" Background="#2c64e8">
+    <Border BorderBrush="Transparent" CornerRadius="10" Background="{StaticResource BrushPrimary3}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5 0">
-
-
-            <TextBlock Text="Actors:" FontSize="24"  VerticalAlignment="Center" Foreground="#99b7ff" HorizontalAlignment="Center" />
+            <TextBlock Text="Actors:" Margin="0 5 0 0" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" Foreground="{StaticResource BrushPrimary1}" HorizontalAlignment="Center" />
 
             <ItemsControl ItemsSource="{Binding Actors}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <ItemsControl.ItemsPanel>
@@ -25,19 +23,19 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderThickness="0 5 0 0 " CornerRadius="5"  Background="#99b7ff">
+                        <Border BorderThickness="0 5 0 0 " CornerRadius="5"  Background="{StaticResource BrushPrimary1}">
                             <StackPanel Orientation="Vertical" MinWidth="500">
                                 <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
-                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource BrushPrimary2}" Margin="0 0 5 0" FontSize="16"/>
-                                    <TextBlock Text="{Binding Surname}" Foreground="{StaticResource BrushPrimary2}" FontSize="16" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource BrushPrimary2}" Margin="0 0 5 0"  FontSize="16" FontWeight="Medium" />
+                                    <TextBlock Text="{Binding Surname}" Foreground="{StaticResource BrushPrimary2}" FontSize="16"  FontWeight="Medium" TextWrapping="Wrap" />
 
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" MinWidth="250" Margin="15 0 0 5">
-                                    <TextBlock Text="{Binding Country}"  Foreground="#2c64e8" FontSize="14" FontStyle="Italic"/>
-                                    <TextBlock Text="," Foreground="#2c64e8" FontSize="14" FontStyle="Italic" />
-                                    <TextBlock Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}}" Foreground="#2c64e8" FontSize="14" FontStyle="Italic"
+                                    <TextBlock Text="{Binding Country}"  Foreground="{StaticResource BrushPrimary4}" FontSize="14" FontStyle="Italic"/>
+                                    <TextBlock Text="," Foreground="{StaticResource BrushPrimary4}" FontSize="14" FontStyle="Italic" />
+                                    <TextBlock Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}}" Foreground="{StaticResource BrushPrimary4}" FontSize="14" FontStyle="Italic"
                                                Margin="5 0 0 0"/>
-                                    <TextBlock Text=" y.o." Foreground="#2c64e8" FontSize="14" FontStyle="Italic"/>
+                                    <TextBlock Text=" y.o." Foreground="{StaticResource BrushPrimary4}" FontSize="14" FontStyle="Italic"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

@@ -21,11 +21,15 @@
                         Grid.ColumnSpan="2" 
                         Height="auto" 
                         Width="auto" 
-                        BorderBrush="{StaticResource BrushPrimary1}" 
-                        BorderThickness="2" 
-                        CornerRadius="3"
+                        BorderBrush="{StaticResource BrushPrimary3}" 
+                        BorderThickness="3" 
+                        CornerRadius="5"
                         >
-                    <Image Source="{Binding PosterImageData}" Stretch="Fill" Margin="0" RenderOptions.BitmapScalingMode="Linear" RenderTransformOrigin="1,0.5"/>
+                    <Image Source="{Binding PosterImageData}" 
+                           Stretch="Fill" Margin="0" 
+                           RenderOptions.BitmapScalingMode="Linear" 
+                           RenderTransformOrigin="1,0.5"/>
+                    
                 </Border>
 
                 <Border Grid.Column="0"
@@ -123,8 +127,9 @@
                     </Ellipse>
                 </StackPanel>
             </Grid>
+            
             <Button.Effect>
-                <DropShadowEffect BlurRadius="5" Opacity="0.3" ShadowDepth="8"/>
+                <DropShadowEffect BlurRadius="10" Opacity="0.3" ShadowDepth="5"/>
             </Button.Effect>
         </Button>
     </Grid>

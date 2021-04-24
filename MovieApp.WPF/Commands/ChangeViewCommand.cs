@@ -48,7 +48,11 @@ namespace MovieApp.WPF.Commands
                     _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
                     break;
                 case ViewType.Profile:
-                    _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator);
+                    var filmReviewsStore = new Store<FilmReview>();
+
+                    await filmReviewsStore.LoadWithInclude(f => f.UserID == _authenticator.CurrentUser.ID, f => f.Film);
+
+                    _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, filmReviewsStore);
                     break;
             }
         }

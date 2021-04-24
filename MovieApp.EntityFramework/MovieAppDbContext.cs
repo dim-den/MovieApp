@@ -11,6 +11,7 @@ namespace MovieApp.EntityFramework
         public DbSet<FilmReview> FilmReviews { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<FilmCast> FilmCasts { get; set; }
+        public object Configuration { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

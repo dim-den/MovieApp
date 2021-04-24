@@ -56,7 +56,9 @@ namespace MovieApp.Domain.Services
         public async Task<User> GetByUsername(string username)
         {
             using MovieAppDbContext context = new();
-            return await context.Users.FirstOrDefaultAsync((e) => e.Username == username);
+            return await context.Users
+                .Include(u => u.FilmReviews)
+                .FirstOrDefaultAsync((e) => e.Username == username);
         }
 
         public async Task<IEnumerable<User>> GetWithInclude(params Expression<Func<User, object>>[] includeProperties)
