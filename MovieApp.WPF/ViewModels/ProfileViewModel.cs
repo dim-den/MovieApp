@@ -18,7 +18,6 @@ namespace MovieApp.WPF.ViewModels
         public AsyncCommandBase ChangeImageCommand { get; set; }
         
         private readonly IAuthenticator _authentificator;
-        private readonly IStore<FilmReview> _userFilmReviewsStore;
 
         public User CurrentUser => _authentificator.CurrentUser;
 
@@ -33,9 +32,8 @@ namespace MovieApp.WPF.ViewModels
         public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> userFilmReviewsStore)
         {
             _authentificator = authentificator;
-            _userFilmReviewsStore = userFilmReviewsStore;
 
-            UserRatingsViewModel = new UserRatingsViewModel(_userFilmReviewsStore);
+            UserRatingsViewModel = new UserRatingsViewModel(userFilmReviewsStore);
 
             ChangeImageCommand = new ChangeImageCommand(_authentificator);
 

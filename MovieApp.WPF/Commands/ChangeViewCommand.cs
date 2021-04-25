@@ -54,6 +54,17 @@ namespace MovieApp.WPF.Commands
 
                     _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, userFilmReviewsStore);
                     break;
+                case ViewType.AdminPanel:
+                    var userStore = new Store<User>();
+                    var filmReviewsStore = new Store<FilmReview>();
+                    var filmsStore = new Store<Film>();
+                    var filmCastStore = new Store<FilmCast>();
+                    var actorsStore = new Store<Actor>();                
+
+                    await Task.WhenAll(userStore.Load(), filmReviewsStore.Load(), filmsStore.Load(), actorsStore.Load(), filmCastStore.Load());              
+
+                    _navigator.CurrentViewModel = new AdminPanelViewModel(userStore, filmReviewsStore, filmsStore, filmCastStore, actorsStore);
+                    break;
             }
         }
     }

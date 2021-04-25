@@ -16,10 +16,17 @@ namespace MovieApp.WPF.ViewModels
     public class AppHeaderViewModel : ViewModelBase
     {
         private readonly IAuthenticator _authentificator;
+
         public ICommand ChangeViewCommand { get; set; }
+
         public ICommand SignOutCommand { get; set; }
+
         public User CurrentUser => _authentificator.CurrentUser;
+
+        public bool IsAdmin => CurrentUser != null && CurrentUser.ClientType == ClientType.Admin;
+        
         public byte[] ImageData => CurrentUser?.ImageData;
+
         public AppHeaderViewModel(INavigator navigator, IAuthenticator authentificator)
         {
             ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
@@ -29,10 +36,12 @@ namespace MovieApp.WPF.ViewModels
 
             _authentificator.StateChanged += Authenticator_StateChanged;
         }
+
         private void Authenticator_StateChanged()
         {
             OnPropertyChanged(nameof(CurrentUser));
             OnPropertyChanged(nameof(ImageData));
+            OnPropertyChanged(nameof(IsAdmin));
         }
     }
 }

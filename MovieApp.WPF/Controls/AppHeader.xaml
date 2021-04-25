@@ -82,6 +82,12 @@
                     Header="Profile" />
 
                 <MenuItem
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="{x:Static viewTypes:ViewType.AdminPanel}"
+                    Header="Admin panel"
+                    Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <MenuItem
                     Command="{Binding SignOutCommand}"
                     CommandParameter="{x:Static viewTypes:ViewType.Login}"
                     Header="Sign out"
