@@ -30,7 +30,7 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="1"
-            Margin="20"
+            Margin="10 20 20 20"
             VerticalAlignment="Top"
             DataContext="{Binding ActorsSummaryViewModel}" />
 

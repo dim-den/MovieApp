@@ -5,17 +5,19 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.EntityFramework.Services;
 
 namespace MovieApp.WPF.State.Stores
 {
     public class Store<T> : IStore<T> where T : DbObject
     {
-        private readonly GenericDataService<T> _dataService;
+        private readonly IGenericDataService<T> _dataService;
         public List<T> Entities { get; set; }
-        public Store()
+
+        public Store(IGenericDataService<T> dataService)
         {
-            _dataService = new GenericDataService<T>();
+            _dataService = dataService;
         }
 
         public async Task Load()

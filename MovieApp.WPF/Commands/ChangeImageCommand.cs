@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.State.Authentificator;
 
@@ -15,9 +16,11 @@ namespace MovieApp.WPF.Commands
     public class ChangeImageCommand : AsyncCommandBase
     {
         private readonly IAuthenticator _authenticator;
-        public ChangeImageCommand(IAuthenticator authenticator)
+        private readonly IUnitOfWork _unitOfWork;
+        public ChangeImageCommand(IAuthenticator authenticator, IUnitOfWork unitOfWork)
         {
             _authenticator = authenticator;
+            _unitOfWork = unitOfWork;
         }
 
         public override bool CanExecute(object parameter)
@@ -53,8 +56,9 @@ namespace MovieApp.WPF.Commands
 
                     _authenticator.CurrentUser = currentUser;
 
-                    GenericDataService<User> dataService = new GenericDataService<User>();
-                    await dataService.Update(_authenticator.CurrentUser.ID, _authenticator.CurrentUser);
+                    await _unitOfWork.UserRepository.Update(_authenticator.CurrentUser.ID, _authenticator.CurrentUser);
+
+                    await _unitOfWork.SaveAsync();
                 }   
             }
         }

@@ -11,38 +11,10 @@ using MovieApp.EntityFramework.Services;
 
 namespace MovieApp.Domain.Services
 {
-    public class UserDataService : IUserDataService
+    public class UserDataService : GenericDataService<User>, IUserDataService
     {
-        private readonly GenericDataService<User> _userDataService;
-
-        public UserDataService()
+        public UserDataService(MovieAppDbContext movieAppDbContext) : base(movieAppDbContext)
         {
-            _userDataService = new GenericDataService<User>();
-        }
-
-        public async Task<User> Create(User entity)
-        {
-            return await _userDataService.Create(entity);
-        }
-
-        public async Task<bool> Delete(int id)
-        {
-            return await _userDataService.Delete(id);
-        }
-
-        public async Task<User> Get(int id)
-        {
-            return await _userDataService.Get(id);
-        }
-
-        public async Task<ICollection<User>> GetAll()
-        {
-            return await _userDataService.GetAll();
-        }
-
-        public ICollection<User> GetAllSync()
-        {
-            return _userDataService.GetAllSync();
         }
 
         public async Task<User> GetByEmail(string email)
@@ -59,21 +31,6 @@ namespace MovieApp.Domain.Services
             return await context.Users
                 .Include(u => u.FilmReviews)
                 .FirstOrDefaultAsync((e) => e.Username == username);
-        }
-
-        public async Task<IEnumerable<User>> GetWithInclude(params Expression<Func<User, object>>[] includeProperties)
-        {
-            return await _userDataService.GetWithInclude(includeProperties);
-        }
-
-        public async Task<IEnumerable<User>> GetWithInclude(Func<User, bool> predicate, params Expression<Func<User, object>>[] includeProperties)
-        {
-            return await _userDataService.GetWithInclude(predicate, includeProperties);
-        }
-
-        public async Task<User> Update(int id, User entity)
-        {
-            return await _userDataService.Update(id, entity);
         }
     }
 }

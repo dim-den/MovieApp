@@ -8,7 +8,9 @@ using System.Windows;
 using System.Windows.Input;
 using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
+using MovieApp.EntityFramework;
 using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
@@ -35,15 +37,18 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-                await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
-                var filmStore = new Store<Film>();
-                var actorStore = new Store<Actor>();
+                    var filmStore = new Store<Film>(unitOfWork.FilmRepository);
+                    var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
 
-                await filmStore.Load();
-                await actorStore.Load();
+                    await filmStore.Load();
+                    await actorStore.Load();
 
-               _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore); 
+                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                }
             }
             catch (UserNotFoundException)
             {

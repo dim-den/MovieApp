@@ -71,8 +71,11 @@
             <StackPanel Margin="50" Orientation="Vertical">
                 <WrapPanel Orientation="Horizontal">
                     <TextBlock Text="Delete entity with ID:" />
-                    <TextBox Padding="5" />
-                    <Button Content="Apply" />
+                    <TextBox Padding="5" Text="{Binding DeleteEntityID, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding DeleteEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Delete" />
                 </WrapPanel>
 
                 <WrapPanel Orientation="Horizontal">
@@ -194,6 +197,15 @@
                         </Style>
                     </WrapPanel.Style>
                 </WrapPanel>
+
+                <TextBlock
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    DataContext="{Binding ErrorMessageViewModel}"
+                    FontSize="20"
+                    Foreground="DarkRed"
+                    Text="{Binding Message}"
+                    Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
         </Grid>
 

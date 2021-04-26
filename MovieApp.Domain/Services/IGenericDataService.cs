@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovieApp.Domain.Services
 {
-    public interface IDataService<T>
+    public interface IGenericDataService<T>
     {
         Task<ICollection<T>> GetAll();
         ICollection<T> GetAllSync();

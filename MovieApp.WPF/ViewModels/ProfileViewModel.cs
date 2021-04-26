@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
@@ -29,13 +30,13 @@ namespace MovieApp.WPF.ViewModels
 
         public double AvgScore => (HasReviews == true) ? CurrentUser.FilmReviews.Average(u => u.Score) : 0.0;
 
-        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> userFilmReviewsStore)
+        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork, IStore<FilmReview> userFilmReviewsStore)
         {
             _authentificator = authentificator;
 
             UserRatingsViewModel = new UserRatingsViewModel(userFilmReviewsStore);
 
-            ChangeImageCommand = new ChangeImageCommand(_authentificator);
+            ChangeImageCommand = new ChangeImageCommand(_authentificator, unitOfWork);
 
             _authentificator.StateChanged += Authenticator_StateChanged;
         }

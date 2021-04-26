@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
+using MovieApp.EntityFramework;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
@@ -42,21 +44,24 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-                await _authenticator.Register(
-                       _registerViewModel.Username,
-                       _registerViewModel.Email,
-                       _registerViewModel.Password,
-                       _registerViewModel.ConfirmPassword,
-                       _registerViewModel.Name,
-                       _registerViewModel.Surname);
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    await _authenticator.Register(
+                           _registerViewModel.Username,
+                           _registerViewModel.Email,
+                           _registerViewModel.Password,
+                           _registerViewModel.ConfirmPassword,
+                           _registerViewModel.Name,
+                           _registerViewModel.Surname);
 
-                var filmStore = new Store<Film>();
-                var actorStore = new Store<Actor>();
+                    var filmStore = new Store<Film>(unitOfWork.FilmRepository);
+                    var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
 
-                await filmStore.Load();
-                await actorStore.Load();
+                    await filmStore.Load();
+                    await actorStore.Load();
 
-                _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                }
             }
             catch(PasswordsMismatchException)
             {

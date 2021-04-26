@@ -7,6 +7,7 @@ using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
+using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
@@ -17,6 +18,7 @@ namespace MovieApp.WPF.ViewModels
     {
         private readonly INavigator _navigator;
         private readonly IAuthenticator _authenticator;
+        private readonly IUnitOfWork _unitOfWork;
         public bool IsLoggedIn => _authenticator.IsLoggedIn;
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
         public User CurrentUser => _authenticator.CurrentUser;
@@ -24,7 +26,8 @@ namespace MovieApp.WPF.ViewModels
         public MainViewModel()
         {
             _navigator = new Navigator();
-            _authenticator = new Authenticator(new AuthenticationService(new UserDataService()), new Account());
+            _unitOfWork = new UnitOfWork();
+            _authenticator = new Authenticator(new AuthenticationService(_unitOfWork), new Account());
 
             _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
             AppHeaderViewModel = new AppHeaderViewModel(_navigator, _authenticator);

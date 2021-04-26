@@ -12,17 +12,17 @@ namespace MovieApp.Domain.Services.AuthenticationServices
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IPasswordHasher _passwordHasher;
-        private readonly IUserDataService _userDataService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AuthenticationService(IUserDataService userDataService)
+        public AuthenticationService(IUnitOfWork unitOfWork)
         {
-            _userDataService = userDataService;
+            _unitOfWork = unitOfWork;
             _passwordHasher = new PasswordHasher();
         }
 
         public async Task<User> Login(string username, string password)
         {
-            User user = await _userDataService.GetByUsername(username);
+            User user = await _unitOfWork.UserRepository.GetByUsername(username);
 
             if (user == null)
             {
@@ -46,13 +46,13 @@ namespace MovieApp.Domain.Services.AuthenticationServices
                 throw new PasswordsMismatchException(password, confirmPassword);
             }
 
-            User userAccount = await _userDataService.GetByEmail(email);
+            User userAccount = await _unitOfWork.UserRepository.GetByEmail(email);
             if (userAccount != null)
             {
                 throw new EmailAlreadyExistsException(email);
             }
 
-            User userUsername = await _userDataService.GetByUsername(username);
+            User userUsername = await _unitOfWork.UserRepository.GetByUsername(username);
             if (userUsername != null)
             {
                 throw new UsernameAlreadyExists(username);
@@ -70,7 +70,11 @@ namespace MovieApp.Domain.Services.AuthenticationServices
                 ClientType = ClientType.User
             };
 
-            return await _userDataService.Create(user);
+            var result =  await _unitOfWork.UserRepository.Create(user);
+
+            await _unitOfWork.SaveAsync();
+
+            return result;
         }
     }
 }

@@ -7,9 +7,7 @@ using MovieApp.Domain.Models;
 
 namespace MovieApp.Domain.Services
 {
-    public interface IUserDataService : IGenericDataService<User>
+    public interface IActorDataService : IGenericDataService<Actor>
     {
-        Task<User> GetByUsername(string username);
-        Task<User> GetByEmail(string email);
     }
 }
