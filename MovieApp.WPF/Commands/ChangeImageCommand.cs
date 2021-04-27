@@ -25,7 +25,7 @@ namespace MovieApp.WPF.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return true;
+            return base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)

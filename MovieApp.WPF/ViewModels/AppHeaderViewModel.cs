@@ -23,7 +23,7 @@ namespace MovieApp.WPF.ViewModels
 
         public User CurrentUser => _authentificator.CurrentUser;
 
-        public bool IsAdmin => CurrentUser != null && CurrentUser.ClientType == ClientType.Admin;
+        public bool IsAdmin => CurrentUser != null && CurrentUser.ClientType >= ClientType.Admin;
         
         public byte[] ImageData => CurrentUser?.ImageData;
 

@@ -61,7 +61,7 @@ namespace MovieApp.WPF.Commands
 
                         await userFilmReviewsStore.LoadWithInclude(f => f.UserID == _authenticator.CurrentUser.ID, f => f.Film);
 
-                        _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, unitOfWork, userFilmReviewsStore);
+                        _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, userFilmReviewsStore);
                         break;
                     case ViewType.AdminPanel:
                         //var userStore = new Store<User>(unitOfWork.UserRepository);
@@ -76,7 +76,7 @@ namespace MovieApp.WPF.Commands
                         //await actorsStore.Load();
                         //await filmCastStore.Load();
 
-                        _navigator.CurrentViewModel = new AdminPanelViewModel(new UnitOfWork());
+                        _navigator.CurrentViewModel = new AdminPanelViewModel(_authenticator);
                         break;
                 }
             }

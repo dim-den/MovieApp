@@ -80,27 +80,55 @@
 
                 <WrapPanel Orientation="Horizontal">
                     <TextBlock Text="Update entity with ID:" />
-                    <TextBox Padding="5" />
-                    <Button Content="Apply" />
+                    <TextBox Padding="5" Text="{Binding UpdateEntityID, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding UpdateEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Update" />
                 </WrapPanel>
 
                 <TextBlock Text="Entity to update / insert values:" />
 
                 <WrapPanel Margin="-10,0,0,0" Orientation="Horizontal">
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="username" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="email" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="name" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="surname" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="client type" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="username"
+                        Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="password"
+                        Text="{Binding User.PasswordHash, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="email"
+                        Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="name"
+                        Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="surname"
+                        Text="{Binding User.Surname, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="client type"
+                        Text="{Binding User.ClientType, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Background="Transparent"
+                        Command="{Binding BrowseImageCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
                         Content="Browse image"
                         Foreground="{StaticResource BrushPrimary3}" />
                     <TextBox
                         Padding="5"
                         materialDesign:HintAssist.Hint="status"
-                        Foreground="{StaticResource BrushPrimary3}" />
-                    <Button Content="Add" />
+                        Foreground="{StaticResource BrushPrimary3}"
+                        Text="{Binding User.Status, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding AddEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Add" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -115,12 +143,30 @@
                 </WrapPanel>
 
                 <WrapPanel Margin="-10,0,0,0" Orientation="Horizontal">
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Film ID" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="User ID" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Review text ID" />
-                    <DatePicker Padding="5" materialDesign:HintAssist.Hint="Date" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Score" />
-                    <Button Content="Add" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Film ID"
+                        Text="{Binding FilmReview.FilmID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="User ID"
+                        Text="{Binding FilmReview.UserID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Review text"
+                        Text="{Binding FilmReview.ReviewText, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Date"
+                        SelectedDate="{Binding FilmReview.Date, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Score"
+                        Text="{Binding FilmReview.Score, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding AddEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Add" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -135,18 +181,48 @@
                 </WrapPanel>
 
                 <WrapPanel Margin="-10,0,0,0" Orientation="Horizontal">
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Title" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Description" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Genre" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Director" />
-                    <DatePicker Padding="5" materialDesign:HintAssist.Hint="Release date" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Budget" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Fees" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Title"
+                        Text="{Binding Film.Title, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Description"
+                        Text="{Binding Film.Description, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Genre"
+                        Text="{Binding Film.Genre, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Country"
+                        Text="{Binding Film.Country, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Director"
+                        Text="{Binding Film.Director, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Release date"
+                        Text="{Binding Film.ReleaseDate, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Budget"
+                        Text="{Binding Film.Budget, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Fees"
+                        Text="{Binding Film.Fees, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Background="Transparent"
+                        Command="{Binding BrowseImageCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
                         Content="Browse poster"
                         Foreground="{StaticResource BrushPrimary3}" />
-                    <Button Content="Add" />
+                    <Button
+                        Command="{Binding AddEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Add" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -161,11 +237,26 @@
                 </WrapPanel>
 
                 <WrapPanel Margin="-10,0,0,0" Orientation="Horizontal">
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Actor ID" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Film ID" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Role type" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Role name" />
-                    <Button Content="Add" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Actor ID"
+                        Text="{Binding FilmCast.ActorID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Film ID"
+                        Text="{Binding FilmCast.FilmID, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Role type"
+                        Text="{Binding FilmCast.RoleType, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Role name"
+                        Text="{Binding FilmCast.RoleName, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding AddEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Add" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -180,11 +271,26 @@
                 </WrapPanel>
 
                 <WrapPanel Margin="-10,0,0,0" Orientation="Horizontal">
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Name" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Surname" />
-                    <TextBox Padding="5" materialDesign:HintAssist.Hint="Country" />
-                    <DatePicker Padding="5" materialDesign:HintAssist.Hint="Birth date" />
-                    <Button Content="Add" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Name"
+                        Text="{Binding Actor.Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Surname"
+                        Text="{Binding Actor.Surname, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Country"
+                        Text="{Binding Actor.Country, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker
+                        Padding="5"
+                        materialDesign:HintAssist.Hint="Birth date"
+                        SelectedDate="{Binding Actor.Bday, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Command="{Binding AddEntityCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Add" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -199,7 +305,7 @@
                 </WrapPanel>
 
                 <TextBlock
-                    Margin="0,10,0,0"
+                    Margin="0,10,0,-30"
                     HorizontalAlignment="Center"
                     DataContext="{Binding ErrorMessageViewModel}"
                     FontSize="20"
@@ -236,7 +342,7 @@
                             Binding="{Binding Surname}"
                             Header="Surname" />
                         <DataGridTextColumn
-                            Width="100"
+                            Width="120"
                             Binding="{Binding ClientType}"
                             Header="Client type" />
                         <DataGridTemplateColumn Width="80" Header="Image">
@@ -388,7 +494,7 @@
                             Header="Country" />
                         <DataGridTextColumn
                             Width="150"
-                            Binding="{Binding Bday, StringFormat={}{0:dd.MM.yy}}"
+                            Binding="{Binding Bday, StringFormat={}{0:dd.MM.yyyy}}"
                             Header="Birth date" />
                     </DataGrid.Columns>
                 </DataGrid>

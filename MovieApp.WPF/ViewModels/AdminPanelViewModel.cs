@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
+using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
+using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
@@ -15,7 +17,11 @@ namespace MovieApp.WPF.ViewModels
     {
         public MessageViewModel ErrorMessageViewModel { get; }
         public AsyncCommandBase DeleteEntityCommand { get;  }
-        public IUnitOfWork UnitOfWork { get;  }
+        public AsyncCommandBase AddEntityCommand { get;  }
+        public AsyncCommandBase UpdateEntityCommand { get;  }
+        public BrowseImageCommand BrowseImageCommand { get;  }
+
+        private readonly IUnitOfWork _unitOfWork;
 
         private readonly ObservableCollection<User> _users;
         private readonly ObservableCollection<FilmReview> _filmReviews;
@@ -33,6 +39,23 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(DeleteEntityID));
             }
         }
+        
+        private string _updateEntityID;
+        public string UpdateEntityID
+        {
+            get => _updateEntityID;
+            set
+            {
+                _updateEntityID = value;
+                OnPropertyChanged(nameof(UpdateEntityID));
+            }
+        }
+        public User User { get; set; } = new User();
+        public Film Film { get; set; } = new Film();
+        public FilmReview FilmReview { get; set; } = new FilmReview();
+        public FilmCast FilmCast { get; set; } = new FilmCast();
+        public Actor Actor { get; set; } = new Actor();
+       
         public ObservableCollection<User> Users => _users;
         public ObservableCollection<FilmReview> Reviews => _filmReviews;
         public ObservableCollection<Film> Films => _films;
@@ -42,18 +65,22 @@ namespace MovieApp.WPF.ViewModels
         {
             set => ErrorMessageViewModel.Message = value;
         }
-        public AdminPanelViewModel(IUnitOfWork unitOfWork)
+        public AdminPanelViewModel(IAuthenticator authentificator)
         {
-            UnitOfWork = unitOfWork;
+            _unitOfWork = new UnitOfWork();
 
-            DeleteEntityCommand = new DeleteEnitityCommand(this);
+            DeleteEntityCommand = new DeleteEnitityCommand(this, _unitOfWork, authentificator);
+            UpdateEntityCommand = new UpdateEntityCommand(this, _unitOfWork, authentificator);
+            BrowseImageCommand = new BrowseImageCommand(this);
+            AddEntityCommand = new AddEntityCommand(this, _unitOfWork);
+
             ErrorMessageViewModel = new MessageViewModel();
 
-            _users = new ObservableCollection<User>(unitOfWork.UserRepository.GetAllSync());
-            _filmReviews = new ObservableCollection<FilmReview>(unitOfWork.FilmReviewRepository.GetAllSync());
-            _films = new ObservableCollection<Film>(unitOfWork.FilmRepository.GetAllSync());
-            _filmCasts = new ObservableCollection<FilmCast>(unitOfWork.FilmCastRepository.GetAllSync());
-            _actors = new ObservableCollection<Actor>(unitOfWork.ActorRepository.GetAllSync());
+            _users = new ObservableCollection<User>(_unitOfWork.UserRepository.GetAllSync());
+            _filmReviews = new ObservableCollection<FilmReview>(_unitOfWork.FilmReviewRepository.GetAllSync());
+            _films = new ObservableCollection<Film>(_unitOfWork.FilmRepository.GetAllSync());
+            _filmCasts = new ObservableCollection<FilmCast>(_unitOfWork.FilmCastRepository.GetAllSync());
+            _actors = new ObservableCollection<Actor>(_unitOfWork.ActorRepository.GetAllSync());
         }
 
     }

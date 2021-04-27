@@ -9,7 +9,8 @@ namespace MovieApp.Domain.Models
     public enum ClientType
     {
         User,
-        Admin
+        Admin,
+        SuperAdmin
     }
     public class User : DbObject
     {

@@ -70,7 +70,7 @@ namespace MovieApp.Domain.Services.AuthenticationServices
                 ClientType = ClientType.User
             };
 
-            var result =  await _unitOfWork.UserRepository.Create(user);
+            var result = await _unitOfWork.UserRepository.Create(user);
 
             await _unitOfWork.SaveAsync();
 

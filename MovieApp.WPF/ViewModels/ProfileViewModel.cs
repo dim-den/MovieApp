@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
+using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
@@ -19,6 +20,7 @@ namespace MovieApp.WPF.ViewModels
         public AsyncCommandBase ChangeImageCommand { get; set; }
         
         private readonly IAuthenticator _authentificator;
+        private readonly IUnitOfWork _unitOfWork;
 
         public User CurrentUser => _authentificator.CurrentUser;
 
@@ -30,13 +32,14 @@ namespace MovieApp.WPF.ViewModels
 
         public double AvgScore => (HasReviews == true) ? CurrentUser.FilmReviews.Average(u => u.Score) : 0.0;
 
-        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork, IStore<FilmReview> userFilmReviewsStore)
+        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> userFilmReviewsStore)
         {
             _authentificator = authentificator;
+            _unitOfWork = new UnitOfWork();
 
             UserRatingsViewModel = new UserRatingsViewModel(userFilmReviewsStore);
 
-            ChangeImageCommand = new ChangeImageCommand(_authentificator, unitOfWork);
+            ChangeImageCommand = new ChangeImageCommand(_authentificator, _unitOfWork);
 
             _authentificator.StateChanged += Authenticator_StateChanged;
         }
