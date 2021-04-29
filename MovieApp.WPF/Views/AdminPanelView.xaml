@@ -204,7 +204,7 @@
                     <DatePicker
                         Padding="5"
                         materialDesign:HintAssist.Hint="Release date"
-                        Text="{Binding Film.ReleaseDate, UpdateSourceTrigger=PropertyChanged}" />
+                        SelectedDate="{Binding Film.ReleaseDate, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox
                         Padding="5"
                         materialDesign:HintAssist.Hint="Budget"
@@ -430,11 +430,11 @@
                             Binding="{Binding ReleaseDate, StringFormat={}{0:dd.MM.yy}}"
                             Header="Release date" />
                         <DataGridTextColumn
-                            Width="100"
+                            Width="120"
                             Binding="{Binding Budget}"
                             Header="Budget ($)" />
                         <DataGridTextColumn
-                            Width="100"
+                            Width="120"
                             Binding="{Binding Fees}"
                             Header="Fees ($)" />
                         <DataGridTemplateColumn Width="200" Header="Poster">

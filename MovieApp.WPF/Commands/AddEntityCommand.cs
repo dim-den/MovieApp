@@ -35,6 +35,7 @@ namespace MovieApp.WPF.Commands
                 {
                     AuthenticationService authenticationService = new AuthenticationService(_unitOfWork);
                     var user = _adminPanelViewModel.User;
+                    user.ID = 0;
 
                     if (string.IsNullOrEmpty(user.Username) || string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.PasswordHash) ||
                         string.IsNullOrEmpty(user.Name) || string.IsNullOrEmpty(user.Surname))
@@ -53,6 +54,7 @@ namespace MovieApp.WPF.Commands
                 else if (index == 1)
                 {
                     var filmReview = _adminPanelViewModel.FilmReview;
+                    filmReview.ID = 0;
 
                     if (string.IsNullOrEmpty(filmReview.ReviewText) || filmReview.Score < 1 || filmReview.Score > 10 || filmReview.Date > DateTime.Now
                         || filmReview.FilmID == null || filmReview.UserID == null)
@@ -90,6 +92,7 @@ namespace MovieApp.WPF.Commands
                 else if (index == 3)
                 {
                     var filmCast = _adminPanelViewModel.FilmCast;
+                    filmCast.ID = 0;
 
                     if (string.IsNullOrEmpty(filmCast.RoleName))
                     {
@@ -112,6 +115,7 @@ namespace MovieApp.WPF.Commands
                 else if (index == 4)
                 {
                     var actor = _adminPanelViewModel.Actor;
+                    actor.ID = 0;
 
                     if (string.IsNullOrEmpty(actor.Name) || string.IsNullOrEmpty(actor.Surname)
                         || string.IsNullOrEmpty(actor.Country) || actor.Bday > DateTime.Now)

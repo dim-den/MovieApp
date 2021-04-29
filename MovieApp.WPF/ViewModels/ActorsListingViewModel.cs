@@ -15,7 +15,7 @@ namespace MovieApp.WPF.ViewModels
         public ObservableCollection<Actor> Actors => _actors;
         public ActorsListingViewModel(IStore<Actor> actorStore)
         {
-            _actors = new ObservableCollection<Actor>(actorStore.Entities.Take(7));
+            _actors = new ObservableCollection<Actor>(actorStore.Entities.Take(10));
         }
     }
 }

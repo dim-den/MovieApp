@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,16 @@ namespace MovieApp.WPF.ViewModels
     public class HomeViewModel : ViewModelBase
     {
         public MovieCarouselViewModel MovieCarouselViewModel { get; }
+
         public ActorsSummaryViewModel ActorsSummaryViewModel { get; }
+
+        public UpcomingFilmsListViewModel UpcomingFilmsListViewModel { get; }
 
         private readonly INavigator _navigator;
 
         private readonly IStore<Film> _filmStore;
         private readonly IStore<Actor> _actorStore;
+        
         public HomeViewModel(INavigator navigator, IStore<Film> filmStore, IStore<Actor> actorStore)
         {
             _navigator = navigator;
@@ -28,6 +33,7 @@ namespace MovieApp.WPF.ViewModels
 
             MovieCarouselViewModel = new MovieCarouselViewModel(_navigator, _filmStore);
             ActorsSummaryViewModel = new ActorsSummaryViewModel(_navigator, _actorStore);
+            UpcomingFilmsListViewModel = new UpcomingFilmsListViewModel(filmStore);
         }
     }
 }
