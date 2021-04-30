@@ -9,5 +9,8 @@ namespace MovieApp.Domain.Services
 {
     public interface IFilmReviewDataService : IGenericDataService<FilmReview>
     {
+        int GetFilmReviewsCount(int filmdID);
+
+        double GetFilmAvgScore(int filmID);
     }
 }

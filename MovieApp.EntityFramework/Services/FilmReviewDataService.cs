@@ -13,5 +13,15 @@ namespace MovieApp.EntityFramework.Services
         public FilmReviewDataService(MovieAppDbContext movieAppDbContext) : base(movieAppDbContext)
         {
         }
+
+        public int GetFilmReviewsCount(int filmdID)
+        {
+            return DbSet.Count(r => r.FilmID == filmdID);
+        }
+
+        public double GetFilmAvgScore(int filmID)
+        {
+            return DbSet.Where(r => r.FilmID == filmID).Average(r => r.Score);
+        }
     }
 }

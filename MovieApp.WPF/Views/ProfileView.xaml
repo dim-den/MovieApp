@@ -178,7 +178,7 @@
                         <TextBlock
                             Foreground="{StaticResource BrushPrimary3}"
                             Style="{StaticResource userInfoTextBlock}"
-                            Text="{Binding AvgScore, StringFormat={}{0:#.##}}" />
+                            Text="{Binding AvgScore, StringFormat={}{0:N2}}" />
                     </StackPanel>
                 </StackPanel>
             </Border>

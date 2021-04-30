@@ -28,6 +28,9 @@
     <Compile Update="Views\AdminPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\FilmView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +70,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminPanelView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FilmView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\HomeView.xaml">

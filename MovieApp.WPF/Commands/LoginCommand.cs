@@ -47,7 +47,8 @@ namespace MovieApp.WPF.Commands
                     await filmStore.Load();
                     await actorStore.Load();
 
-                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                    //_navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                    _navigator.CurrentViewModel = new FilmViewModel(_navigator, _authenticator, filmStore.Entities[2]);
                 }
             }
             catch (UserNotFoundException)
