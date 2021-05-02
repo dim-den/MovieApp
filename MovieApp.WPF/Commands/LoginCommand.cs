@@ -47,8 +47,17 @@ namespace MovieApp.WPF.Commands
                     await filmStore.Load();
                     await actorStore.Load();
 
+                    var filmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
+                    var filmReviewStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
+                    int filmID = 3;
+
+                    await filmCastStore.LoadWithInclude(f => f.FilmID == filmID, f => f.Actor);
+                    await filmReviewStore.LoadWithInclude(r => r.FilmID == filmID && !string.IsNullOrEmpty( r.ReviewText), r => r.User);
+                    var userFilmReview = await unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, filmID);
+
+
                     //_navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
-                    _navigator.CurrentViewModel = new FilmViewModel(_navigator, _authenticator, filmStore.Entities[2]);
+                    _navigator.CurrentViewModel = new FilmViewModel(_navigator, _authenticator, filmCastStore, filmReviewStore, filmStore.Entities.Find(f => f.ID == filmID), userFilmReview);
                 }
             }
             catch (UserNotFoundException)

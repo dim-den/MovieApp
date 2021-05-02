@@ -12,5 +12,7 @@ namespace MovieApp.Domain.Services
         int GetFilmReviewsCount(int filmdID);
 
         double GetFilmAvgScore(int filmID);
+
+        Task<FilmReview> GetUserFilmReview(int userID, int filmID);
     }
 }

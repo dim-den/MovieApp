@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 
@@ -22,6 +23,11 @@ namespace MovieApp.EntityFramework.Services
         public double GetFilmAvgScore(int filmID)
         {
             return DbSet.Where(r => r.FilmID == filmID).Average(r => r.Score);
+        }
+
+        public async Task<FilmReview> GetUserFilmReview(int userID, int filmID)
+        {
+            return await DbSet.FirstOrDefaultAsync(r => r.UserID == userID && r.FilmID == filmID);
         }
     }
 }

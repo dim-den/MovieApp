@@ -17,9 +17,9 @@ namespace MovieApp.WPF.ViewModels
     {
         private readonly IAuthenticator _authentificator;
 
-        public ICommand ChangeViewCommand { get; set; }
+        public ICommand ChangeViewCommand { get; }
 
-        public ICommand SignOutCommand { get; set; }
+        public ICommand SignOutCommand { get; }
 
         public User CurrentUser => _authentificator.CurrentUser;
 

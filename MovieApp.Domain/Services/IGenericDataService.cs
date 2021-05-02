@@ -10,6 +10,7 @@ namespace MovieApp.Domain.Services
     public interface IGenericDataService<T>
     {
         Task<ICollection<T>> GetAll();
+
         ICollection<T> GetAllSync();
 
         Task<T> Get(int id);

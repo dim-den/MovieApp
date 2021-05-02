@@ -24,7 +24,12 @@ namespace MovieApp.WPF.State.Stores
         {
             Entities = new List<T>(await _dataService.GetAll());
         }
-       
+
+        public async Task Load(Func<T, bool> predicate)
+        {
+            Entities = new List<T>((await _dataService.GetAll()).Where(predicate));
+        }
+
         public async Task LoadWithInclude(params Expression<Func<T, object>>[] includeProperties)
         {
             Entities = new List<T>(await _dataService.GetWithInclude(includeProperties));
