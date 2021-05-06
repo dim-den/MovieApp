@@ -37,28 +37,16 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-                using (var unitOfWork = new UnitOfWork())
-                {
-                    await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
+                var unitOfWork = new UnitOfWork();
+                await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
-                    var filmStore = new Store<Film>(unitOfWork.FilmRepository);
-                    var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
+                var filmStore = new Store<Film>(unitOfWork.FilmRepository);
+                var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
 
-                    await filmStore.Load();
-                    await actorStore.Load();
+                await filmStore.Load();
+                await actorStore.Load();
 
-                    var filmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
-                    var filmReviewStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
-                    int filmID = 3;
-
-                    await filmCastStore.LoadWithInclude(f => f.FilmID == filmID, f => f.Actor);
-                    await filmReviewStore.LoadWithInclude(r => r.FilmID == filmID && !string.IsNullOrEmpty( r.ReviewText), r => r.User);
-                    var userFilmReview = await unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, filmID);
-
-
-                    //_navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
-                    _navigator.CurrentViewModel = new FilmViewModel(_navigator, _authenticator, filmCastStore, filmReviewStore, filmStore.Entities.Find(f => f.ID == filmID), userFilmReview);
-                }
+                _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
             }
             catch (UserNotFoundException)
             {

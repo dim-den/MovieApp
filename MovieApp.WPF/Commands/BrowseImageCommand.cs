@@ -35,11 +35,11 @@ namespace MovieApp.WPF.Commands
                 CheckPathExists = true,
 
                 DefaultExt = "jpg",
-                Filter = "Images (*.BMP;*.JPG;*.GIF,*.PNG,*.TIFF)|*.BMP;*.JPG;*.GIF;*.PNG;*.TIFF",
+                Filter = "Images (*.BMP;*.JPG;*.GIF,*.PNG,*.TIFF, *WEBP)|*.BMP;*.JPG;*.GIF;*.PNG;*.TIFF;*.WEBP",
                 RestoreDirectory = true
             };
 
-            if (fileDialog.ShowDialog() == true)
+                if (fileDialog.ShowDialog() == true)
             {
                 string fileName = fileDialog.FileName;
 
@@ -57,6 +57,10 @@ namespace MovieApp.WPF.Commands
                     else if (index == 2)
                     {
                         _adminPanelViewModel.Film.PosterImageData = image;
+                    }
+                    else if(index == 4)
+                    {
+                        _adminPanelViewModel.Actor.ImageData = image;
                     }
                 }
             }

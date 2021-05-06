@@ -186,6 +186,7 @@ namespace MovieApp.WPF.Commands
                     actor.Surname = (string.IsNullOrEmpty(updatedActor.Surname) ? actor.Surname : updatedActor.Surname);
                     actor.Country = (string.IsNullOrEmpty(updatedActor.Country) ? actor.Country : updatedActor.Country);
                     actor.Bday = (updatedActor.Bday > new DateTime(1900, 1, 1) ? updatedActor.Bday : actor.Bday);
+                    actor.ImageData = (updatedActor.ImageData == null ? actor.ImageData : updatedActor.ImageData);
 
                     var res = await _unitOfWork.ActorRepository.Update(id, actor);
                     var i = _adminPanelViewModel.Actors.IndexOf(_adminPanelViewModel.Actors.First(e => e.ID == id));

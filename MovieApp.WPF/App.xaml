@@ -36,6 +36,9 @@
             <DataTemplate DataType="{x:Type viewmodels:FilmViewModel}">
                 <views:FilmView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ActorViewModel}">
+                <views:ActorView />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

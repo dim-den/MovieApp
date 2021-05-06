@@ -63,20 +63,31 @@ namespace MovieApp.WPF.Commands
 
                         _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, userFilmReviewsStore);
                         break;
+                    case ViewType.Film:
+                        var filmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
+                        var filmReviewStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
+                        int filmID = 3;     // TODO remove
+
+                        await filmCastStore.LoadWithInclude(f => f.FilmID == filmID, f => f.Actor);
+                        await filmReviewStore.LoadWithInclude(r => r.FilmID == filmID && !string.IsNullOrEmpty(r.ReviewText), r => r.User);
+                        var userFilmReview = await unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, filmID);
+
+                        _navigator.CurrentViewModel = new FilmViewModel(_navigator, 
+                                                                        _authenticator, 
+                                                                        filmCastStore, 
+                                                                        filmReviewStore, 
+                                                                        await unitOfWork.FilmRepository.Get(filmID),
+                                                                        userFilmReview);
+                        break;
+                    case ViewType.Actor:
+                        int actorID = 1;
+                        var actorFilmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
+                        await actorFilmCastStore.LoadWithInclude(c => c.ActorID == actorID, c => c.Film);
+
+                        _navigator.CurrentViewModel = new ActorViewModel(await unitOfWork.ActorRepository.Get(actorID), actorFilmCastStore);
+                        break;
                     case ViewType.AdminPanel:
-                        //var userStore = new Store<User>(unitOfWork.UserRepository);
-                        //var filmReviewsStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
-                        //var filmsStore = new Store<Film>(unitOfWork.FilmRepository);
-                        //var filmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
-                        //var actorsStore = new Store<Actor>(unitOfWork.ActorRepository);
-
-                        //await userStore.Load();
-                        //await filmReviewsStore.Load();
-                        //await filmsStore.Load();
-                        //await actorsStore.Load();
-                        //await filmCastStore.Load();
-
-                        _navigator.CurrentViewModel = new AdminPanelViewModel(_authenticator);
+                        _navigator.CurrentViewModel = new AdminPanelViewModel(_authenticator, new UnitOfWork());
                         break;
                 }
             }

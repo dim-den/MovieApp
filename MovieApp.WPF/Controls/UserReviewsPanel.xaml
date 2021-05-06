@@ -1,0 +1,212 @@
+﻿<UserControl
+    x:Class="MovieApp.WPF.Controls.UserReviewsPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MovieApp.WPF.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:IsNullConverter x:Key="IsNullConverter" />
+    </UserControl.Resources>
+    <StackPanel Margin="50,30" Orientation="Vertical">
+        <TextBlock
+            FontSize="32"
+            FontWeight="Medium"
+            Foreground="{StaticResource BrushPrimary3}">
+            Film reviews (<Run Text="{Binding Reviews.Count, Mode=OneWay}" />):</TextBlock>
+        <RadioButton
+            x:Name="writeReviewButton"
+            Width="200"
+            Height="40"
+            Margin="0,20"
+            HorizontalAlignment="Left"
+            Background="{StaticResource BrushPrimary2}"
+            BorderBrush="{StaticResource BrushPrimary2}"
+            Content="Add review"
+            FontSize="24"
+            FontWeight="Medium"
+            Foreground="{StaticResource BackgroundBrush2}"
+            Style="{StaticResource MaterialDesignRaisedButton}" />
+
+        <Border
+            MinWidth="570"
+            MaxWidth="656"
+            Margin="0,20,0,30"
+            HorizontalAlignment="Left"
+            Background="{StaticResource BrushPrimary1}"
+            BorderBrush="{StaticResource BrushPrimary2}"
+            BorderThickness="3"
+            CornerRadius="2"
+            Visibility="{Binding ElementName=writeReviewButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Vertical">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="10,10,20,10"
+                        VerticalAlignment="Bottom"
+                        FontSize="20"
+                        Foreground="{StaticResource BrushPrimary3}"
+                        Text="Film score: " />
+
+                    <Slider
+                        x:Name="slider"
+                        Width="280"
+                        Foreground="{StaticResource BrushPrimary2}"
+                        Maximum="10"
+                        Minimum="1"
+                        Style="{StaticResource MaterialDesignDiscreteSlider}"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        Value="1" />
+                    <TextBlock
+                        Margin="20,10"
+                        VerticalAlignment="Bottom"
+                        FontSize="20"
+                        Foreground="{StaticResource BrushPrimary3}"
+                        Text="{Binding ElementName=slider, Path=Value}" />
+                </WrapPanel>
+                <TextBox
+                    MinHeight="150"
+                    MaxHeight="300"
+                    Margin="10"
+                    materialDesign:HintAssist.Background="{StaticResource BrushPrimary1}"
+                    materialDesign:HintAssist.Hint="Text"
+                    AcceptsReturn="True"
+                    FontSize="16"
+                    FontWeight="Thin"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding ReviewText}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    DataContext="{Binding InfoMessageViewModel}"
+                    FontSize="16"
+                    Foreground="{StaticResource BrushPrimary2}"
+                    Text="{Binding Message}"
+                    Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Button
+                    Height="36"
+                    Margin="10"
+                    Background="{StaticResource BrushPrimary2}"
+                    BorderThickness="0"
+                    Command="{Binding PublishReviewCommand}"
+                    CommandParameter="{Binding ElementName=slider, Path=Value}"
+                    Content="Publish review"
+                    FontSize="20"
+                    Foreground="{StaticResource BrushPrimary1}" />
+            </StackPanel>
+        </Border>
+
+        <ListBox ItemsSource="{Binding Reviews}" Style="{StaticResource MaterialDesignCardsListBox}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        MinWidth="570"
+                        MaxWidth="655"
+                        Background="{StaticResource BrushPrimary1}"
+                        BorderBrush="{StaticResource BrushPrimary2}"
+                        BorderThickness="3"
+                        CornerRadius="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Margin="20,10">
+                                <StackPanel Orientation="Vertical">
+
+                                    <Grid>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border
+                                                HorizontalAlignment="Left"
+                                                BorderBrush="{StaticResource BrushPrimary2}"
+                                                BorderThickness="3"
+                                                CornerRadius="30">
+                                                <Image
+                                                    Width="48"
+                                                    Height="48"
+                                                    RenderOptions.BitmapScalingMode="Fant"
+                                                    RenderOptions.EdgeMode="Aliased"
+                                                    Stretch="UniformToFill">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding User.ImageData, Converter={StaticResource IsNullConverter}}" Value="True">
+                                                                    <Setter Property="Source" Value="../Resources/default-avatar.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding User.ImageData, Converter={StaticResource IsNullConverter}}" Value="False">
+                                                                    <Setter Property="Source" Value="{Binding User.ImageData, TargetNullValue={x:Null}}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                    <Image.Clip>
+                                                        <EllipseGeometry
+                                                            Center="24,24"
+                                                            RadiusX="24"
+                                                            RadiusY="24" />
+                                                    </Image.Clip>
+                                                </Image>
+                                            </Border>
+                                            <TextBlock
+                                                Margin="10,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="30"
+                                                FontWeight="Medium"
+                                                Foreground="{StaticResource BrushPrimary2}"
+                                                Text="{Binding User.Username}" />
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            FontSize="22"
+                                            FontWeight="Thin"
+                                            Foreground="{StaticResource BrushPrimary4}"
+                                            Text="{Binding Date, StringFormat={}{0:dd MMMM yyyy, hh:mm}}" />
+                                    </Grid>
+
+                                    <Separator Margin="-10,10,-10,0" Background="{StaticResource BrushPrimary2}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="20,0,20,10"
+                                FontSize="22"
+                                FontWeight="Thin"
+                                Text="{Binding ReviewText}"
+                                TextWrapping="WrapWithOverflow" />
+
+                            <Grid Grid.Row="2" Margin="20,10">
+
+                                <StackPanel Orientation="Vertical">
+                                    <Separator Margin="-10,0,0,10" Background="{StaticResource BrushPrimary2}" />
+
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        FontSize="24"
+                                        Foreground="{StaticResource BrushPrimary3}">
+                                        User score: <Run Text="{Binding Score}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </StackPanel>
+</UserControl>

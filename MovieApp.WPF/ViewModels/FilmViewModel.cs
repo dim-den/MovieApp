@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,27 +16,15 @@ namespace MovieApp.WPF.ViewModels
 {
     public class FilmViewModel : ViewModelBase
     {
-        public AsyncCommandBase RateFilmCommand { get; }
-        public AsyncCommandBase PublishReviewCommand { get; }
-
-        public MessageViewModel InfoMessageViewModel { get; }
+        public UserReviewsPanelViewModel UserReviewsPanel { get; }
+        public RateFilmPanelViewModel RateFilmPanel { get; }
 
         private readonly INavigator _navigator;
         private readonly IAuthenticator _authentificator;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStore<FilmCast> _filmCastStore;
         private readonly IStore<FilmReview> _filmReviewStore;
-        private string _reviewText = string.Empty;
-
-        public string ReviewText
-        {
-            get => _reviewText;
-            set
-            {
-                _reviewText = value;
-                OnPropertyChanged(nameof(ReviewText));
-            }
-        }
+    
         public Film Film { get;  }
 
         public double FilmAvgScore => _unitOfWork.FilmReviewRepository.GetFilmAvgScore(Film.ID);
@@ -56,11 +45,6 @@ namespace MovieApp.WPF.ViewModels
             }
         }
 
-        public string InfoMessage
-        {
-            set => InfoMessageViewModel.Message = value;
-        }
-
         public bool CurrentUserScoredFilm => _currentUserFilmReview != null;
 
         public List<FilmCast> Cast => _filmCastStore.Entities;
@@ -76,13 +60,25 @@ namespace MovieApp.WPF.ViewModels
             _filmCastStore = filmCastStore;
             _filmReviewStore = filmReviewStore;
             _currentUserFilmReview = CurrentUserFilmReview;
-
-            RateFilmCommand = new UserRateFilmCommand(this, _unitOfWork, _authentificator);
-            PublishReviewCommand = new PublishReviewCommand(this, _unitOfWork, _authentificator);
-
-            InfoMessageViewModel = new MessageViewModel();
-
             Film = film;
+
+            UserReviewsPanel = new UserReviewsPanelViewModel(_currentUserFilmReview, film, authentificator, _unitOfWork, filmReviewStore);
+            RateFilmPanel = new RateFilmPanelViewModel(_currentUserFilmReview, film, authentificator, _unitOfWork);
+
+            UserReviewsPanel.PropertyChanged += UserReview_PropertyChanged;
+            RateFilmPanel.PropertyChanged += UserReview_PropertyChanged;
+        }
+
+        private void UserReview_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(UserReviewsPanel.CurrentUserFilmReview) ||
+                e.PropertyName == nameof(RateFilmPanel.CurrentUserFilmReview))
+            {
+                OnPropertyChanged(nameof(CurrentUserFilmReview));
+                OnPropertyChanged(nameof(CurrentUserScoredFilm));
+                OnPropertyChanged(nameof(FilmReviewsCount));
+                OnPropertyChanged(nameof(FilmAvgScore));
+            }
         }
     }
 }

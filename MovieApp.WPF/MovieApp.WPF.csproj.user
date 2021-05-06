@@ -19,10 +19,19 @@
     <Compile Update="Controls\MovieCarousel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\RateFilmPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\UpcomingFilmsList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\UserRatings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\UserReviewsPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ActorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\AdminPanelView.xaml.cs">
@@ -57,16 +66,25 @@
     <Page Update="Controls\MovieCarousel.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\RateFilmPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\UpcomingFilmsList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\UserRatings.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\UserReviewsPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Common.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ActorView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\AdminPanelView.xaml">

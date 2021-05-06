@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
+using MovieApp.Domain.Services.ReviewServices;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.ViewModels;
 
@@ -15,8 +16,8 @@ namespace MovieApp.WPF.Commands
     {
         public event EventHandler CanExecuteChanged;
         private readonly IAuthenticator _authenticator;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly FilmViewModel _filmViewModel;
+        private readonly ILeaveReviewService _leaveReviewService;
+        private readonly RateFilmPanelViewModel _rateFilmPanelViewModel;
 
         public override bool CanExecute(object parameter)
         {
@@ -25,38 +26,19 @@ namespace MovieApp.WPF.Commands
 
         public override async Task ExecuteAsync(object parameter)
         {
-            _filmViewModel.InfoMessage = string.Empty;
-
             int score = Convert.ToInt32((string) parameter);
 
-            var review = _filmViewModel.CurrentUserFilmReview;
+            var review = await _leaveReviewService.LeaveScore(_rateFilmPanelViewModel.Film,
+                                                              _authenticator.CurrentUser,
+                                                              score);
 
-            if(review == null)
-            {
-                var newReview = new FilmReview()
-                { 
-                    FilmID = _filmViewModel.Film.ID,
-                    UserID = _authenticator.CurrentUser.ID,
-                    Score = score,
-                    Date = DateTime.Now
-                };
-
-                _filmViewModel.CurrentUserFilmReview = await _unitOfWork.FilmReviewRepository.Create(newReview);
-            }
-            else
-            {
-                review.Score = score;
-
-                _filmViewModel.CurrentUserFilmReview = await _unitOfWork.FilmReviewRepository.Update(review.ID, review);
-            }
-
-            await _unitOfWork.SaveAsync();
+            _rateFilmPanelViewModel.CurrentUserFilmReview = review;
         }
 
-        public UserRateFilmCommand(FilmViewModel filmViewModel, IUnitOfWork unitOfWork, IAuthenticator authenticator)
+        public UserRateFilmCommand(RateFilmPanelViewModel rateFilmPanelViewModel, IAuthenticator authenticator, ILeaveReviewService leaveReviewService)
         {
-            _filmViewModel = filmViewModel;
-            _unitOfWork = unitOfWork;
+            _rateFilmPanelViewModel = rateFilmPanelViewModel;
+            _leaveReviewService = leaveReviewService;
             _authenticator = authenticator;
         }
     }

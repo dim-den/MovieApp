@@ -288,6 +288,12 @@
                         materialDesign:HintAssist.Hint="Birth date"
                         SelectedDate="{Binding Actor.Bday, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
+                        Background="Transparent"
+                        Command="{Binding BrowseImageCommand}"
+                        CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
+                        Content="Browse image"
+                        Foreground="{StaticResource BrushPrimary3}" />
+                    <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
                         Content="Add" />
@@ -496,6 +502,13 @@
                             Width="150"
                             Binding="{Binding Bday, StringFormat={}{0:dd.MM.yyyy}}"
                             Header="Birth date" />
+                        <DataGridTemplateColumn Width="80" Header="Image">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImageData}" Visibility="{Binding ImageData, Converter={StaticResource NullableToVisibilityConverter}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

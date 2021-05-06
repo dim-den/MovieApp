@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
+using MovieApp.Domain.Services.ReviewServices;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.ViewModels;
 
@@ -16,59 +17,50 @@ namespace MovieApp.WPF.Commands
         public event EventHandler CanExecuteChanged;
         private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly FilmViewModel _filmViewModel;
+        private readonly ILeaveReviewService _leaveReviewService;
+        private readonly UserReviewsPanelViewModel _userReviewsViewModel;
 
         public override bool CanExecute(object parameter)
         {
-            return _filmViewModel.ReviewText.Length > 10 && _filmViewModel.ReviewText.Length < 1000 && base.CanExecute(parameter);
+            return _userReviewsViewModel.ReviewText.Length > 10 && _userReviewsViewModel.ReviewText.Length < 1000 && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)
         {
             int score = Convert.ToInt32((double)parameter);
 
-            string reviewText = _filmViewModel.ReviewText;
+            string reviewText = _userReviewsViewModel.ReviewText;
 
-            var review = _filmViewModel.CurrentUserFilmReview;
+            var review = await _leaveReviewService.LeaveReview(_userReviewsViewModel.Film,
+                                                               _authenticator.CurrentUser,
+                                                               reviewText,
+                                                               score);
 
-            if (review == null)
+            if (_userReviewsViewModel.CurrentUserFilmReview == null)
             {
-                var newReview = new FilmReview()
-                {
-                    FilmID = _filmViewModel.Film.ID,
-                    UserID = _authenticator.CurrentUser.ID,
-                    ReviewText = reviewText,
-                    Score = score,
-                    Date = DateTime.Now
-                };
-
-                _filmViewModel.CurrentUserFilmReview = await _unitOfWork.FilmReviewRepository.Create(newReview);
-                _filmViewModel.InfoMessage = "Your review added!";
+                _userReviewsViewModel.Reviews.Add(review);
+                _userReviewsViewModel.InfoMessage = "Your review added!";
             }
             else
             {
-                review.Score = score;
-                review.ReviewText = reviewText;
-
-                _filmViewModel.CurrentUserFilmReview = await _unitOfWork.FilmReviewRepository.Update(review.ID, review);
-                _filmViewModel.InfoMessage = "Updated your existing review";
+                _userReviewsViewModel.InfoMessage = "Updated your existing review (refrash the page)";
             }
 
-            await _unitOfWork.SaveAsync();
+            _userReviewsViewModel.CurrentUserFilmReview = review;
         }
 
-        public PublishReviewCommand(FilmViewModel filmViewModel, IUnitOfWork unitOfWork, IAuthenticator authenticator)
+        public PublishReviewCommand(UserReviewsPanelViewModel userReviewsViewModel, IAuthenticator authenticator, ILeaveReviewService leaveReviewService)
         {
-            _filmViewModel = filmViewModel;
-            _unitOfWork = unitOfWork;
+            _userReviewsViewModel = userReviewsViewModel;
             _authenticator = authenticator;
+            _leaveReviewService = leaveReviewService;
 
-            _filmViewModel.PropertyChanged += FilmViewModel_PropertyChanged;
+            _userReviewsViewModel.PropertyChanged += FilmViewModel_PropertyChanged;
         }
 
         private void FilmViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(FilmViewModel.ReviewText))
+            if (e.PropertyName == nameof(UserReviewsPanelViewModel.ReviewText))
             {
                 OnCanExecuteChanged();
             }

@@ -65,9 +65,9 @@ namespace MovieApp.WPF.ViewModels
         {
             set => ErrorMessageViewModel.Message = value;
         }
-        public AdminPanelViewModel(IAuthenticator authentificator)
+        public AdminPanelViewModel(IAuthenticator authentificator, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork;
 
             DeleteEntityCommand = new DeleteEnitityCommand(this, _unitOfWork, authentificator);
             UpdateEntityCommand = new UpdateEntityCommand(this, _unitOfWork, authentificator);

@@ -13,6 +13,8 @@ namespace MovieApp.WPF.State.Navigator
         Register,
         Home,
         Profile,
+        Film,
+        Actor,
         AdminPanel
     }
     public interface INavigator
