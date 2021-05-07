@@ -22,7 +22,7 @@ namespace MovieApp.WPF.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _userReviewsViewModel.ReviewText.Length > 10 && _userReviewsViewModel.ReviewText.Length < 1000 && base.CanExecute(parameter);
+            return _userReviewsViewModel.ReviewText.Length > 10 && _userReviewsViewModel.ReviewText.Length < 5000 && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)

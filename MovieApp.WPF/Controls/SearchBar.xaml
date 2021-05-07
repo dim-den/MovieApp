@@ -77,6 +77,7 @@
                 </TextBox>
 
 
+
             </Grid>
         </Border>
 
@@ -94,55 +95,52 @@
                 </Style>
             </StackPanel.Resources>
 
-            <ListBox ItemsSource="{Binding Films}">
+            <ListBox x:Name="filmsLB" ItemsSource="{Binding Films}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmsLB, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border
                             Margin="-6"
                             Background="{StaticResource BrushPrimary3}"
                             CornerRadius="3">
-                            <Button
-                                Margin="5"
-                                HorizontalContentAlignment="Left"
-                                Background="{StaticResource BrushPrimary3}"
-                                BorderThickness="0"
-                                Command="{Binding DataContext.GoToFilmCommand, Mode=OneWay, ElementName=actorsLB}"
-                                Style="{x:Null}"
-                                Template="{StaticResource emptyButton}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Image
-                                        Grid.Column="0"
-                                        Height="50"
-                                        Source="{Binding PosterImageData}" />
-                                    <StackPanel
-                                        Grid.Column="1"
-                                        Margin="10,0"
-                                        Orientation="Vertical">
-                                        <TextBlock
-                                            FontSize="26"
-                                            FontWeight="Medium"
-                                            Foreground="{StaticResource BrushPrimary1}"
-                                            Text="{Binding Title}"
-                                            TextWrapping="WrapWithOverflow" />
-                                        <TextBlock
-                                            Margin="10,-5"
-                                            FontSize="16"
-                                            FontStyle="Italic"
-                                            FontWeight="Thin"
-                                            Foreground="{StaticResource BrushPrimary4}">
-                                            <Run Text="{Binding Genre}" />
-                                            ,<Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
-                                        </TextBlock>
-                                    </StackPanel>
+                                <Image
+                                    Grid.Column="0"
+                                    Height="50"
+                                    Source="{Binding PosterImageData}" />
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    Orientation="Vertical">
+                                    <TextBlock
+                                        FontSize="26"
+                                        FontWeight="Medium"
+                                        Foreground="{StaticResource BrushPrimary1}"
+                                        Text="{Binding Title}"
+                                        TextWrapping="WrapWithOverflow" />
+                                    <TextBlock
+                                        Margin="10,-5"
+                                        FontSize="16"
+                                        FontStyle="Italic"
+                                        FontWeight="Thin"
+                                        Foreground="{StaticResource BrushPrimary4}">
+                                        <Run Text="{Binding Genre}" />
+                                        ,<Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
+                                    </TextBlock>
+                                </StackPanel>
 
-                                </Grid>
-                            </Button>
+                            </Grid>
+
 
                             <Border.Effect>
                                 <DropShadowEffect
@@ -158,57 +156,52 @@
             </ListBox>
 
             <ListBox x:Name="actorsLB" ItemsSource="{Binding Actors}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border
                             Margin="-6"
                             Background="{StaticResource BrushPrimary3}"
                             CornerRadius="3">
-                            <Button
-                                Margin="5"
-                                HorizontalContentAlignment="Left"
-                                Background="{StaticResource BrushPrimary3}"
-                                BorderThickness="0"
-                                Command="{Binding DataContext.GoToFilmCommand, Mode=OneWay, ElementName=actorsLB}"
-                                CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}"
-                                Style="{x:Null}"
-                                Template="{StaticResource emptyButton}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
 
-                                    <Image
-                                        Grid.Column="0"
-                                        Width="90"
-                                        Height="50"
-                                        Source="{Binding ImageData}" />
-                                    <StackPanel
-                                        Grid.Column="1"
-                                        Margin="10,0"
-                                        Orientation="Vertical">
-                                        <TextBlock
-                                            FontSize="26"
-                                            FontWeight="Medium"
-                                            Foreground="{StaticResource BrushPrimary1}"
-                                            TextWrapping="WrapWithOverflow">
-                                            <Run Text="{Binding Name}" /> <Run Text="{Binding Surname}" />
-                                        </TextBlock>
-                                        <TextBlock
-                                            Margin="10,-5"
-                                            FontSize="16"
-                                            FontStyle="Italic"
-                                            FontWeight="Thin"
-                                            Foreground="{StaticResource BrushPrimary4}">
-                                            <Run Text="{Binding Country}" />
-                                            ,<Run Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}, Mode=OneWay}" />
-                                            y.o.</TextBlock>
-                                    </StackPanel>
+                                <Image
+                                    Grid.Column="0"
+                                    Width="90"
+                                    Height="50"
+                                    Source="{Binding ImageData}" />
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    Orientation="Vertical">
+                                    <TextBlock
+                                        FontSize="26"
+                                        FontWeight="Medium"
+                                        Foreground="{StaticResource BrushPrimary1}"
+                                        TextWrapping="WrapWithOverflow">
+                                        <Run Text="{Binding Name}" /> <Run Text="{Binding Surname}" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        Margin="10,-5"
+                                        FontSize="16"
+                                        FontStyle="Italic"
+                                        FontWeight="Thin"
+                                        Foreground="{StaticResource BrushPrimary4}">
+                                        <Run Text="{Binding Country}" />
+                                        ,<Run Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}, Mode=OneWay}" />
+                                        y.o.</TextBlock>
+                                </StackPanel>
 
-                                </Grid>
-                            </Button>
+                            </Grid>
 
                             <Border.Effect>
                                 <DropShadowEffect

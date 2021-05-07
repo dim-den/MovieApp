@@ -38,7 +38,7 @@ namespace MovieApp.WPF.ViewModels
             ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
             SignOutCommand = new SignOutCommand(navigator, authentificator);
 
-            SearchBarViewModel = new SearchBarViewModel(unitOfWork);
+            SearchBarViewModel = new SearchBarViewModel(navigator, authentificator, unitOfWork);
 
             _authentificator = authentificator;
 

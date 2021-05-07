@@ -8,12 +8,15 @@ using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.WPF.Commands;
+using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 
 namespace MovieApp.WPF.ViewModels
 {
     public class SearchBarViewModel : ViewModelBase
     {
         public ICommand GoToFilmCommand { get;  }
+        public ICommand GoToActorCommand { get;  }
 
         private readonly ICollection<Film> _allFilms;
         private readonly ICollection<Actor> _allActors;
@@ -73,12 +76,13 @@ namespace MovieApp.WPF.ViewModels
                 .Take(4));
         }
 
-        public SearchBarViewModel(IUnitOfWork unitOfWork)
+        public SearchBarViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
         {
             _allFilms = unitOfWork.FilmRepository.GetAllSync();
             _allActors = unitOfWork.ActorRepository.GetAllSync();
 
-            GoToFilmCommand = new GoToFilmCommand();
+            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, unitOfWork);
+            GoToActorCommand = new GoToActorCommand(navigator, unitOfWork);
 
             _films = new ObservableCollection<Film>();
             _actors = new ObservableCollection<Actor>();
