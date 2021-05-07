@@ -11,6 +11,7 @@ using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
+using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -30,7 +31,7 @@ namespace MovieApp.WPF.ViewModels
             _authenticator = new Authenticator(new AuthenticationService(_unitOfWork), new Account());
 
             _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
-            AppHeaderViewModel = new AppHeaderViewModel(_navigator, _authenticator);
+            AppHeaderViewModel = new AppHeaderViewModel(_navigator, _authenticator, _unitOfWork);
 
             _navigator.StateChanged += OnCurrentViewModelChanged;
             _authenticator.StateChanged += Authenticator_StateChanged;

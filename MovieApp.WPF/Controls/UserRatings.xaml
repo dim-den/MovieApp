@@ -230,7 +230,7 @@
                         <Style TargetType="ListBoxItem">
                             <Style.Triggers>
                                 <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                    <Setter Property="Background" Value="{StaticResource BrushPrimary3}" />
+                                    <Setter Property="Background" Value="{StaticResource BackgroundBrush1}" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>

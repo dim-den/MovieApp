@@ -22,6 +22,9 @@
     <Compile Update="Controls\RateFilmPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\SearchBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\UpcomingFilmsList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -69,6 +72,9 @@
     <Page Update="Controls\RateFilmPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\SearchBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\UpcomingFilmsList.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -82,6 +88,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Common.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\Templates.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ActorView.xaml">

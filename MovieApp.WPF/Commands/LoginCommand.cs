@@ -21,7 +21,6 @@ namespace MovieApp.WPF.Commands
 {
     public class LoginCommand : AsyncCommandBase
     {
-        public event EventHandler CanExecuteChanged;
         private readonly IAuthenticator _authenticator;
         private readonly LoginViewModel _loginViewModel;
         private readonly INavigator _navigator;
@@ -36,10 +35,10 @@ namespace MovieApp.WPF.Commands
             _loginViewModel.ErrorMessage = string.Empty;
 
             try
-            {
-                var unitOfWork = new UnitOfWork();
+            {       
                 await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
+                var unitOfWork = new UnitOfWork();
                 var filmStore = new Store<Film>(unitOfWork.FilmRepository);
                 var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
 
