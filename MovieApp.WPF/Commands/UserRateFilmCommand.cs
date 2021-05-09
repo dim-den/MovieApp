@@ -14,7 +14,6 @@ namespace MovieApp.WPF.Commands
 {
     public class UserRateFilmCommand : AsyncCommandBase
     {
-        public event EventHandler CanExecuteChanged;
         private readonly IAuthenticator _authenticator;
         private readonly ILeaveReviewService _leaveReviewService;
         private readonly RateFilmPanelViewModel _rateFilmPanelViewModel;

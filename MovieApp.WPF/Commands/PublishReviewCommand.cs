@@ -14,9 +14,7 @@ namespace MovieApp.WPF.Commands
 {
     public class PublishReviewCommand : AsyncCommandBase
     {
-        public event EventHandler CanExecuteChanged;
         private readonly IAuthenticator _authenticator;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ILeaveReviewService _leaveReviewService;
         private readonly UserReviewsPanelViewModel _userReviewsViewModel;
 

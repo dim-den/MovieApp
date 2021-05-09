@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MovieApp.WPF.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -45,7 +45,8 @@
                         FontStyle="Italic"
                         FontWeight="Normal"
                         Foreground="white">
-                        (<Run Text="{Binding Film.ReleaseDate.Year, Mode=OneWay}" />)</TextBlock>
+                        (<Run Text="{Binding Film.ReleaseDate.Year, Mode=OneWay}" />
+                        )</TextBlock>
                 </WrapPanel>
 
                 <TextBlock
@@ -103,6 +104,7 @@
 
             <Border
                 Grid.Column="0"
+                Margin="-1"
                 Background="{StaticResource BrushPrimary2}"
                 BorderBrush="{StaticResource BrushPrimary2}"
                 BorderThickness="0,0,5,5"
@@ -313,6 +315,7 @@
 
 
                         <ListBox
+                            x:Name="castLB"
                             Grid.Row="1"
                             Grid.ColumnSpan="3"
                             HorizontalContentAlignment="Stretch"
@@ -322,6 +325,12 @@
                             ItemsSource="{Binding Cast}"
                             Style="{x:Null}">
 
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=castLB, Path=SelectedItem.Actor}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid MinWidth="200" Grid.IsSharedSizeScope="True">

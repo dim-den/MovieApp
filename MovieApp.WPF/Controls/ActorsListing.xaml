@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:MovieApp.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="200"
@@ -16,7 +17,7 @@
         VerticalAlignment="Top"
         Background="{StaticResource BrushPrimary3}"
         BorderBrush="Transparent"
-        CornerRadius="10">
+        CornerRadius="8">
         <StackPanel
             Margin="5,0"
             HorizontalAlignment="Center"
@@ -25,34 +26,46 @@
                 Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="18"
+                FontSize="24"
                 FontWeight="Medium"
                 Foreground="{StaticResource BrushPrimary1}"
-                Text="Actors:" />
+                Text="Popular actors" />
 
-            <ItemsControl ItemsSource="{Binding Actors}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <ItemsControl.ItemsPanel>
+            <ListBox
+                x:Name="actorsLB"
+                Margin="0,5"
+                ItemsSource="{Binding Actors}"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Vertical" />
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                </ListBox.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border
+                            Margin="-8"
                             Background="{StaticResource BrushPrimary1}"
                             BorderThickness="0,5,0,0"
-                            CornerRadius="5">
-                            <StackPanel MinWidth="350" Orientation="Vertical">
+                            CornerRadius="3">
+                            <StackPanel MinWidth="340   " Orientation="Vertical">
                                 <StackPanel Margin="5,5,5,0" Orientation="Horizontal">
                                     <TextBlock
                                         Margin="0,0,5,0"
-                                        FontSize="16"
+                                        FontSize="18"
                                         FontWeight="Medium"
                                         Foreground="{StaticResource BrushPrimary2}"
                                         Text="{Binding Name}" />
                                     <TextBlock
-                                        FontSize="16"
+                                        FontSize="18"
                                         FontWeight="Medium"
                                         Foreground="{StaticResource BrushPrimary2}"
                                         Text="{Binding Surname}"
@@ -88,10 +101,9 @@
                             </StackPanel>
                         </Border>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </ListBox.ItemTemplate>
 
-            </ItemsControl>
-            <TextBlock Height="10" />
+            </ListBox>
         </StackPanel>
 
         <Border.Effect>

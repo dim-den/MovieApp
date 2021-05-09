@@ -18,7 +18,7 @@
         <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <controls:MovieCarousel Margin="10,15" DataContext="{Binding MovieCarouselViewModel}" />
 
-            <controls:ActorsSummary Margin="15,20,20,25" DataContext="{Binding ActorsSummaryViewModel}" />
+            <controls:ActorsSummary Margin="5,20,20,25" DataContext="{Binding ActorsSummaryViewModel}" />
         </WrapPanel>
 
         <controls:UpcomingFilmsList

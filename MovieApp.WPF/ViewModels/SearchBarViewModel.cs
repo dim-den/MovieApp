@@ -82,7 +82,7 @@ namespace MovieApp.WPF.ViewModels
             _allActors = unitOfWork.ActorRepository.GetAllSync();
 
             GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, unitOfWork);
-            GoToActorCommand = new GoToActorCommand(navigator, unitOfWork);
+            GoToActorCommand = new GoToActorCommand(navigator, authentificator, unitOfWork);
 
             _films = new ObservableCollection<Film>();
             _actors = new ObservableCollection<Actor>();

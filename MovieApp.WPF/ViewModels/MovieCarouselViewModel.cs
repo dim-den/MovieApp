@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MovieApp.Domain.Models;
+using MovieApp.EntityFramework;
 using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.Commands;
+using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 
@@ -16,7 +18,8 @@ namespace MovieApp.WPF.ViewModels
 {
     public class MovieCarouselViewModel : ViewModelBase
     {
-        public ICommand ChangeMovieCarouselCommand { get; set; }
+        public ICommand ChangeMovieCarouselCommand { get; }
+        public ICommand GoToFilmCommand { get; }
 
         private readonly ObservableCollection<Film> _films;
         public ObservableCollection<Film> Films => _films;
@@ -42,7 +45,7 @@ namespace MovieApp.WPF.ViewModels
 
         private readonly DispatcherTimer _timer;
         public DispatcherTimer Timer => _timer;
-        public MovieCarouselViewModel(INavigator navigator, IStore<Film> filmStore)
+        public MovieCarouselViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore)
         {
             _films = new ObservableCollection<Film>(filmStore.Entities.Take(5));
             _timer = new DispatcherTimer();
@@ -53,6 +56,7 @@ namespace MovieApp.WPF.ViewModels
             Timer.Start();
 
             ChangeMovieCarouselCommand = new ChangeMovieCarouselCommand(this);
+            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, new UnitOfWork());
         }
         private void TimerTick(object sender, EventArgs e)
         {

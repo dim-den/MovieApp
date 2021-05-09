@@ -54,7 +54,7 @@ namespace MovieApp.WPF.Commands
                         await filmStore.Load();
                         await actorStore.Load();
 
-                        _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                        _navigator.CurrentViewModel = new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
                         break;
                     case ViewType.Profile:
                         var userFilmReviewsStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
@@ -78,16 +78,6 @@ namespace MovieApp.WPF.Commands
                                                                         filmReviewStore, 
                                                                         await unitOfWork.FilmRepository.Get(filmID),
                                                                         userFilmReview);
-                        break;
-                    case ViewType.Actor:
-                        int actorID = 1;
-                        var actorFilmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
-                        await actorFilmCastStore.LoadWithInclude(c => c.ActorID == actorID, c => c.Film);
-
-                        _navigator.CurrentViewModel = new ActorViewModel(await unitOfWork.ActorRepository.Get(actorID), actorFilmCastStore);
-                        break;
-                    case ViewType.AdminPanel:
-                        _navigator.CurrentViewModel = new AdminPanelViewModel(_authenticator, new UnitOfWork());
                         break;
                 }
             }

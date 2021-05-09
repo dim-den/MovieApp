@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
+using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
@@ -15,11 +16,7 @@ namespace MovieApp.WPF.Commands
     {
         private readonly INavigator _navigator;
         private readonly IUnitOfWork _unitOfWork;
-        public override bool CanExecute(object parameter)
-        {
-            return base.CanExecute(parameter);
-        }
-
+        private readonly IAuthenticator _authenticator;
         public override async Task ExecuteAsync(object parameter)
         {
             Actor actor = (Actor)parameter;
@@ -27,12 +24,13 @@ namespace MovieApp.WPF.Commands
             var actorFilmCastStore = new Store<FilmCast>(_unitOfWork.FilmCastRepository);
             await actorFilmCastStore.LoadWithInclude(c => c.ActorID == actor.ID, c => c.Film);
 
-            _navigator.CurrentViewModel = new ActorViewModel(actor, actorFilmCastStore);
+            _navigator.CurrentViewModel = new ActorViewModel(_navigator, _authenticator, actor, actorFilmCastStore);
         }
 
-        public GoToActorCommand(INavigator navigator, IUnitOfWork unitOfWork)
+        public GoToActorCommand(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
         {
             _navigator = navigator;
+            _authenticator = authentificator;
             _unitOfWork = unitOfWork;
         }
     }

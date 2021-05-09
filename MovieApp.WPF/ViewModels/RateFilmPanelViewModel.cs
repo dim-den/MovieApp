@@ -30,7 +30,7 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(FilmReviewsCount));
             }
         }
-        public double FilmAvgScore => _unitOfWork.FilmReviewRepository.GetFilmAvgScore(Film.ID);
+        public double FilmAvgScore => FilmReviewsCount > 0 ? _unitOfWork.FilmReviewRepository.GetFilmAvgScore(Film.ID) : 0.0f;
 
         public int FilmReviewsCount => _unitOfWork.FilmReviewRepository.GetFilmReviewsCount(Film.ID);
 

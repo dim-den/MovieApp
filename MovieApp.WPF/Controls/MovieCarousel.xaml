@@ -17,34 +17,10 @@
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="Transparent"
-        BorderThickness="0">
-        <Button.Template>
-            <ControlTemplate TargetType="{x:Type ButtonBase}">
-                <Border
-                    x:Name="border"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    SnapsToDevicePixels="True">
-                    <ContentPresenter
-                        x:Name="contentPresenter"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                        Content="{TemplateBinding Content}"
-                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                        Focusable="False"
-                        RecognizesAccessKey="True"
-                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="border" Property="BorderThickness" Value="0" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Button.Template>
+        BorderThickness="0"
+        Command="{Binding GoToFilmCommand}"
+        CommandParameter="{Binding CurrentFilm}"
+        Template="{StaticResource emptyButton}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

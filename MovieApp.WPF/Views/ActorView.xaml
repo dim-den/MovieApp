@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:MovieApp.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -212,6 +213,7 @@
                 </Grid>
 
                 <ListBox
+                    x:Name="filmLB"
                     Grid.Row="1"
                     HorizontalContentAlignment="Stretch"
                     AlternationCount="2"
@@ -219,6 +221,13 @@
                     ItemsSource="{Binding ActorFilmCast}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     Style="{x:Null}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmLB, Path=SelectedItem.Film}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid
@@ -266,7 +275,8 @@
                                         FontWeight="Normal"
                                         Text="{Binding RoleName}" />
                                     <TextBlock FontWeight="Thin">
-                                        (<Run Text="{Binding RoleType}" />)</TextBlock>
+                                        (<Run Text="{Binding RoleType}" />
+                                        )</TextBlock>
                                 </WrapPanel>
                             </Grid>
                         </DataTemplate>

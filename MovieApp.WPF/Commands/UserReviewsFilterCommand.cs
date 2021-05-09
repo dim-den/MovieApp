@@ -33,7 +33,6 @@ namespace MovieApp.WPF.Commands
 
     public class UserReviewsFilterCommand : AsyncCommandBase
     {
-        public event EventHandler CanExecuteChanged;
 
         private readonly IStore<FilmReview> _filmReviewsStore;
         private readonly UserRatingsViewModel _userRatingsViewModel;

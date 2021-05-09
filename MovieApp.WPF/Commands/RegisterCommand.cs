@@ -31,8 +31,6 @@ namespace MovieApp.WPF.Commands
             _registerViewModel.PropertyChanged += RegisterViewModel_PropertyChanged;
         }
 
-        public event EventHandler CanExecuteChanged;
-
         public override bool CanExecute(object parameter)
         {
             return _registerViewModel.CanRegister && base.CanExecute(parameter);    
@@ -60,7 +58,7 @@ namespace MovieApp.WPF.Commands
                     await filmStore.Load();
                     await actorStore.Load();
 
-                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, filmStore, actorStore);
+                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
                 }
             }
             catch(PasswordsMismatchException)

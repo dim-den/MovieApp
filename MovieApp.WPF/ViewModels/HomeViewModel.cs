@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 using MovieApp.EntityFramework.Services;
+using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 
@@ -24,16 +25,16 @@ namespace MovieApp.WPF.ViewModels
         private readonly IStore<Film> _filmStore;
         private readonly IStore<Actor> _actorStore;
         
-        public HomeViewModel(INavigator navigator, IStore<Film> filmStore, IStore<Actor> actorStore)
+        public HomeViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore, IStore<Actor> actorStore)
         {
             _navigator = navigator;
 
             _filmStore = filmStore;
             _actorStore = actorStore;
 
-            MovieCarouselViewModel = new MovieCarouselViewModel(_navigator, _filmStore);
-            ActorsSummaryViewModel = new ActorsSummaryViewModel(_navigator, _actorStore);
-            UpcomingFilmsListViewModel = new UpcomingFilmsListViewModel(filmStore);
+            MovieCarouselViewModel = new MovieCarouselViewModel(_navigator, authentificator, _filmStore);
+            ActorsSummaryViewModel = new ActorsSummaryViewModel(_navigator, authentificator, _actorStore);
+            UpcomingFilmsListViewModel = new UpcomingFilmsListViewModel(_navigator, authentificator, filmStore);
         }
     }
 }

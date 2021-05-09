@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:MovieApp.WPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -24,11 +25,25 @@
                 FontSize="30"
                 Foreground="{StaticResource BrushPrimary1}"
                 Text="Upcoming films:" />
+
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Opacity="0.3"
+                    ShadowDepth="5" />
+            </Border.Effect>
         </Border>
 
         <Border Background="{StaticResource BrushPrimary3}" CornerRadius="0 16 16 16">
-
-            <ListBox Margin="5" ItemsSource="{Binding UpcomingFilms}">
+            <ListBox
+                x:Name="filmsLB"
+                Margin="5"
+                ItemsSource="{Binding UpcomingFilms}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmsLB, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -98,6 +113,13 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
+
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Opacity="0.3"
+                    ShadowDepth="5" />
+            </Border.Effect>
         </Border>
     </StackPanel>
 </UserControl>
