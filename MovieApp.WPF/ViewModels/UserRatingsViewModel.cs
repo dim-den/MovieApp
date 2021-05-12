@@ -4,15 +4,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.WPF.Commands;
+using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
     public class UserRatingsViewModel : ViewModelBase
     {
-        public AsyncCommandBase FilterReviewsCommand { get; }
+        public ICommand FilterReviewsCommand { get; }
+        public ICommand GoToFilmCommand { get; }
 
         private ObservableCollection<FilmReview> _userReviews;
         public ObservableCollection<FilmReview> UserReviews
@@ -62,9 +67,10 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CanUserFilterByDate));
             }
         }
-        public UserRatingsViewModel(IStore<FilmReview> filmReviewsStore)
+        public UserRatingsViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork, IStore<FilmReview> filmReviewsStore)
         {
             FilterReviewsCommand = new UserReviewsFilterCommand(this, filmReviewsStore);
+            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, unitOfWork);
 
             _userReviews = new ObservableCollection<FilmReview>(filmReviewsStore.Entities);
         }

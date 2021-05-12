@@ -37,49 +37,35 @@ namespace MovieApp.WPF.Commands
         public override async Task ExecuteAsync(object parameter)
         {
             ViewType viewType = (ViewType)parameter;
-            using (var unitOfWork = new UnitOfWork())
+            var unitOfWork = new UnitOfWork();
+
+            switch (viewType)
             {
-                switch (viewType)
-                {
-                    case ViewType.Login:
-                        _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
-                        break;
-                    case ViewType.Register:
-                        _navigator.CurrentViewModel = new RegisterViewModel(_navigator, _authenticator);
-                        break;
-                    case ViewType.Home:
-                        var filmStore = new Store<Film>(unitOfWork.FilmRepository);
-                        var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
+                case ViewType.Login:
+                    _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
+                    break;
+                case ViewType.Register:
+                    _navigator.CurrentViewModel = new RegisterViewModel(_navigator, _authenticator);
+                    break;
+                case ViewType.Home:
+                    var filmStore = new Store<Film>(unitOfWork.FilmRepository);
+                    var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
 
-                        await filmStore.Load();
-                        await actorStore.Load();
+                    await filmStore.Load();
+                    await actorStore.Load();
 
-                        _navigator.CurrentViewModel = new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
-                        break;
-                    case ViewType.Profile:
-                        var userFilmReviewsStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
+                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
+                    break;
+                case ViewType.Profile:
+                    var userFilmReviewsStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
 
-                        await userFilmReviewsStore.LoadWithInclude(f => f.UserID == _authenticator.CurrentUser.ID, f => f.Film);
+                    await userFilmReviewsStore.LoadWithInclude(f => f.UserID == _authenticator.CurrentUser.ID, f => f.Film);
 
-                        _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, userFilmReviewsStore);
-                        break;
-                    case ViewType.Film:
-                        var filmCastStore = new Store<FilmCast>(unitOfWork.FilmCastRepository);
-                        var filmReviewStore = new Store<FilmReview>(unitOfWork.FilmReviewRepository);
-                        int filmID = 3;     // TODO remove
-
-                        await filmCastStore.LoadWithInclude(f => f.FilmID == filmID, f => f.Actor);
-                        await filmReviewStore.LoadWithInclude(r => r.FilmID == filmID && !string.IsNullOrEmpty(r.ReviewText), r => r.User);
-                        var userFilmReview = await unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, filmID);
-
-                        _navigator.CurrentViewModel = new FilmViewModel(_navigator, 
-                                                                        _authenticator, 
-                                                                        filmCastStore, 
-                                                                        filmReviewStore, 
-                                                                        await unitOfWork.FilmRepository.Get(filmID),
-                                                                        userFilmReview);
-                        break;
-                }
+                    _navigator.CurrentViewModel = new ProfileViewModel(_navigator, _authenticator, userFilmReviewsStore);
+                    break;
+                case ViewType.AdminPanel:
+                    _navigator.CurrentViewModel = new AdminPanelViewModel(_authenticator, unitOfWork);
+                    break;
             }
         }
     }

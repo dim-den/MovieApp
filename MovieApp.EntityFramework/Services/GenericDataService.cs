@@ -13,7 +13,7 @@ namespace MovieApp.EntityFramework.Services
 {
     public class GenericDataService<T> : IGenericDataService<T> where T : DbObject
     {
-        private readonly MovieAppDbContext _movieAppDbContext;
+        protected readonly MovieAppDbContext _movieAppDbContext;
         private DbSet<T> _dbSet;
         protected DbSet<T> DbSet => _dbSet ?? (_dbSet = _movieAppDbContext.Set<T>());
 

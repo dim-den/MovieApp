@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.AspNet.Identity;
 using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
@@ -33,7 +34,7 @@ namespace MovieApp.WPF.Commands
 
                 if (index == 0)
                 {
-                    AuthenticationService authenticationService = new AuthenticationService(_unitOfWork);
+                    AuthenticationService authenticationService = new AuthenticationService(_unitOfWork, new PasswordHasher());
                     var user = _adminPanelViewModel.User;
                     user.ID = 0;
 
@@ -133,7 +134,7 @@ namespace MovieApp.WPF.Commands
             {
                 _adminPanelViewModel.ErrorMessage = $"Email {exception.Email} already exists";
             }
-            catch (UsernameAlreadyExists exception)
+            catch (UsernameAlreadyExistsException exception)
             {
                 _adminPanelViewModel.ErrorMessage = $"Username {exception.Username} already exists";
             }

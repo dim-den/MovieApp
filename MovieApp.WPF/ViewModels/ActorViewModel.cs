@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
@@ -14,7 +15,7 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ActorViewModel : ViewModelBase
     {
-        public GoToFilmCommand GoToFilmCommand { get; }
+        public ICommand GoToFilmCommand { get; }
 
         private readonly IStore<FilmCast> _actorFilmCastStore;
 

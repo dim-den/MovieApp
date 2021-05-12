@@ -2,3 +2,8 @@
 .vs/
 bin/
 obj/
+/Email
+/MovieApp.Domain/Services/EmailServices
+/MovieApp.WPF/Views/Settings.xaml
+/MovieApp.WPF/Views/Settings.xaml.cs
+/MovieApp.WPF/ViewModels/SettingsViewModel.cs

@@ -58,7 +58,7 @@ namespace MovieApp.WPF.Commands
 
                     if (user.Username != updatedUser.Username && await _unitOfWork.UserRepository.GetByUsername(updatedUser.Username) != null)
                     {
-                        throw new UsernameAlreadyExists(updatedUser.Username);
+                        throw new UsernameAlreadyExistsException(updatedUser.Username);
                     }
 
                     string hashedPassword = null;
@@ -211,7 +211,7 @@ namespace MovieApp.WPF.Commands
             {
                 _adminPanelViewModel.ErrorMessage = $"Wrong user ID";
             }
-            catch (UsernameAlreadyExists exception)
+            catch (UsernameAlreadyExistsException exception)
             {
                 _adminPanelViewModel.ErrorMessage = $"Username {exception.Username} already exists";
             }

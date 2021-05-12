@@ -69,7 +69,7 @@ namespace MovieApp.WPF.Commands
             {
                 _registerViewModel.ErrorMessage = "An account for this email already exists.";
             }
-            catch(UsernameAlreadyExists)
+            catch(UsernameAlreadyExistsException)
             {
                 _registerViewModel.ErrorMessage = "An account for this username already exists.";
             }

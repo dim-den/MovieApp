@@ -17,6 +17,7 @@ namespace MovieApp.Domain.Models
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string Email { get; set; }
+        public bool ConfirmedEmail { get; set; }
         public ClientType ClientType { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

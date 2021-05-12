@@ -19,16 +19,14 @@ namespace MovieApp.Domain.Services
 
         public async Task<User> GetByEmail(string email)
         {
-            using MovieAppDbContext context = new();
-            return await context.Users
+            return await _movieAppDbContext.Users
                 .Include(u => u.FilmReviews)
                 .FirstOrDefaultAsync((e) => e.Email == email);
         }
 
         public async Task<User> GetByUsername(string username)
         {
-            using MovieAppDbContext context = new();
-            return await context.Users
+            return await _movieAppDbContext.Users
                 .Include(u => u.FilmReviews)
                 .FirstOrDefaultAsync((e) => e.Username == username);
         }

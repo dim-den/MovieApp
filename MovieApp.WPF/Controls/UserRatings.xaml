@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:filterTypes="clr-namespace:MovieApp.WPF.Commands"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:MovieApp.WPF.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -169,6 +171,7 @@
                 </Grid>
 
                 <ListBox
+                    x:Name="filmLB"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     AlternationCount="2"
@@ -178,6 +181,13 @@
                     ItemsSource="{Binding UserReviews}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     Style="{x:Null}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmLB, Path=SelectedItem.Film}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid MinWidth="600">

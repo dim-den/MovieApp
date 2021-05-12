@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.AspNet.Identity;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
@@ -28,7 +29,7 @@ namespace MovieApp.WPF.ViewModels
         {
             _navigator = new Navigator();
             _unitOfWork = new UnitOfWork();
-            _authenticator = new Authenticator(new AuthenticationService(_unitOfWork), new Account());
+            _authenticator = new Authenticator(new AuthenticationService(_unitOfWork, new PasswordHasher()), new Account());
 
             _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
             AppHeaderViewModel = new AppHeaderViewModel(_navigator, _authenticator, _unitOfWork);

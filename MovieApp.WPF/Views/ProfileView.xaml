@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" MinWidth="300" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
@@ -26,7 +26,7 @@
             x:Name="imageGrid"
             Grid.Row="0"
             Grid.Column="0"
-            Margin="0,50">
+            Background="{StaticResource BrushPrimary2}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -41,8 +41,9 @@
             <Border
                 Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
-                Width="206"
-                Height="206"
+                Width="256"
+                Height="256"
+                Margin="0,30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 BorderBrush="{StaticResource BrushPrimary3}"
@@ -57,8 +58,8 @@
                         Color="Black" />
                 </Border.Effect>
                 <Image
-                    Width="200"
-                    Height="200"
+                    Width="250"
+                    Height="250"
                     VerticalAlignment="Top"
                     Stretch="Fill">
                     <Image.Style>
@@ -75,22 +76,22 @@
                     </Image.Style>
                     <Image.Clip>
                         <EllipseGeometry
-                            Center="100,100"
-                            RadiusX="100"
-                            RadiusY="100" />
+                            Center="125,125"
+                            RadiusX="125"
+                            RadiusY="125" />
                     </Image.Clip>
                 </Image>
             </Border>
             <Button
                 Grid.Row="1"
                 Width="60"
-                Margin="0,50,50,0"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                BorderBrush="{StaticResource BrushPrimary2}"
+                VerticalAlignment="Top"
+                Margin="0 200 60 0"
+                BorderBrush="{StaticResource BrushPrimary3}"
                 Command="{Binding ChangeImageCommand}"
                 Content="edit"
-                Foreground="{StaticResource BrushPrimary2}">
+                Foreground="{StaticResource BrushPrimary3}">
                 <Button.Style>
                     <Style BasedOn="{StaticResource MaterialDesignOutlinedButton}" TargetType="Button">
                         <Setter Property="Visibility" Value="Hidden" />
@@ -107,86 +108,49 @@
         <Grid
             x:Name="userStat"
             Grid.Row="0"
-            Grid.Column="1">
-            <Border
-                Margin="20"
-                HorizontalAlignment="Center"
+            Grid.Column="1"
+            Background="{StaticResource BrushPrimary2}">
+            <StackPanel
+                Grid.Column="0"
+                Margin="30"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Background="{StaticResource BrushPrimary1}"
-                BorderBrush="{StaticResource BrushPrimary2}"
-                BorderThickness="3"
-                CornerRadius="16">
-
-                <Border.Effect>
-                    <DropShadowEffect
-                        BlurRadius="10"
-                        Opacity="0.4"
-                        RenderingBias="Quality"
-                        ShadowDepth="3"
-                        Color="Black" />
-                </Border.Effect>
-
-                <StackPanel
-                    Margin="50,20"
-                    HorizontalAlignment="Center"
-                    Orientation="Vertical">
-                    <StackPanel.Resources>
-                        <Style x:Key="userInfoTextBlock" TargetType="TextBlock">
-                            <Setter Property="FontSize" Value="24" />
-                            <Setter Property="FontStyle" Value="Italic" />
-                            <Setter Property="Foreground" Value="{StaticResource BrushPrimary2}" />
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <TextBlock
-                        Margin="50,0,0,0"
-                        FontSize="32"
-                        FontWeight="Bold"
-                        Style="{StaticResource userInfoTextBlock}"
-                        Text="{Binding CurrentUser.Username}" />
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="20,0,10,0"
-                            Style="{StaticResource userInfoTextBlock}"
-                            Text="{Binding CurrentUser.Name}" />
-
-                        <TextBlock
-                            Margin="0"
-                            Style="{StaticResource userInfoTextBlock}"
-                            Text="{Binding CurrentUser.Surname}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="20,0,10,0"
-                            Style="{StaticResource userInfoTextBlock}"
-                            Text="Films watched: " />
-
-                        <TextBlock
-                            Foreground="{StaticResource BrushPrimary3}"
-                            Style="{StaticResource userInfoTextBlock}"
-                            Text="{Binding FilmsWatched}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="20,0,10,0"
-                            Style="{StaticResource userInfoTextBlock}"
-                            Text="Average score: " />
-
-                        <TextBlock
-                            Foreground="{StaticResource BrushPrimary3}"
-                            Style="{StaticResource userInfoTextBlock}"
-                            Text="{Binding AvgScore, StringFormat={}{0:N2}}" />
-                    </StackPanel>
-                </StackPanel>
-            </Border>
+                Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock
+                    FontSize="44"
+                    FontStyle="Italic"
+                    FontWeight="Medium"
+                    Foreground="white"
+                    Text="{Binding CurrentUser.Username}" />
+                <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
+                    <Run Text="{Binding CurrentUser.Name}" /> <Run Text="{Binding CurrentUser.Surname}" />
+                </TextBlock>
+                <TextBlock
+                    FontSize="30"
+                    Foreground="{StaticResource BrushPrimary1}"
+                    Text="{Binding CurrentUser.Email}" />
+                <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
+                    Films watched: <Run Text="{Binding FilmsWatched, Mode=OneWay}"       FontStyle="Italic"
+                        FontWeight="Medium"/>
+                </TextBlock>
+                <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
+                    Average score: <Run
+                        FontStyle="Italic"
+                        FontWeight="Medium"
+                        Text="{Binding AvgScore, StringFormat={}{0:N2}, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
         </Grid>
 
         <Grid
             Grid.Row="1"
             Grid.Column="0"
+            VerticalAlignment="Center"
             Grid.ColumnSpan="2"
             MaxWidth="1200">
             <StackPanel Orientation="Vertical">
@@ -197,11 +161,7 @@
                     Text="User ratings:" />
 
                 <controls:UserRatings Margin="10" DataContext="{Binding UserRatingsViewModel}" />
-
-
             </StackPanel>
         </Grid>
-
-
     </Grid>
 </UserControl>

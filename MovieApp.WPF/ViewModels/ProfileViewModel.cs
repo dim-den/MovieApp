@@ -37,7 +37,7 @@ namespace MovieApp.WPF.ViewModels
             _authentificator = authentificator;
             _unitOfWork = new UnitOfWork();
 
-            UserRatingsViewModel = new UserRatingsViewModel(userFilmReviewsStore);
+            UserRatingsViewModel = new UserRatingsViewModel(navigator, authentificator, _unitOfWork, userFilmReviewsStore);
 
             ChangeImageCommand = new ChangeImageCommand(_authentificator, _unitOfWork);
 

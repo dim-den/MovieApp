@@ -14,10 +14,10 @@ namespace MovieApp.Domain.Services.AuthenticationServices
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AuthenticationService(IUnitOfWork unitOfWork)
+        public AuthenticationService(IUnitOfWork unitOfWork, IPasswordHasher passwordHasher)
         {
             _unitOfWork = unitOfWork;
-            _passwordHasher = new PasswordHasher();
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<User> Login(string username, string password)
@@ -55,7 +55,7 @@ namespace MovieApp.Domain.Services.AuthenticationServices
             User userUsername = await _unitOfWork.UserRepository.GetByUsername(username);
             if (userUsername != null)
             {
-                throw new UsernameAlreadyExists(username);
+                throw new UsernameAlreadyExistsException(username);
             }
 
             string hashedPassword = _passwordHasher.HashPassword(password);

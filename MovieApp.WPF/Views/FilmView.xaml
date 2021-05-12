@@ -4,9 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:MovieApp.WPF.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:MovieApp.WPF.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -33,7 +34,7 @@
                 <WrapPanel Orientation="Horizontal">
                     <TextBlock
                         VerticalAlignment="Bottom"
-                        FontSize="30"
+                        FontSize="40"
                         FontWeight="Medium"
                         Foreground="white"
                         Text="{Binding Film.Title}"
@@ -41,7 +42,7 @@
                     <TextBlock
                         Margin="20,0,0,0"
                         VerticalAlignment="Bottom"
-                        FontSize="26"
+                        FontSize="30"
                         FontStyle="Italic"
                         FontWeight="Normal"
                         Foreground="white">
@@ -321,7 +322,8 @@
                             HorizontalContentAlignment="Stretch"
                             AlternationCount="2"
                             Background="{StaticResource BrushPrimary1}"
-                            Foreground="{StaticResource BrushPrimary3}"
+                            BorderThickness="0"
+                            Foreground="{StaticResource BrushPrimary2}"
                             ItemsSource="{Binding Cast}"
                             Style="{x:Null}">
 
@@ -330,7 +332,7 @@
                                     <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=castLB, Path=SelectedItem.Actor}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            
+
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid MinWidth="200" Grid.IsSharedSizeScope="True">

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace MovieApp.Domain.Exceptions
 {
-    public class UsernameAlreadyExists : Exception
+    public class UsernameAlreadyExistsException : Exception
     {
         public string Username { get; set; }
 
-        public UsernameAlreadyExists(string username)
+        public UsernameAlreadyExistsException(string username)
         {
             Username = username;
         }
 
-        public UsernameAlreadyExists(string message, string username) : base(message)
+        public UsernameAlreadyExistsException(string message, string username) : base(message)
         {
             Username = username;
         }
 
-        public UsernameAlreadyExists(string message, Exception innerException, string username) : base(message, innerException)
+        public UsernameAlreadyExistsException(string message, Exception innerException, string username) : base(message, innerException)
         {
             Username = username;
         }
