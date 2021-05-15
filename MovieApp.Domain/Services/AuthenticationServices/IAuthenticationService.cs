@@ -13,5 +13,6 @@ namespace MovieApp.Domain.Services.AuthenticationServices
 
         Task<User> Login(string username, string password);
 
+        Task<User> ChangePassword(User user, string oldPassword, string newPassword, string confirmPassword);
     }
 }

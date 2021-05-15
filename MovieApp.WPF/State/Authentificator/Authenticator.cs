@@ -49,5 +49,10 @@ namespace MovieApp.WPF.State.Authentificator
            CurrentUser = await _authenticationService.Register(username, email, password, confirmPassword, name, surname);
         }
 
+        public async Task ChangePassword(string oldPassword, string newPassword, string confirmPassword)
+        {
+            CurrentUser = await _authenticationService.ChangePassword(CurrentUser, oldPassword, newPassword, confirmPassword);
+        }
+
     }
 }

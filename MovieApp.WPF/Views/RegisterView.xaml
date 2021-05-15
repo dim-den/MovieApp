@@ -42,7 +42,7 @@
                         VerticalAlignment="Center"
                         Orientation="Vertical">
                         <TextBox
-                            Width="320"
+                            Width="350"
                             Margin="0,5,0,0"
                             materialDesign:HintAssist.Hint="username"
                             FontSize="18"
@@ -50,7 +50,7 @@
                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBox
-                            Width="320"
+                            Width="350"
                             Margin="0,5,0,0"
                             materialDesign:HintAssist.Hint="email"
                             FontSize="18"
@@ -58,7 +58,7 @@
                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBox
-                            Width="320"
+                            Width="350"
                             Margin="0,5,0,0"
                             materialDesign:HintAssist.Hint="name"
                             FontSize="18"
@@ -66,7 +66,7 @@
                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBox
-                            Width="320"
+                            Width="350"
                             Margin="0,5,0,0"
                             materialDesign:HintAssist.Hint="surname"
                             FontSize="18"
@@ -74,14 +74,14 @@
                             Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" />
 
                         <components:BindablePasswordBox
-                            Width="320"
+                            Width="350"
                             Margin="0,20,0,0"
                             materialDesign:HintAssist.Hint="password"
                             FontSize="18"
                             Password="{Binding Password}" />
 
                         <components:BindablePasswordBox
-                            Width="320"
+                            Width="350"
                             Margin="0,20,0,0"
                             materialDesign:HintAssist.Hint="confirm password"
                             FontSize="18"

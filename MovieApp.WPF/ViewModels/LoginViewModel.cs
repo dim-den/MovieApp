@@ -15,7 +15,7 @@ namespace MovieApp.WPF.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         public ICommand ChangeViewCommand { get; }
-        public AsyncCommandBase LoginCommand { get; }
+        public ICommand LoginCommand { get; }
         public bool CanLogin => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
 
         private string _username = "dimden";

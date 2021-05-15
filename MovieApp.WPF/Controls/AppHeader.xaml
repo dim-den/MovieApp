@@ -78,6 +78,12 @@
                     Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                 <MenuItem
+                    Command="{Binding ChangeViewCommand}"
+                    CommandParameter="{x:Static viewTypes:ViewType.Settings}"
+                    Header="Settings"
+                    Icon="{materialDesign:PackIcon Kind=Settings}" />
+
+                <MenuItem
                     Command="{Binding SignOutCommand}"
                     CommandParameter="{x:Static viewTypes:ViewType.Login}"
                     Header="Sign out"
@@ -123,7 +129,6 @@
                             Text="{Binding CurrentUser.Name}" />
                     </StackPanel>
                 </MenuItem.Header>
-
             </MenuItem>
         </Menu>
 

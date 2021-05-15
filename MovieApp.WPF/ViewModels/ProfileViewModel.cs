@@ -17,7 +17,6 @@ namespace MovieApp.WPF.ViewModels
     public class ProfileViewModel : ViewModelBase
     {
         public UserRatingsViewModel UserRatingsViewModel { get; }
-        public AsyncCommandBase ChangeImageCommand { get; set; }
         
         private readonly IAuthenticator _authentificator;
         private readonly IUnitOfWork _unitOfWork;
@@ -39,9 +38,6 @@ namespace MovieApp.WPF.ViewModels
 
             UserRatingsViewModel = new UserRatingsViewModel(navigator, authentificator, _unitOfWork, userFilmReviewsStore);
 
-            ChangeImageCommand = new ChangeImageCommand(_authentificator, _unitOfWork);
-
-            _authentificator.StateChanged += Authenticator_StateChanged;
         }
 
         private void Authenticator_StateChanged()

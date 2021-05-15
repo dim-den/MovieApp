@@ -22,14 +22,6 @@ namespace MovieApp.WPF.Commands
         private readonly IAuthenticator _authenticator;
         private readonly RegisterViewModel _registerViewModel;
         private readonly INavigator _navigator;
-        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, INavigator navigator)
-        {
-            _registerViewModel = loginViewModel;
-            _authenticator = authenticator;
-            _navigator = navigator;
-
-            _registerViewModel.PropertyChanged += RegisterViewModel_PropertyChanged;
-        }
 
         public override bool CanExecute(object parameter)
         {
@@ -77,6 +69,14 @@ namespace MovieApp.WPF.Commands
             {
                 _registerViewModel.ErrorMessage = "Registration failed.";
             }
+        }
+        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, INavigator navigator)
+        {
+            _registerViewModel = loginViewModel;
+            _authenticator = authenticator;
+            _navigator = navigator;
+
+            _registerViewModel.PropertyChanged += RegisterViewModel_PropertyChanged;
         }
 
         private void RegisterViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

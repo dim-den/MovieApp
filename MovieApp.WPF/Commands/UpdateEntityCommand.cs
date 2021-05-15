@@ -45,8 +45,9 @@ namespace MovieApp.WPF.Commands
                         throw new UserNotFoundException(id.ToString());
                     }
 
-                    if (user.ClientType >= _authenticator.CurrentUser.ClientType ||
-                        _adminPanelViewModel.User.ClientType >= _authenticator.CurrentUser.ClientType)
+                    if ((user.ClientType >= _authenticator.CurrentUser.ClientType ||
+                        _adminPanelViewModel.User.ClientType >= _authenticator.CurrentUser.ClientType) && 
+                        _authenticator.CurrentUser.ClientType != ClientType.SuperAdmin)
                     {
                         throw new NotEnoughRightsException(_authenticator.CurrentUser.ClientType, user.ClientType);
                     }
@@ -72,6 +73,7 @@ namespace MovieApp.WPF.Commands
                     user.Status = (string.IsNullOrEmpty(updatedUser.Status) ? user.Status : updatedUser.Status);
                     user.Name = (string.IsNullOrEmpty(updatedUser.Name) ? user.Name : updatedUser.Name);
                     user.Surname = (string.IsNullOrEmpty(updatedUser.Surname) ? user.Surname : updatedUser.Surname);
+                    user.ConfirmedEmail = updatedUser.ConfirmedEmail;
 
                     var res = await _unitOfWork.UserRepository.Update(id, user);
                     var i = _adminPanelViewModel.Users.IndexOf(_adminPanelViewModel.Users.First(e => e.ID == id));

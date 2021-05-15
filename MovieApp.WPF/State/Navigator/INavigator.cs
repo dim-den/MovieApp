@@ -11,11 +11,13 @@ namespace MovieApp.WPF.State.Navigator
     {
         Login,
         Register,
+        PasswordRecovery,
         Home,
         Profile,
         Film,
         Actor,
-        AdminPanel
+        AdminPanel,
+        Settings
     }
     public interface INavigator
     {

@@ -102,6 +102,11 @@
                         Padding="5"
                         materialDesign:HintAssist.Hint="email"
                         Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
+                    <CheckBox
+                        Background="{StaticResource BrushPrimary3}"
+                        Content="Email confirmed"
+                        IsChecked="{Binding User.ConfirmedEmail, UpdateSourceTrigger=PropertyChanged}"
+                        />
                     <TextBox
                         Padding="5"
                         materialDesign:HintAssist.Hint="name"
@@ -339,6 +344,10 @@
                             Header="PasswordHash"
                             IsReadOnly="True" />
                         <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
+                        <DataGridTextColumn
+                            Width="130"
+                            Binding="{Binding ConfirmedEmail}"
+                            Header="Email confirmed" />
                         <DataGridTextColumn
                             Width="100"
                             Binding="{Binding Name}"

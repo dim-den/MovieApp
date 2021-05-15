@@ -38,7 +38,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                         <TextBox
-                            Width="320"
+                            Width="350"
                             Margin="0,5,0,0"
                             materialDesign:HintAssist.Hint="username"
                             FontSize="18"
@@ -46,7 +46,7 @@
                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
 
                         <components:BindablePasswordBox
-                            Width="320"
+                            Width="350"
                             Margin="0,5,0,0"
                             materialDesign:HintAssist.Hint="password"
                             FontSize="18"
@@ -73,16 +73,26 @@
                             FontSize="18"
                             Style="{StaticResource MaterialDesignRaisedButton}" />
 
-                        <Button
-                            Margin="0,5"
-                            HorizontalAlignment="Center"
-                            BorderThickness="0"
-                            Command="{Binding ChangeViewCommand}"
-                            CommandParameter="{x:Static viewTypes:ViewType.Register}"
-                            Content="Don't have an account?"
-                            Foreground="{StaticResource BrushPrimary4}"
-                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                        <Grid Margin="0,5">
+                            <Button
+                                HorizontalAlignment="Left"
+                                BorderThickness="0"
+                                Command="{Binding ChangeViewCommand}"
+                                CommandParameter="{x:Static viewTypes:ViewType.Register}"
+                                Content="Don't have an account?"
+                                Foreground="{StaticResource BrushPrimary4}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}" />
 
+                            <Button
+                                HorizontalAlignment="Right"
+                                BorderThickness="0"
+                                Command="{Binding ChangeViewCommand}"
+                                CommandParameter="{x:Static viewTypes:ViewType.PasswordRecovery}"
+                                Content="Forgot your password?"
+                                Foreground="{StaticResource BrushPrimary4}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                        </Grid>
                     </StackPanel>
                 </Grid>
             </Border>

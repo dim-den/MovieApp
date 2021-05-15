@@ -64,6 +64,7 @@ namespace MovieApp.Domain.Services.AuthenticationServices
             {
                 Username = username,
                 Email = email,
+                ConfirmedEmail = false,
                 PasswordHash = hashedPassword,
                 Name = name,
                 Surname = surname,
@@ -75,6 +76,30 @@ namespace MovieApp.Domain.Services.AuthenticationServices
             await _unitOfWork.SaveAsync();
 
             return result;
+        }
+
+        public async Task<User> ChangePassword(User user, string oldPassword, string newPassword, string confirmPassword)
+        {
+            if (newPassword != confirmPassword)
+            {
+                throw new PasswordsMismatchException(newPassword, confirmPassword);
+            }
+
+            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(user.PasswordHash, oldPassword);
+
+            if (passwordResult != PasswordVerificationResult.Success)
+            {
+                throw new InvalidPasswordException(user.Username, oldPassword);
+            }
+
+            string hashedPassword = _passwordHasher.HashPassword(newPassword);
+            user.PasswordHash = hashedPassword;
+
+            await _unitOfWork.UserRepository.Update(user.ID, user);
+
+            await _unitOfWork.SaveAsync();
+
+            return user;
         }
     }
 }

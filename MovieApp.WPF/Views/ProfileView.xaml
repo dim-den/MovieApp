@@ -28,19 +28,7 @@
             Grid.Column="0"
             Background="{StaticResource BrushPrimary2}">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
             <Border
-                Grid.RowSpan="2"
-                Grid.ColumnSpan="2"
                 Width="256"
                 Height="256"
                 Margin="0,30"
@@ -82,27 +70,6 @@
                     </Image.Clip>
                 </Image>
             </Border>
-            <Button
-                Grid.Row="1"
-                Width="60"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="0 200 60 0"
-                BorderBrush="{StaticResource BrushPrimary3}"
-                Command="{Binding ChangeImageCommand}"
-                Content="edit"
-                Foreground="{StaticResource BrushPrimary3}">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource MaterialDesignOutlinedButton}" TargetType="Button">
-                        <Setter Property="Visibility" Value="Hidden" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=imageGrid, Path=IsMouseOver}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
         </Grid>
 
         <Grid
@@ -135,8 +102,10 @@
                     Foreground="{StaticResource BrushPrimary1}"
                     Text="{Binding CurrentUser.Email}" />
                 <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
-                    Films watched: <Run Text="{Binding FilmsWatched, Mode=OneWay}"       FontStyle="Italic"
-                        FontWeight="Medium"/>
+                    Films watched: <Run
+                        FontStyle="Italic"
+                        FontWeight="Medium"
+                        Text="{Binding FilmsWatched, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
                     Average score: <Run
@@ -150,9 +119,9 @@
         <Grid
             Grid.Row="1"
             Grid.Column="0"
-            VerticalAlignment="Center"
             Grid.ColumnSpan="2"
-            MaxWidth="1200">
+            MaxWidth="1200"
+            VerticalAlignment="Center">
             <StackPanel Orientation="Vertical">
                 <TextBlock
                     Margin="20,10,0,0"

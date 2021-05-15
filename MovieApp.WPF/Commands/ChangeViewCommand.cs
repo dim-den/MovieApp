@@ -29,11 +29,6 @@ namespace MovieApp.WPF.Commands
             _authenticator = authenticator;
         }
 
-        public override bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
         public override async Task ExecuteAsync(object parameter)
         {
             ViewType viewType = (ViewType)parameter;
@@ -46,6 +41,9 @@ namespace MovieApp.WPF.Commands
                     break;
                 case ViewType.Register:
                     _navigator.CurrentViewModel = new RegisterViewModel(_navigator, _authenticator);
+                    break;
+                case ViewType.PasswordRecovery:
+                    _navigator.CurrentViewModel = new PasswordRecoveryViewModel(_navigator, _authenticator, unitOfWork);
                     break;
                 case ViewType.Home:
                     var filmStore = new Store<Film>(unitOfWork.FilmRepository);
@@ -65,6 +63,9 @@ namespace MovieApp.WPF.Commands
                     break;
                 case ViewType.AdminPanel:
                     _navigator.CurrentViewModel = new AdminPanelViewModel(_authenticator, unitOfWork);
+                    break;
+                case ViewType.Settings:
+                    _navigator.CurrentViewModel = new SettingsViewModel(_navigator, _authenticator, unitOfWork);
                     break;
             }
         }
