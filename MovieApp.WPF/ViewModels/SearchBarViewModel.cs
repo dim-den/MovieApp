@@ -15,8 +15,7 @@ namespace MovieApp.WPF.ViewModels
 {
     public class SearchBarViewModel : ViewModelBase
     {
-        public ICommand GoToFilmCommand { get;  }
-        public ICommand GoToActorCommand { get;  }
+        public ICommand ChangeViewCommand { get;  }
 
         private readonly ICollection<Film> _allFilms;
         private readonly ICollection<Actor> _allActors;
@@ -81,8 +80,7 @@ namespace MovieApp.WPF.ViewModels
             _allFilms = unitOfWork.FilmRepository.GetAllSync();
             _allActors = unitOfWork.ActorRepository.GetAllSync();
 
-            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, unitOfWork);
-            GoToActorCommand = new GoToActorCommand(navigator, authentificator, unitOfWork);
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
 
             _films = new ObservableCollection<Film>();
             _actors = new ObservableCollection<Actor>();

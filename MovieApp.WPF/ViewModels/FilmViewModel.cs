@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.EntityFramework;
@@ -19,7 +20,7 @@ namespace MovieApp.WPF.ViewModels
         public UserReviewsPanelViewModel UserReviewsPanel { get; }
         public RateFilmPanelViewModel RateFilmPanel { get; }
 
-        public GoToActorCommand GoToActorCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         private readonly IAuthenticator _authentificator;
         private readonly IUnitOfWork _unitOfWork;
@@ -62,10 +63,10 @@ namespace MovieApp.WPF.ViewModels
             _currentUserFilmReview = CurrentUserFilmReview;
             Film = film;
 
-            UserReviewsPanel = new UserReviewsPanelViewModel(_currentUserFilmReview, film, authentificator, _unitOfWork, filmReviewStore);
+            UserReviewsPanel = new UserReviewsPanelViewModel(_currentUserFilmReview, film, authentificator, navigator, _unitOfWork, filmReviewStore);
             RateFilmPanel = new RateFilmPanelViewModel(_currentUserFilmReview, film, authentificator, _unitOfWork);
 
-            GoToActorCommand = new GoToActorCommand(navigator, _authentificator, _unitOfWork);
+            ChangeViewCommand = new ChangeViewCommand(navigator, _authentificator);
 
             UserReviewsPanel.PropertyChanged += UserReview_PropertyChanged;
             RateFilmPanel.PropertyChanged += UserReview_PropertyChanged;

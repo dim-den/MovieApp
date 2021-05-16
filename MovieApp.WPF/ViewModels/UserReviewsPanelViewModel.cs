@@ -4,19 +4,22 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.ReviewServices;
 using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
+using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
     public class UserReviewsPanelViewModel : ViewModelBase
     {
-        public AsyncCommandBase PublishReviewCommand { get; }
+        public ICommand PublishReviewCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         public MessageViewModel InfoMessageViewModel { get; }
 
@@ -52,13 +55,14 @@ namespace MovieApp.WPF.ViewModels
             set => InfoMessageViewModel.Message = value;
         }
 
-        public UserReviewsPanelViewModel(FilmReview currentUserFilmReview, Film film, IAuthenticator authentificator, IUnitOfWork unitOfWork, IStore<FilmReview> filmReviewStore)
+        public UserReviewsPanelViewModel(FilmReview currentUserFilmReview, Film film, IAuthenticator authentificator, INavigator navigator, IUnitOfWork unitOfWork, IStore<FilmReview> filmReviewStore)
         {
             _currentUserFilmReview = currentUserFilmReview;
             Film = film;
             Reviews = new ObservableCollection<FilmReview>(filmReviewStore.Entities);
 
             PublishReviewCommand = new PublishReviewCommand(this, authentificator, new LeaveReviewService(unitOfWork));
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
 
             InfoMessageViewModel = new MessageViewModel();
         }

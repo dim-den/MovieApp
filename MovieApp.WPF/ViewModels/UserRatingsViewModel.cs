@@ -17,7 +17,7 @@ namespace MovieApp.WPF.ViewModels
     public class UserRatingsViewModel : ViewModelBase
     {
         public ICommand FilterReviewsCommand { get; }
-        public ICommand GoToFilmCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         private ObservableCollection<FilmReview> _userReviews;
         public ObservableCollection<FilmReview> UserReviews
@@ -67,10 +67,10 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CanUserFilterByDate));
             }
         }
-        public UserRatingsViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork, IStore<FilmReview> filmReviewsStore)
+        public UserRatingsViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> filmReviewsStore)
         {
             FilterReviewsCommand = new UserReviewsFilterCommand(this, filmReviewsStore);
-            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, unitOfWork);
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
 
             _userReviews = new ObservableCollection<FilmReview>(filmReviewsStore.Entities);
         }

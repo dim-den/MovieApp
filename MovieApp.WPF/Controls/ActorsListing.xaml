@@ -35,11 +35,12 @@
                 x:Name="actorsLB"
                 Margin="0,5"
                 ItemsSource="{Binding Actors}"
+                Cursor="Hand"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
+                        <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 

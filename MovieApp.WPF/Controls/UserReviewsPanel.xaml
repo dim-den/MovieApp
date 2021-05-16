@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:MovieApp.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:MovieApp.WPF.Controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -101,7 +102,18 @@
             </StackPanel>
         </Border>
 
-        <ListBox ItemsSource="{Binding Reviews}" Style="{StaticResource MaterialDesignCardsListBox}">
+        <ListBox
+            x:Name="reviewsLB"
+            Cursor="Hand"
+            ItemsSource="{Binding Reviews}"
+            Style="{StaticResource MaterialDesignCardsListBox}">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=reviewsLB, Path=SelectedItem.User}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border
@@ -120,7 +132,6 @@
 
                             <Grid Grid.Row="0" Margin="20,10">
                                 <StackPanel Orientation="Vertical">
-
                                     <Grid>
                                         <StackPanel Orientation="Horizontal">
                                             <Border
@@ -170,6 +181,7 @@
                                             FontWeight="Thin"
                                             Foreground="{StaticResource BrushPrimary4}"
                                             Text="{Binding Date, StringFormat={}{0:dd MMMM yyyy, hh:mm}}" />
+
                                     </Grid>
 
                                     <Separator Margin="-10,10,-10,0" Background="{StaticResource BrushPrimary2}" />

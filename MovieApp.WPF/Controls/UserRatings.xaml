@@ -180,11 +180,12 @@
                     Foreground="{StaticResource BrushPrimary2}"
                     ItemsSource="{Binding UserReviews}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Style="{x:Null}">
+                    Style="{x:Null}"
+                    Cursor="Hand">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmLB, Path=SelectedItem.Film}" />
+                            <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=filmLB, Path=SelectedItem.Film}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 

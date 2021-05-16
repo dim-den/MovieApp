@@ -19,7 +19,7 @@ namespace MovieApp.WPF.ViewModels
     public class MovieCarouselViewModel : ViewModelBase
     {
         public ICommand ChangeMovieCarouselCommand { get; }
-        public ICommand GoToFilmCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         private readonly ObservableCollection<Film> _films;
         public ObservableCollection<Film> Films => _films;
@@ -56,7 +56,7 @@ namespace MovieApp.WPF.ViewModels
             Timer.Start();
 
             ChangeMovieCarouselCommand = new ChangeMovieCarouselCommand(this);
-            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, new UnitOfWork());
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }
         private void TimerTick(object sender, EventArgs e)
         {

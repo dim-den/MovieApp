@@ -68,7 +68,7 @@
 
                 <MenuItem
                     Command="{Binding ChangeViewCommand}"
-                    CommandParameter="{x:Static viewTypes:ViewType.Profile}"
+                    CommandParameter="{Binding CurrentUser}"
                     Header="Profile" />
 
                 <MenuItem

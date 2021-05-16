@@ -15,7 +15,7 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ActorViewModel : ViewModelBase
     {
-        public ICommand GoToFilmCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         private readonly IStore<FilmCast> _actorFilmCastStore;
 
@@ -35,7 +35,7 @@ namespace MovieApp.WPF.ViewModels
             Actor = actor;
             _actorFilmCastStore = actorFilmCastStore;
 
-            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, new UnitOfWork());
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }
     }
 }

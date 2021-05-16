@@ -17,33 +17,24 @@ namespace MovieApp.WPF.ViewModels
     public class ProfileViewModel : ViewModelBase
     {
         public UserRatingsViewModel UserRatingsViewModel { get; }
-        
-        private readonly IAuthenticator _authentificator;
+
         private readonly IUnitOfWork _unitOfWork;
 
-        public User CurrentUser => _authentificator.CurrentUser;
+        public User User { get; }
 
-        public bool HasReviews => CurrentUser != null && CurrentUser?.FilmReviews != null && CurrentUser.FilmReviews.Count > 0;
+        public bool HasReviews => User != null && User.FilmReviews != null && User.FilmReviews.Count > 0;
 
-        public byte[] ImageData => CurrentUser?.ImageData;
+        public byte[] ImageData => User?.ImageData;
 
-        public int FilmsWatched => (HasReviews == true) ? CurrentUser.FilmReviews.Count : 0;
+        public int FilmsWatched => (HasReviews == true) ? User.FilmReviews.Count : 0;
 
-        public double AvgScore => (HasReviews == true) ? CurrentUser.FilmReviews.Average(u => u.Score) : 0.0;
+        public double AvgScore => (HasReviews == true) ? User.FilmReviews.Average(u => u.Score) : 0.0;
 
-        public ProfileViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> userFilmReviewsStore)
+        public ProfileViewModel(INavigator navigator, IAuthenticator authenticator, User user, IStore<FilmReview> userFilmReviewsStore)
         {
-            _authentificator = authentificator;
-            _unitOfWork = new UnitOfWork();
+            User = user;
 
-            UserRatingsViewModel = new UserRatingsViewModel(navigator, authentificator, _unitOfWork, userFilmReviewsStore);
-
-        }
-
-        private void Authenticator_StateChanged()
-        {
-            OnPropertyChanged(nameof(CurrentUser));
-            OnPropertyChanged(nameof(ImageData));
+            UserRatingsViewModel = new UserRatingsViewModel(navigator, authenticator, userFilmReviewsStore);
         }
     }
 }

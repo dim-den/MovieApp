@@ -94,12 +94,14 @@
                 </Style>
             </StackPanel.Resources>
 
-            <ListBox x:Name="filmsLB" ItemsSource="{Binding Films}">
+            <ListBox x:Name="filmsLB" ItemsSource="{Binding Films}" Cursor="Hand">
+                
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmsLB, Path=SelectedItem}" />
+                        <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=filmsLB, Path=SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border
@@ -154,10 +156,10 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <ListBox x:Name="actorsLB" ItemsSource="{Binding Actors}">
+            <ListBox x:Name="actorsLB" ItemsSource="{Binding Actors}" Cursor="Hand">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
+                        <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>

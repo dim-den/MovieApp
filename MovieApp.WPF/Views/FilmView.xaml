@@ -325,11 +325,12 @@
                             BorderThickness="0"
                             Foreground="{StaticResource BrushPrimary2}"
                             ItemsSource="{Binding Cast}"
-                            Style="{x:Null}">
+                            Style="{x:Null}"
+                            Cursor="Hand">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
-                                    <i:InvokeCommandAction Command="{Binding GoToActorCommand}" CommandParameter="{Binding ElementName=castLB, Path=SelectedItem.Actor}" />
+                                    <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=castLB, Path=SelectedItem.Actor}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 

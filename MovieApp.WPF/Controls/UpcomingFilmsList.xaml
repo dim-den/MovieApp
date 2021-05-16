@@ -38,10 +38,11 @@
             <ListBox
                 x:Name="filmsLB"
                 Margin="5"
+                Cursor="Hand"
                 ItemsSource="{Binding UpcomingFilms}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding GoToFilmCommand}" CommandParameter="{Binding ElementName=filmsLB, Path=SelectedItem}" />
+                        <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=filmsLB, Path=SelectedItem}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListBox.ItemTemplate>

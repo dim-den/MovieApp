@@ -16,17 +16,17 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ActorsListingViewModel : ViewModelBase
     {
-        public ICommand GoToActorCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         private readonly ObservableCollection<Actor> _actors;
 
         public ObservableCollection<Actor> Actors => _actors;
 
-        public ActorsListingViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork, IStore<Actor> actorStore)
+        public ActorsListingViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Actor> actorStore)
         {
             _actors = new ObservableCollection<Actor>(actorStore.Entities.Take(9));
 
-            GoToActorCommand = new GoToActorCommand(navigator, authentificator, unitOfWork);
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }
     }
 }

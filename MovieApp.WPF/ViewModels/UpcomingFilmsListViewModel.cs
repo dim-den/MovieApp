@@ -16,7 +16,7 @@ namespace MovieApp.WPF.ViewModels
 {
     public class UpcomingFilmsListViewModel : ViewModelBase
     {
-        public ICommand GoToFilmCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         public ObservableCollection<Film> UpcomingFilms { get; }
 
@@ -24,7 +24,7 @@ namespace MovieApp.WPF.ViewModels
         {
             UpcomingFilms = new ObservableCollection<Film>(filmStore.Entities.Where(f => f.ReleaseDate > DateTime.Now).Take(4).OrderBy(d => d.ReleaseDate));
 
-            GoToFilmCommand = new GoToFilmCommand(navigator, authentificator, new UnitOfWork());
+            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }
     }
 }

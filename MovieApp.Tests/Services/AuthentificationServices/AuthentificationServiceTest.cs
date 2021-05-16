@@ -77,8 +77,10 @@ namespace MovieApp.Tests.Services.AuthentificationServices
             string email = "testregistration@gmail.com";
             _mockUnitOfWork.Setup(s => s.UserRepository.GetByUsername(username)).ReturnsAsync((User)null);
             _mockUnitOfWork.Setup(s => s.UserRepository.GetByEmail(email)).ReturnsAsync((User)null);
+            _mockUnitOfWork.Setup(s => s.UserRepository.Create(It.IsAny<User>())).ReturnsAsync(new User(){ Username = username });
 
-            Assert.IsNull(await _authenticationService.Register(username, email, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+            var user = await _authenticationService.Register(username, email, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
+            Assert.AreEqual(username, user.Username);
         }
 
         [Test]
@@ -90,9 +92,9 @@ namespace MovieApp.Tests.Services.AuthentificationServices
             PasswordsMismatchException exception = Assert.ThrowsAsync<PasswordsMismatchException>(
                 () => _authenticationService.Register(It.IsAny<string>(), It.IsAny<string>(), password, confirmPassword, It.IsAny<string>(), It.IsAny<string>()));
 
-            string actualPssword = exception.Password;
+            string actualPassword = exception.Password;
             string actualConfirmPassword = exception.ConfirmPassword;
-            Assert.AreEqual(password, actualPssword);
+            Assert.AreEqual(password, actualPassword);
             Assert.AreEqual(confirmPassword, actualConfirmPassword);
         }
 
@@ -121,5 +123,54 @@ namespace MovieApp.Tests.Services.AuthentificationServices
             string actualUsername = exception.Username;
             Assert.AreEqual(username, actualUsername);
         }
+
+        [Test]
+        public async Task ChangePassword_WithCorrectOldPasswordAndMatchingNewPasswords_ReturnsUserAsync()
+        {
+            User expectedUser = new User()
+            {
+                Username = "testuser",
+                PasswordHash = "testpassword"
+            };
+            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), expectedUser.PasswordHash)).Returns(PasswordVerificationResult.Success);
+            _mockUnitOfWork.Setup(s => s.UserRepository.Update(It.IsAny<int>(), It.IsAny<User>())).ReturnsAsync(new User());
+
+            User actualUser = await _authenticationService.ChangePassword(expectedUser, expectedUser.PasswordHash, It.IsAny<string>(), It.IsAny<string>());
+
+            Assert.AreEqual(expectedUser.Username, actualUser.Username);
+        }
+
+        [Test]
+        public void ChangePassword_WithNotMatchingNewPasswords_ThrowsPasswordsMismatchException()
+        {
+            string newPassword = "testpassword";
+            string confirmPassword = "confirmtestpassword";
+
+            PasswordsMismatchException exception = Assert.ThrowsAsync<PasswordsMismatchException>(
+                () => _authenticationService.ChangePassword(It.IsAny<User>(), It.IsAny<string>(), newPassword, confirmPassword));
+
+            string actualPassword = exception.Password;
+            string actualConfirmPassword = exception.ConfirmPassword;
+            Assert.AreEqual(newPassword, actualPassword);
+            Assert.AreEqual(confirmPassword, actualConfirmPassword);
+        }
+
+        [Test]
+        public void ChangePassword_WithIncorrectOldPassword_ThrowsInvalidPasswordException()
+        {
+            User expectedUser = new User()
+            {
+                Username = "testuser",
+                PasswordHash = "testpassword"
+            };
+            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), expectedUser.PasswordHash)).Returns(PasswordVerificationResult.Failed);
+
+            InvalidPasswordException exception = Assert.ThrowsAsync<InvalidPasswordException>(() =>
+                                                    _authenticationService.ChangePassword(expectedUser, expectedUser.PasswordHash, It.IsAny<string>(), It.IsAny<string>()));
+
+            string actualUsername = exception.Username;
+            Assert.AreEqual(expectedUser.Username, actualUsername);
+        }
+
     }
 }

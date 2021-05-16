@@ -93,9 +93,9 @@
                     FontStyle="Italic"
                     FontWeight="Medium"
                     Foreground="white"
-                    Text="{Binding CurrentUser.Username}" />
+                    Text="{Binding User.Username}" />
                 <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
-                    <Run Text="{Binding CurrentUser.Name}" /> <Run Text="{Binding CurrentUser.Surname}" />
+                    <Run Text="{Binding User.Name}" /> <Run Text="{Binding User.Surname}" />
                 </TextBlock>
                 <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
                     Films watched: <Run

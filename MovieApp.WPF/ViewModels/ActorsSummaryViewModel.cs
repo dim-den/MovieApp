@@ -16,7 +16,7 @@ namespace MovieApp.WPF.ViewModels
         public ActorsListingViewModel ActorsListingViewModel { get; }
         public ActorsSummaryViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Actor> actorStore)
         {
-            ActorsListingViewModel = new ActorsListingViewModel(navigator, authentificator, new UnitOfWork(), actorStore);
+            ActorsListingViewModel = new ActorsListingViewModel(navigator, authentificator, actorStore);
         }
     }
 }

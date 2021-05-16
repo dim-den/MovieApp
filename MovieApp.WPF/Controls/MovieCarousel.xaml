@@ -18,7 +18,8 @@
         VerticalAlignment="Center"
         Background="Transparent"
         BorderThickness="0"
-        Command="{Binding GoToFilmCommand}"
+        Cursor="Hand"
+        Command="{Binding ChangeViewCommand}"
         CommandParameter="{Binding CurrentFilm}"
         Template="{StaticResource emptyButton}">
         <Grid>
