@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MovieApp.WPF.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:validationRules="clr-namespace:MovieApp.WPF.ValidationRules"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -260,12 +261,21 @@
                             Foreground="{StaticResource BrushPrimary2}"
                             Text="New password:" />
                         <components:BindablePasswordBox
+                            x:Name="newPassword"
                             Width="260"
                             VerticalAlignment="Center"
                             BorderBrush="{StaticResource BrushPrimary2}"
                             FontSize="18"
                             Foreground="{StaticResource BrushPrimary3}"
-                            Password="{Binding NewPassword}" />
+                            Validation.ErrorTemplate="{StaticResource errorValidationTemplate}">
+                            <components:BindablePasswordBox.Password>
+                                <Binding Path="NewPassword" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:PasswordRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </components:BindablePasswordBox.Password>
+                        </components:BindablePasswordBox>
                     </WrapPanel>
 
                     <WrapPanel Margin="0,5" Orientation="Horizontal">
@@ -277,12 +287,21 @@
                             Foreground="{StaticResource BrushPrimary2}"
                             Text="Confirm password:" />
                         <components:BindablePasswordBox
+                            x:Name="confirmPassword"
                             Width="260"
                             VerticalAlignment="Center"
                             BorderBrush="{StaticResource BrushPrimary2}"
                             FontSize="18"
                             Foreground="{StaticResource BrushPrimary3}"
-                            Password="{Binding ConfirmPassword}" />
+                            Validation.ErrorTemplate="{StaticResource errorValidationTemplate}">
+                            <components:BindablePasswordBox.Password>
+                                <Binding Path="ConfirmPassword" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:PasswordRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </components:BindablePasswordBox.Password>
+                        </components:BindablePasswordBox>
                     </WrapPanel>
 
                     <TextBlock
@@ -310,7 +329,22 @@
                         Background="{StaticResource BrushPrimary2}"
                         BorderBrush="{StaticResource BrushPrimary2}"
                         Command="{Binding ChangePasswordCommand}"
-                        Content="Change" />
+                        Content="Change" >
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}" TargetType="Button">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=confirmPassword}" Value="False" />
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=newPassword}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
             </StackPanel>
         </Border>

@@ -94,20 +94,16 @@
                     FontWeight="Medium"
                     Foreground="white"
                     Text="{Binding CurrentUser.Username}" />
-                <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
+                <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
                     <Run Text="{Binding CurrentUser.Name}" /> <Run Text="{Binding CurrentUser.Surname}" />
                 </TextBlock>
-                <TextBlock
-                    FontSize="30"
-                    Foreground="{StaticResource BrushPrimary1}"
-                    Text="{Binding CurrentUser.Email}" />
-                <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
+                <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
                     Films watched: <Run
                         FontStyle="Italic"
                         FontWeight="Medium"
                         Text="{Binding FilmsWatched, Mode=OneWay}" />
                 </TextBlock>
-                <TextBlock FontSize="30" Foreground="{StaticResource BrushPrimary1}">
+                <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
                     Average score: <Run
                         FontStyle="Italic"
                         FontWeight="Medium"

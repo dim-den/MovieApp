@@ -24,4 +24,16 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <ControlTemplate x:Key="errorValidationTemplate" TargetType="Control">
+        <StackPanel>
+            <AdornedElementPlaceholder />
+            <TextBlock
+                Padding="0,2"
+                Background="#fafafa"
+                FontSize="10"
+                Foreground="#f5594e"
+                Text="{Binding [0].ErrorContent}" />
+        </StackPanel>
+    </ControlTemplate>
 </ResourceDictionary>
