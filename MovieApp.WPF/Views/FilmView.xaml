@@ -46,8 +46,7 @@
                         FontStyle="Italic"
                         FontWeight="Normal"
                         Foreground="white">
-                        (<Run Text="{Binding Film.ReleaseDate.Year, Mode=OneWay}" />
-                        )</TextBlock>
+                        (<Run Text="{Binding Film.ReleaseDate.Year, Mode=OneWay}" />)</TextBlock>
                 </WrapPanel>
 
                 <TextBlock
@@ -225,9 +224,18 @@
                     <TextBlock
                         Grid.Row="5"
                         Grid.Column="1"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource right}"
-                        Text="{Binding Film.Budget, StringFormat={}{0:C0}}" />
+                        HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource right}" TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Film.Budget, StringFormat={}{0:C0}}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Film.Budget}" Value="0">
+                                        <Setter Property="Text" Value="No info" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <Separator Grid.Row="5" Grid.ColumnSpan="2" />
 
                     <TextBlock
@@ -238,9 +246,18 @@
                     <TextBlock
                         Grid.Row="6"
                         Grid.Column="1"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource right}"
-                        Text="{Binding Film.Fees, StringFormat={}{0:C0}}" />
+                        HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style BasedOn="{StaticResource right}" TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Film.Fees, StringFormat={}{0:C0}}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Film.Budget}" Value="0">
+                                        <Setter Property="Text" Value="No info" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <Separator Grid.Row="6" Grid.ColumnSpan="2" />
 
                 </Grid>
@@ -323,10 +340,10 @@
                             AlternationCount="2"
                             Background="{StaticResource BrushPrimary1}"
                             BorderThickness="0"
+                            Cursor="Hand"
                             Foreground="{StaticResource BrushPrimary2}"
                             ItemsSource="{Binding Cast}"
-                            Style="{x:Null}"
-                            Cursor="Hand">
+                            Style="{x:Null}">
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -373,11 +390,12 @@
             </StackPanel>
         </Grid>
 
-        <controls:RateFilmPanel
-            Grid.Row="3"
-            Background="{StaticResource BrushPrimary2}"
-            DataContext="{Binding RateFilmPanel}" />
+        <Grid Grid.Row="3" Visibility="{Binding FilmReleased, Converter={StaticResource InverseBoolToVisConverter}}">
+            <controls:RateFilmPanel Background="{StaticResource BrushPrimary2}" DataContext="{Binding RateFilmPanel}" />
+        </Grid>
 
-        <controls:UserReviewsPanel Grid.Row="4" DataContext="{Binding UserReviewsPanel}" />
+        <Grid Grid.Row="4" Visibility="{Binding FilmReleased, Converter={StaticResource InverseBoolToVisConverter}}">
+            <controls:UserReviewsPanel DataContext="{Binding UserReviewsPanel}" />
+        </Grid>
     </Grid>
 </UserControl>

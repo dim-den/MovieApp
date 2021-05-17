@@ -48,6 +48,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         public bool CurrentUserScoredFilm => _currentUserFilmReview != null;
+        public bool FilmReleased => Film.ReleaseDate > DateTime.Now;
 
         public List<FilmCast> Cast => _filmCastStore.Entities;
 

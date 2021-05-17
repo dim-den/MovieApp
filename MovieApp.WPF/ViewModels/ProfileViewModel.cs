@@ -18,21 +18,22 @@ namespace MovieApp.WPF.ViewModels
     {
         public UserRatingsViewModel UserRatingsViewModel { get; }
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IStore<FilmReview> _userFilmReviewsStore;
 
         public User User { get; }
 
-        public bool HasReviews => User != null && User.FilmReviews != null && User.FilmReviews.Count > 0;
+        public bool HasReviews => _userFilmReviewsStore.Entities != null && _userFilmReviewsStore.Entities.Count > 0;
 
         public byte[] ImageData => User?.ImageData;
 
-        public int FilmsWatched => (HasReviews == true) ? User.FilmReviews.Count : 0;
+        public int FilmsWatched => (HasReviews == true) ? _userFilmReviewsStore.Entities.Count : 0;
 
-        public double AvgScore => (HasReviews == true) ? User.FilmReviews.Average(u => u.Score) : 0.0;
+        public double AvgScore => (HasReviews == true) ? _userFilmReviewsStore.Entities.Average(u => u.Score) : 0.0;
 
         public ProfileViewModel(INavigator navigator, IAuthenticator authenticator, User user, IStore<FilmReview> userFilmReviewsStore)
         {
             User = user;
+            _userFilmReviewsStore = userFilmReviewsStore;
 
             UserRatingsViewModel = new UserRatingsViewModel(navigator, authenticator, userFilmReviewsStore);
         }

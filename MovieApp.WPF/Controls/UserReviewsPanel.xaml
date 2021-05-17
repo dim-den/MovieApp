@@ -35,8 +35,7 @@
             Style="{StaticResource MaterialDesignRaisedButton}" />
 
         <Border
-            MinWidth="570"
-            MaxWidth="656"
+            Width="570"
             Margin="0,20,0,30"
             HorizontalAlignment="Left"
             Background="{StaticResource BrushPrimary1}"
