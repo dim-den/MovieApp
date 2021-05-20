@@ -14,16 +14,18 @@ using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 
-namespace MovieApp.WPF.ViewModels
-{
+    namespace MovieApp.WPF.ViewModels
+    {
     public class MainViewModel : ViewModelBase
     {
         private readonly INavigator _navigator;
         private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
+
         public bool IsLoggedIn => _authenticator.IsLoggedIn;
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
         public User CurrentUser => _authenticator.CurrentUser;
+
         public AppHeaderViewModel AppHeaderViewModel { get; }
         public MainViewModel()
         {

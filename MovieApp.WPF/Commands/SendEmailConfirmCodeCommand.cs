@@ -13,11 +13,11 @@ namespace MovieApp.WPF.Commands
     {
         private int _verificationCodeLength;
         private readonly IEmailService _emailService;
-        private readonly SettingsViewModel _settingsViewModel;
-        public SendEmailConfirmCodeCommand(SettingsViewModel settingViewModel, int verificationCodeLength)
+        private readonly EmailConfirmPanelViewModel _emailConfirmPanelViewModel;
+        public SendEmailConfirmCodeCommand(EmailConfirmPanelViewModel emailConfirmPanelViewModel, int verificationCodeLength)
         {
             _emailService = new EmailService();
-            _settingsViewModel = settingViewModel;
+            _emailConfirmPanelViewModel = emailConfirmPanelViewModel;
             _verificationCodeLength = verificationCodeLength;
         }
 
@@ -30,11 +30,11 @@ namespace MovieApp.WPF.Commands
                               "<p>Thank you for using our app!</p>";
                 string subject = "Confirm your email";
 
-                _settingsViewModel.ExpectedVerificationCode = await _emailService.SendMessage(_settingsViewModel.CurrentUser, body, subject, _verificationCodeLength);
+                _emailConfirmPanelViewModel.ExpectedVerificationCode = await _emailService.SendMessage(_emailConfirmPanelViewModel.CurrentUser, body, subject, _verificationCodeLength);
             }
             catch (Exception)
             {
-                _settingsViewModel.ErrorMessage = "An error occured while sending message, check for Internet connection";
+               _emailConfirmPanelViewModel.ErrorMessage = "An error occured while sending message, check for Internet connection";
             }
         }
     }

@@ -125,11 +125,6 @@
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
                         Content="Browse image"
                         Foreground="{StaticResource BrushPrimary3}" />
-                    <TextBox
-                        Padding="5"
-                        materialDesign:HintAssist.Hint="status"
-                        Foreground="{StaticResource BrushPrimary3}"
-                        Text="{Binding User.Status, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
@@ -339,7 +334,7 @@
                             Header="ID" />
                         <DataGridTextColumn Binding="{Binding Username}" Header="Username" />
                         <DataGridTextColumn
-                            Width="150"
+                            Width="250"
                             Binding="{Binding PasswordHash}"
                             Header="PasswordHash"
                             IsReadOnly="True" />
@@ -367,13 +362,6 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Binding="{Binding Status}" Header="Status">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextWrapping" Value="Wrap" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

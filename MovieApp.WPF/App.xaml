@@ -46,8 +46,6 @@
             <DataTemplate DataType="{x:Type viewmodels:PasswordRecoveryViewModel}">
                 <views:PasswordRecoveryView />
             </DataTemplate>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

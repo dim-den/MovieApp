@@ -2,11 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <ApplicationDefinition Update="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Controls\ActorsListing.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -14,6 +9,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\AppHeader.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\EmailConfirmPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\MovieCarousel.xaml.cs">
@@ -72,6 +70,9 @@
     <Page Update="Controls\AppHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\EmailConfirmPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\MovieCarousel.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -88,9 +89,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\UserReviewsPanel.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Common.xaml">

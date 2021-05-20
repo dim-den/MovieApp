@@ -70,7 +70,6 @@ namespace MovieApp.WPF.Commands
                     user.Email = (string.IsNullOrEmpty(updatedUser.Email) ? user.Email : updatedUser.Email);
                     user.PasswordHash = hashedPassword ?? user.PasswordHash;
                     user.ClientType = updatedUser.ClientType;
-                    user.Status = (string.IsNullOrEmpty(updatedUser.Status) ? user.Status : updatedUser.Status);
                     user.Name = (string.IsNullOrEmpty(updatedUser.Name) ? user.Name : updatedUser.Name);
                     user.Surname = (string.IsNullOrEmpty(updatedUser.Surname) ? user.Surname : updatedUser.Surname);
                     user.ConfirmedEmail = updatedUser.ConfirmedEmail;

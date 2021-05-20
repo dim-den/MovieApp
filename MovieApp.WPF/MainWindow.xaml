@@ -5,20 +5,46 @@
     xmlns:controls="clr-namespace:MovieApp.WPF.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MovieApp.WPF"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:MovieApp.WPF.ViewModels"
+    x:Name="mainWindow"
     Title="MovieApp"
-    Width="800"
-    Height="600"
+    Width="1000"
+    Height="700"
+    MinWidth="800"
+    MinHeight="600"
+    MaxHeight="1080"
     d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
+    Icon="Resources/icon.png"
+    MouseDown="mainWindow_MouseDown"
     WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid>
 
-        <Rectangle
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource InverseBoolToVisConverter}}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="10" />
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Style x:Key="WindowMainPanelStyle" TargetType="{x:Type Panel}">
+            <Setter Property="Margin" Value="0" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                    <Setter Property="Margin" Value="7,7,0,0" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Grid.ColumnSpan="2" Visibility="{Binding IsLoggedIn, Converter={StaticResource InverseBoolToVisConverter}}">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0.8,0" EndPoint="0.1,1">
                     <GradientStop Color="{StaticResource ColorPrimary1}" />
@@ -28,7 +54,10 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <Grid Margin="0,58,0,0" VerticalAlignment="Stretch">
+        <Grid
+            Grid.ColumnSpan="2"
+            Margin="0,58,0,0"
+            VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="6*" MinWidth="700" />
@@ -75,8 +104,95 @@
             </Grid.Style>
         </Grid>
 
-        <Grid Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid
+            Grid.Column="0"
+            Height="58"
+            VerticalAlignment="Top"
+            Background="{StaticResource BrushPrimary3}"
+            Style="{StaticResource WindowMainPanelStyle}"
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource InverseBoolToVisConverter}}" />
+
+        <Grid
+            VerticalAlignment="Top"
+            Style="{StaticResource WindowMainPanelStyle}"
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
             <controls:AppHeader DataContext="{Binding AppHeaderViewModel}" />
         </Grid>
+
+        <StackPanel
+            Grid.Column="1"
+            VerticalAlignment="Top"
+            Background="{StaticResource BrushPrimary3}"
+            Orientation="Horizontal">
+
+            <StackPanel.Resources>
+                <Style
+                    x:Key="windowBtn"
+                    BasedOn="{StaticResource MaterialDesignOutlinedButton}"
+                    TargetType="Button">
+                    <Setter Property="Width" Value="58" />
+                    <Setter Property="Height" Value="58" />
+                    <Setter Property="Background" Value="{StaticResource BrushPrimary3}" />
+                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+                <Style TargetType="materialDesign:PackIcon">
+                    <Setter Property="Width" Value="24" />
+                    <Setter Property="Height" Value="24" />
+                    <Setter Property="Margin" Value="-15" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Click="minimizeButton_Click" Style="{StaticResource windowBtn}">
+                <materialDesign:PackIcon Kind="WindowMinimize" />
+            </Button>
+
+            <Button Click="restoreButton_Click">
+                <materialDesign:PackIcon Kind="WindowRestore" />
+                <Button.Style>
+                    <Style BasedOn="{StaticResource windowBtn}" TargetType="Button">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=mainWindow, Path=WindowState}" Value="{x:Static WindowState.Maximized}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button Click="maximizeButton_Click">
+                <materialDesign:PackIcon Kind="WindowMaximize" />
+                <Button.Style>
+                    <Style BasedOn="{StaticResource windowBtn}" TargetType="Button">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=mainWindow, Path=WindowState}" Value="{x:Static WindowState.Normal}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button Click="closeButton_Click" Style="{StaticResource windowBtn}">
+                <materialDesign:PackIcon Kind="WindowClose" />
+            </Button>
+
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Margin" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                            <Setter Property="Margin" Value="0,7,7,0" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+
     </Grid>
+
 </Window>

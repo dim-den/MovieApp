@@ -47,7 +47,8 @@ namespace MovieApp.WPF.ViewModels
         public DispatcherTimer Timer => _timer;
         public MovieCarouselViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore)
         {
-            _films = new ObservableCollection<Film>(filmStore.Entities.Take(5));
+            var rnd = new Random();
+            _films = new ObservableCollection<Film>(filmStore.Entities.Where(f => f.ReleaseDate <= DateTime.Now).OrderBy(x => rnd.Next()).Take(5));
             _timer = new DispatcherTimer();
             CurrentIndex = 0;
 

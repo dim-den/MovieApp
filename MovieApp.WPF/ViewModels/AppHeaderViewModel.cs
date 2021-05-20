@@ -24,14 +24,14 @@ namespace MovieApp.WPF.ViewModels
         public SearchBarViewModel SearchBarViewModel { get; }
 
         public ICommand ChangeViewCommand { get; }
-
         public ICommand SignOutCommand { get; }
+
 
         public User CurrentUser => _authentificator.CurrentUser;
 
         public bool IsAdmin => CurrentUser != null && CurrentUser.ClientType >= ClientType.Admin;
 
-        public byte[] ImageData => CurrentUser?.ImageData;       
+        public byte[] ImageData => CurrentUser?.ImageData;
 
         public AppHeaderViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
         {

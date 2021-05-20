@@ -40,13 +40,14 @@
                         Text="{Binding Film.Title}"
                         TextWrapping="WrapWithOverflow" />
                     <TextBlock
-                        Margin="20,0,0,0"
+                        Margin="20,0,0,5"
                         VerticalAlignment="Bottom"
                         FontSize="30"
                         FontStyle="Italic"
                         FontWeight="Normal"
                         Foreground="white">
-                        (<Run Text="{Binding Film.ReleaseDate.Year, Mode=OneWay}" />)</TextBlock>
+                        (<Run Text="{Binding Film.ReleaseDate.Year, Mode=OneWay}" />
+                        )</TextBlock>
                 </WrapPanel>
 
                 <TextBlock
@@ -251,7 +252,7 @@
                             <Style BasedOn="{StaticResource right}" TargetType="TextBlock">
                                 <Setter Property="Text" Value="{Binding Film.Fees, StringFormat={}{0:C0}}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Film.Budget}" Value="0">
+                                    <DataTrigger Binding="{Binding Film.Fees}" Value="0">
                                         <Setter Property="Text" Value="No info" />
                                     </DataTrigger>
                                 </Style.Triggers>

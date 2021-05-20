@@ -26,7 +26,8 @@
             x:Name="imageGrid"
             Grid.Row="0"
             Grid.Column="0"
-            Background="{StaticResource BrushPrimary2}">
+            Background="{StaticResource BrushPrimary2}"
+            RenderOptions.EdgeMode="Aliased">
 
             <Border
                 Width="256"
@@ -76,7 +77,8 @@
             x:Name="userStat"
             Grid.Row="0"
             Grid.Column="1"
-            Background="{StaticResource BrushPrimary2}">
+            Background="{StaticResource BrushPrimary2}"
+            RenderOptions.EdgeMode="Aliased">
             <StackPanel
                 Grid.Column="0"
                 Margin="30"

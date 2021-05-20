@@ -13,49 +13,49 @@ namespace MovieApp.WPF.Commands
     public class ChangePasswordCommand : AsyncCommandBase
     {
         private readonly IAuthenticator _authenticator;
-        private readonly SettingsViewModel _settingsViewModel;
+        private readonly PasswordChangePanelViewModel _passwordChangePanelViewModel;
 
         public override bool CanExecute(object parameter)
         {
-            return _settingsViewModel.CanLogin && base.CanExecute(parameter);
+            return _passwordChangePanelViewModel.CanChangePassword && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)
         {
-            _settingsViewModel.ErrorMessage = string.Empty;
-            _settingsViewModel.InfoMessage = string.Empty;
+            _passwordChangePanelViewModel.ErrorMessage = string.Empty;
+            _passwordChangePanelViewModel.InfoMessage = string.Empty;
 
             try
             {
-                await _authenticator.ChangePassword(_settingsViewModel.OldPassword, _settingsViewModel.NewPassword, _settingsViewModel.ConfirmPassword);
+                await _authenticator.ChangePassword(_passwordChangePanelViewModel.OldPassword, _passwordChangePanelViewModel.NewPassword, _passwordChangePanelViewModel.ConfirmPassword);
 
-                _settingsViewModel.InfoMessage = "Your password has been successfully changed.";
+                _passwordChangePanelViewModel.InfoMessage = "Your password has been successfully changed.";
             }
             catch (PasswordsMismatchException)
             {
-                _settingsViewModel.ErrorMessage = "New password does not match confirm password.";
+                _passwordChangePanelViewModel.ErrorMessage = "New password does not match confirm password.";
             }
             catch (InvalidPasswordException)
             {
-                _settingsViewModel.ErrorMessage = "Incorrect old password.";
+                _passwordChangePanelViewModel.ErrorMessage = "Incorrect old password.";
             }
             catch (Exception)
             {
-                _settingsViewModel.ErrorMessage = "Change password failed.";
+                _passwordChangePanelViewModel.ErrorMessage = "Change password failed.";
             }
         }
 
-        public ChangePasswordCommand(SettingsViewModel settingsViewModel, IAuthenticator authenticator)
+        public ChangePasswordCommand(PasswordChangePanelViewModel passwordChangePanelViewModel, IAuthenticator authenticator)
         {
-            _settingsViewModel = settingsViewModel;
+            _passwordChangePanelViewModel = passwordChangePanelViewModel;
             _authenticator = authenticator;
 
-            _settingsViewModel.PropertyChanged += SettingsViewModel_PropertyChanged;
+            _passwordChangePanelViewModel.PropertyChanged += SettingsViewModel_PropertyChanged;
         }
 
         private void SettingsViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(SettingsViewModel.CanLogin))
+            if (e.PropertyName == nameof(PasswordChangePanelViewModel.CanChangePassword))
             {
                 OnCanExecuteChanged();
             }

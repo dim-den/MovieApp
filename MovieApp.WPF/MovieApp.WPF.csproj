@@ -22,6 +22,7 @@
     <None Remove="Resources\Fonts\Nunito-SemiBold.ttf" />
     <None Remove="Resources\Fonts\Nunito-SemiBoldItalic.ttf" />
     <None Remove="Resources\default-avatar.png" />
+    <None Remove="Resources\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,6 +81,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\default-avatar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -6,6 +6,8 @@ namespace MovieApp.EntityFramework
 {
     public class MovieAppDbContext : DbContext
     {
+        private const string _connectionString = "data source=(localdb)\\MSSQLLocalDB;Initial Catalog=MovieAppDB;Integrated Security=True;";
+
         public DbSet<User> Users { get; set; }
         public DbSet<Film> Films { get; set; }
         public DbSet<FilmReview> FilmReviews { get; set; }
@@ -15,7 +17,7 @@ namespace MovieApp.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("data source=(localdb)\\MSSQLLocalDB;Initial Catalog=MovieAppDB;Integrated Security=True;");
+            optionsBuilder.UseSqlServer(_connectionString);
 
             base.OnConfiguring(optionsBuilder);
         }
