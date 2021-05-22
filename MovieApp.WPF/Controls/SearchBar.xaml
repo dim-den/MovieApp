@@ -138,8 +138,7 @@
                                         FontStyle="Italic"
                                         FontWeight="Thin"
                                         Foreground="{StaticResource BrushPrimary4}">
-                                        <Run Text="{Binding Genre}" />
-                                        ,<Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
+                                        <Run Text="{Binding Genre}" />, <Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
 

@@ -16,6 +16,5 @@ namespace MovieApp.Domain.Services
 
         int Save();
         Task<int> SaveAsync();
-
     }
 }
