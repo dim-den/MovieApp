@@ -29,34 +29,23 @@ namespace MovieApp.WPF.ViewModels.Factories
         {
             if (viewType is Film film)
             {
-                var filmCastStore = new Store<FilmCast>(_unitOfWork.FilmCastRepository);
-                var filmReviewStore = new Store<FilmReview>(_unitOfWork.FilmReviewRepository);
-
-                await filmCastStore.LoadWithInclude(f => f.FilmID == film.ID, f => f.Actor);
-                await filmReviewStore.LoadWithInclude(r => r.FilmID == film.ID && !string.IsNullOrEmpty(r.ReviewText), r => r.User);
-                var userFilmReview = await _unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, film.ID);
-
-                return new FilmViewModel(_navigator,
-                                         _authenticator,
-                                         filmCastStore,
-                                         filmReviewStore,
-                                         film,
-                                         userFilmReview);
+                return (await (await (await FilmViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, film)
+                                                                .LoadFilmCast())
+                                                                .LoadFilmReviews())
+                                                                .LoadCurrentUserFilmReview())
+                                                                .Build();
             }
             else if (viewType is Actor actor)
             {
-                var actorFilmCastStore = new Store<FilmCast>(_unitOfWork.FilmCastRepository);
-                await actorFilmCastStore.LoadWithInclude(c => c.ActorID == actor.ID, c => c.Film);
-
-                return new ActorViewModel(_navigator, _authenticator, actor, actorFilmCastStore);
+                return (await ActorViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, actor)
+                                                   .LoadFilmCast())
+                                                   .Build();
             }
             else if (viewType is User user)
             {
-                var userFilmReviewsStore = new Store<FilmReview>(_unitOfWork.FilmReviewRepository);
-
-                await userFilmReviewsStore.LoadWithInclude(f => f.UserID == user.ID, f => f.Film);
-
-                return new ProfileViewModel(_navigator, _authenticator, user, userFilmReviewsStore);
+                return (await ProfileViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, user)
+                                                     .LoadUserFilmReviews())
+                                                     .Build();
             }
             else if (viewType is ViewType type)
             {
