@@ -23,6 +23,8 @@ namespace MovieApp.WPF.ViewModels
 
         public IOrderedEnumerable<FilmCast> ActorFilmCast => _actorFilmCastStore.Entities.OrderByDescending(u => u.Film.ReleaseDate);
 
+        public bool HasFilmCast => ActorFilmCast != null && ActorFilmCast.Count() > 0;
+
         public string FilmingTime => $"{ActorFilmCast.Min(f => f.Film.ReleaseDate).Year} - {ActorFilmCast.Max(f => f.Film.ReleaseDate).Year}";
 
         public static double GetFilmRating(int filmID)

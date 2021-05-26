@@ -16,7 +16,7 @@
     MinHeight="600"
     MaxHeight="1080"
     d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-    Icon="Resources/icon.png"
+    Icon="Resources/icon.ico"
     MouseDown="mainWindow_MouseDown"
     WindowStartupLocation="CenterScreen"
     WindowState="Normal"
@@ -98,6 +98,42 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
                             <Setter Property="Background" Value="{StaticResource BackgroundBrush2}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+        </Grid>
+
+        <Grid
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Top"
+            Background="#424242"
+            Visibility="{Binding IsInternetAvailable, Converter={StaticResource InverseBoolToVisConverter}}">
+            <StackPanel
+                Margin="0,5,0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Margin="0,5,10,0"
+                    Foreground="#e6e6e6"
+                    Kind="AlertOutline" />
+                <TextBlock
+                    VerticalAlignment="Bottom"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    Foreground="#e6e6e6"
+                    Text="Unable connect to Internet" />
+            </StackPanel>
+
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Margin" Value="0,58,0,0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                            <Setter Property="Margin" Value="0,65,0,0" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

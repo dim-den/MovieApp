@@ -39,7 +39,7 @@ namespace MovieApp.WPF.Commands
                 RestoreDirectory = true
             };
 
-                if (fileDialog.ShowDialog() == true)
+            if (fileDialog.ShowDialog() == true)
             {
                 string fileName = fileDialog.FileName;
 
@@ -58,7 +58,7 @@ namespace MovieApp.WPF.Commands
                     {
                         _adminPanelViewModel.Film.PosterImageData = image;
                     }
-                    else if(index == 4)
+                    else if (index == 4)
                     {
                         _adminPanelViewModel.Actor.ImageData = image;
                     }

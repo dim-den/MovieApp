@@ -7,3 +7,5 @@ obj/
 /MovieApp.WPF/Views/Settings.xaml
 /MovieApp.WPF/Views/Settings.xaml.cs
 /MovieApp.WPF/ViewModels/SettingsViewModel.cs
+/Setup
+/MovieApp.WPF/Properties/PublishProfiles

@@ -119,7 +119,8 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             MaxWidth="1200"
-            VerticalAlignment="Center">
+            Margin="0 50"
+            VerticalAlignment="Top">
             <StackPanel Orientation="Vertical">
                 <TextBlock
                     Margin="20,10,0,0"
@@ -127,7 +128,7 @@
                     Foreground="{StaticResource BrushPrimary3}"
                     Text="User ratings:" />
 
-                <controls:UserRatings Margin="10" DataContext="{Binding UserRatingsViewModel}" />
+                <controls:UserRatings Margin="10" DataContext="{Binding UserRatingsViewModel}"  />
             </StackPanel>
         </Grid>
     </Grid>

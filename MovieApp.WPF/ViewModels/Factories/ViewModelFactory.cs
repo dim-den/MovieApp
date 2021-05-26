@@ -9,6 +9,7 @@ using MovieApp.EntityFramework;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
+using MovieApp.WPF.ViewModels.Builders;
 
 namespace MovieApp.WPF.ViewModels.Factories
 {
@@ -71,13 +72,11 @@ namespace MovieApp.WPF.ViewModels.Factories
                         return new PasswordRecoveryViewModel(_navigator, _authenticator, _unitOfWork);
 
                     case ViewType.Home:
-                        var filmStore = new Store<Film>(_unitOfWork.FilmRepository);
-                        var actorStore = new Store<Actor>(_unitOfWork.ActorRepository);
-
-                        await filmStore.Load();
-                        await actorStore.Load();
-
-                        return new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
+                        return (await (await (await HomeViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork)
+                                                                        .LoadRandomFilms(5))
+                                                                        .LoadRandomActors(9))
+                                                                        .LoadUpcomingFilms(4))
+                                                                        .Build();
 
                     case ViewType.AdminPanel:
                         return new AdminPanelViewModel(_authenticator, _unitOfWork);
@@ -88,7 +87,7 @@ namespace MovieApp.WPF.ViewModels.Factories
                 }
             }
 
-            throw new ArgumentException("The ViewType does not have a ViewModel.", "viewType");
+            return null;
         }
     }
 }

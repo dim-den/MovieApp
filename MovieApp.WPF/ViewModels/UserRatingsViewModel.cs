@@ -34,7 +34,7 @@ namespace MovieApp.WPF.ViewModels
             }
         }
 
-        public bool HasReviews => UserReviews.Count > 0;
+        public bool HasReviews => UserReviews != null && UserReviews.Count > 0;
 
         public bool CanUserFilterByDate => _fromDate != null && _toDate != null && _fromDate <= _toDate;
 

@@ -13,6 +13,8 @@ namespace MovieApp.Domain.Services
 
         ICollection<T> GetAllSync();
 
+        Task<ICollection<T>> GetRandomEntities(int randomEntitiesCount);
+
         Task<T> Get(int id);
 
         Task<T> Create(T entity);

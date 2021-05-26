@@ -15,10 +15,14 @@ namespace MovieApp.WPF.ViewModels
 {
     public class SearchBarViewModel : ViewModelBase
     {
+        private readonly IUnitOfWork _unitOfWork;
         public ICommand ChangeViewCommand { get;  }
 
-        private readonly ICollection<Film> _allFilms;
-        private readonly ICollection<Actor> _allActors;
+        private ICollection<Film> _allFilms;
+        private ICollection<Actor> _allActors;
+
+        public ICollection<Film> AllFilms => _allFilms ??= _unitOfWork.FilmRepository.GetAllSync();
+        public ICollection<Actor> AllActors => _allActors ??= _unitOfWork.ActorRepository.GetAllSync();
 
         private ObservableCollection<Film> _films;
         private ObservableCollection<Actor> _actors;
@@ -59,17 +63,16 @@ namespace MovieApp.WPF.ViewModels
         {
             Films = string.IsNullOrEmpty(toFind) ?
                 new ObservableCollection<Film>() :
-                new ObservableCollection<Film>(_allFilms
+                new ObservableCollection<Film>(AllFilms
                 .Where(f => f.Title.ToLower().Contains(toFind) ||
                             f.Genre.ToLower().Contains(toFind))
                 .Take(6));
         }
         private void UpdateActorList(string toFind)
         {
-
             Actors = string.IsNullOrEmpty(toFind) ?
                 new ObservableCollection<Actor>() :
-                new ObservableCollection<Actor>(_allActors
+                new ObservableCollection<Actor>(AllActors
                 .Where(a => a.Name.ToLower().Contains(toFind) ||
                             a.Surname.ToLower().Contains(toFind))
                 .Take(4));
@@ -77,8 +80,7 @@ namespace MovieApp.WPF.ViewModels
 
         public SearchBarViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
         {
-            _allFilms = unitOfWork.FilmRepository.GetAllSync();
-            _allActors = unitOfWork.ActorRepository.GetAllSync();
+            _unitOfWork = unitOfWork;
 
             ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
 

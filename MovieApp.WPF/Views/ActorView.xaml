@@ -171,7 +171,8 @@
             Background="{StaticResource BrushPrimary2}"
             BorderBrush="{StaticResource BrushPrimary2}"
             BorderThickness="4"
-            CornerRadius="4">
+            CornerRadius="4"
+            Visibility="{Binding HasFilmCast, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <Border.Effect>
                 <DropShadowEffect
@@ -218,10 +219,10 @@
                     HorizontalContentAlignment="Stretch"
                     AlternationCount="2"
                     Background="{StaticResource BrushPrimary1}"
+                    Cursor="Hand"
                     ItemsSource="{Binding ActorFilmCast}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Style="{x:Null}"
-                    Cursor="Hand">
+                    Style="{x:Null}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -293,7 +294,18 @@
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
+
+
             </Grid>
         </Border>
+
+        <TextBlock
+            Grid.Row="1"
+            Margin="0 30"
+            HorizontalAlignment="Center"
+            FontSize="36"
+            Foreground="{StaticResource BrushPrimary3}"
+            Text="No films found"
+            Visibility="{Binding HasFilmCast, Converter={StaticResource InverseBoolToVisConverter}}" />
     </Grid>
 </UserControl>

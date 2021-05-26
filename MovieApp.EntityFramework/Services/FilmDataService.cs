@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 
@@ -12,6 +13,11 @@ namespace MovieApp.EntityFramework.Services
     {
         public FilmDataService(MovieAppDbContext movieAppDbContext) : base(movieAppDbContext)
         {
+        }
+
+        public async Task<ICollection<Film>> GetUpcomingFilms()
+        {
+            return await DbSet.AsNoTracking().Where(f => f.ReleaseDate > DateTime.Now).OrderBy(d => d.ReleaseDate).ToListAsync();
         }
     }
 }

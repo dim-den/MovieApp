@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.EntityFramework;
 using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.Commands;
@@ -47,8 +48,7 @@ namespace MovieApp.WPF.ViewModels
         public DispatcherTimer Timer => _timer;
         public MovieCarouselViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore)
         {
-            var rnd = new Random();
-            _films = new ObservableCollection<Film>(filmStore.Entities.Where(f => f.ReleaseDate <= DateTime.Now).OrderBy(x => rnd.Next()).Take(5));
+            _films = new ObservableCollection<Film>(filmStore.Entities);
             _timer = new DispatcherTimer();
             CurrentIndex = 0;
 

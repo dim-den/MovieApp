@@ -15,6 +15,11 @@ namespace MovieApp.WPF.State.Stores
         private readonly IGenericDataService<T> _dataService;
         public List<T> Entities { get; set; }
 
+        public Store(ICollection<T> entities)
+        {
+            Entities = new List<T>(entities);
+        }
+
         public Store(IGenericDataService<T> dataService)
         {
             _dataService = dataService;

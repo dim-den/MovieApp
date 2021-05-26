@@ -26,8 +26,6 @@ namespace MovieApp.Domain.Services.ReviewServices
                 {
                     FilmID = film.ID,
                     UserID = user.ID,
-                    Film = film,
-                    User = user,
                     ReviewText = reviewText,
                     Score = score,
                     Date = DateTime.Now
@@ -57,8 +55,6 @@ namespace MovieApp.Domain.Services.ReviewServices
                 {
                     FilmID = film.ID,
                     UserID = user.ID,
-                    Film = film,
-                    User = user,
                     Score = score,
                     Date = DateTime.Now
                 };

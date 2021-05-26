@@ -16,6 +16,7 @@ using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
+using MovieApp.WPF.ViewModels.Builders;
 
 namespace MovieApp.WPF.Commands
 {
@@ -38,14 +39,11 @@ namespace MovieApp.WPF.Commands
             {       
                 await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
-                var unitOfWork = new UnitOfWork();
-                var filmStore = new Store<Film>(unitOfWork.FilmRepository);
-                var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
-
-                await filmStore.Load();
-                await actorStore.Load();
-
-                _navigator.CurrentViewModel = new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
+                _navigator.CurrentViewModel = (await (await (await HomeViewModelBuilder.Init(_navigator, _authenticator, new UnitOfWork())
+                                                                        .LoadRandomFilms(5))
+                                                                        .LoadRandomActors(9))
+                                                                        .LoadUpcomingFilms(4))
+                                                                        .Build();
             }
             catch (UserNotFoundException)
             {

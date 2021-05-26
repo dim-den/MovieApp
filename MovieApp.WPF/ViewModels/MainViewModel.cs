@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,6 +13,7 @@ using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
+using MovieApp.WPF.State.NetworkState;
 using MovieApp.WPF.State.Stores;
 
     namespace MovieApp.WPF.ViewModels
@@ -23,6 +25,7 @@ using MovieApp.WPF.State.Stores;
         private readonly IUnitOfWork _unitOfWork;
 
         public bool IsLoggedIn => _authenticator.IsLoggedIn;
+        public bool IsInternetAvailable => NetworkState.IsInternetAvailable;
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
         public User CurrentUser => _authenticator.CurrentUser;
 
@@ -38,6 +41,7 @@ using MovieApp.WPF.State.Stores;
 
             _navigator.StateChanged += OnCurrentViewModelChanged;
             _authenticator.StateChanged += Authenticator_StateChanged;
+            NetworkState.StateChanged += Network_StateChanged;
         }
 
         private void OnCurrentViewModelChanged()
@@ -47,6 +51,11 @@ using MovieApp.WPF.State.Stores;
         private void Authenticator_StateChanged()
         {
             OnPropertyChanged(nameof(IsLoggedIn));
+        }
+
+        private void Network_StateChanged()
+        {
+            OnPropertyChanged(nameof(IsInternetAvailable));
         }
     }
 }

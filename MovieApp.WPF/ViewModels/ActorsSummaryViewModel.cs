@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.EntityFramework;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;

@@ -38,7 +38,7 @@ namespace MovieApp.WPF.Commands
             }
             else if (user.ConfirmedEmail == false)
             {
-                _passwordRecoveryViewModel.ErrorUsernameMessage = "Can't recover email, because user hasn't confirmed email.";
+                _passwordRecoveryViewModel.ErrorUsernameMessage = "Can't recover password, because user hasn't confirmed email.";
             }
             else
             {

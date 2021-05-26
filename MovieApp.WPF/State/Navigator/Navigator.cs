@@ -11,12 +11,16 @@ namespace MovieApp.WPF.State.Navigator
     {
         public event Action StateChanged;
         private ViewModelBase _currentViewModel;
-        public ViewModelBase CurrentViewModel { 
+        public ViewModelBase CurrentViewModel 
+        { 
             get => _currentViewModel; 
             set
             {
-                _currentViewModel = value;
-                StateChanged?.Invoke();
+                if (value != null)
+                {
+                    _currentViewModel = value;
+                    StateChanged?.Invoke();
+                }
             }
         }       
     }

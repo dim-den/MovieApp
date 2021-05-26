@@ -177,11 +177,11 @@
                     AlternationCount="2"
                     Background="{StaticResource BrushPrimary1}"
                     BorderThickness="0"
+                    Cursor="Hand"
                     Foreground="{StaticResource BrushPrimary2}"
                     ItemsSource="{Binding UserReviews}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    Style="{x:Null}"
-                    Cursor="Hand">
+                    Style="{x:Null}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonUp">

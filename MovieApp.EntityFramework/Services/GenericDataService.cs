@@ -46,7 +46,12 @@ namespace MovieApp.EntityFramework.Services
 
         public async Task<ICollection<T>> GetAll()
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<ICollection<T>> GetRandomEntities(int randomEntitiesCount)
+        {
+            return await DbSet.OrderBy(r => Guid.NewGuid()).Take(randomEntitiesCount).ToListAsync();
         }
 
         public ICollection<T> GetAllSync()

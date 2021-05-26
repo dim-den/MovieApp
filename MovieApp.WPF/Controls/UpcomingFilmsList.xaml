@@ -66,9 +66,9 @@
                                 RadiusX="8"
                                 RadiusY="8">
                                 <Rectangle.Fill>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,8">
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,25">
                                         <GradientStop Offset="0" Color="Transparent" />
-                                        <GradientStop Offset="0.4" Color="Black" />
+                                        <GradientStop Offset="0.27" Color="Black" />
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
@@ -79,7 +79,7 @@
                                 VerticalAlignment="Bottom"
                                 FontSize="20"
                                 FontWeight="Medium"
-                                Foreground="#0e0f30"
+                                Foreground="{StaticResource BrushPrimary2}"
                                 Text="{Binding Title}" />
 
                             <StackPanel
@@ -92,7 +92,7 @@
                                     FontSize="20"
                                     FontStyle="Italic"
                                     FontWeight="Medium"
-                                    Foreground="#0e0f30"
+                                    Foreground="{StaticResource BrushPrimary2}"
                                     Text="{Binding ReleaseDate, Converter={StaticResource DateDayDiffConverter}}" />
 
                                 <TextBlock
@@ -100,7 +100,7 @@
                                     FontSize="20"
                                     FontStyle="Italic"
                                     FontWeight="Medium"
-                                    Foreground="#0e0f30"
+                                    Foreground="{StaticResource BrushPrimary2}"
                                     Text="days" />
                             </StackPanel>
                         </Grid>

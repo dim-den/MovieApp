@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
     <None Remove="Resources\Fonts\Nunito-SemiBold.ttf" />
     <None Remove="Resources\Fonts\Nunito-SemiBoldItalic.ttf" />
     <None Remove="Resources\default-avatar.png" />
-    <None Remove="Resources\icon.png" />
+    <None Remove="Resources\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,7 +84,7 @@
     <Resource Include="Resources\default-avatar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\icon.png">
+    <Resource Include="Resources\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

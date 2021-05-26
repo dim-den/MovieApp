@@ -14,6 +14,7 @@ using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
+using MovieApp.WPF.ViewModels.Builders;
 
 namespace MovieApp.WPF.Commands
 {
@@ -25,7 +26,7 @@ namespace MovieApp.WPF.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return _registerViewModel.CanRegister && base.CanExecute(parameter);    
+            return _registerViewModel.CanRegister && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)
@@ -34,34 +35,29 @@ namespace MovieApp.WPF.Commands
 
             try
             {
-                using (var unitOfWork = new UnitOfWork())
-                {
-                    await _authenticator.Register(
-                           _registerViewModel.Username,
-                           _registerViewModel.Email,
-                           _registerViewModel.Password,
-                           _registerViewModel.ConfirmPassword,
-                           _registerViewModel.Name,
-                           _registerViewModel.Surname);
+                await _authenticator.Register(
+                            _registerViewModel.Username,
+                            _registerViewModel.Email,
+                            _registerViewModel.Password,
+                            _registerViewModel.ConfirmPassword,
+                            _registerViewModel.Name,
+                            _registerViewModel.Surname);
 
-                    var filmStore = new Store<Film>(unitOfWork.FilmRepository);
-                    var actorStore = new Store<Actor>(unitOfWork.ActorRepository);
-
-                    await filmStore.Load();
-                    await actorStore.Load();
-
-                    _navigator.CurrentViewModel = new HomeViewModel(_navigator, _authenticator, filmStore, actorStore);
-                }
+                _navigator.CurrentViewModel = (await (await (await HomeViewModelBuilder.Init(_navigator, _authenticator, new UnitOfWork())
+                                                                        .LoadRandomFilms(5))
+                                                                        .LoadRandomActors(9))
+                                                                        .LoadUpcomingFilms(4))
+                                                                        .Build();
             }
-            catch(PasswordsMismatchException)
+            catch (PasswordsMismatchException)
             {
                 _registerViewModel.ErrorMessage = "Password does not match confirm password.";
             }
-            catch(EmailAlreadyExistsException)
+            catch (EmailAlreadyExistsException)
             {
                 _registerViewModel.ErrorMessage = "An account for this email already exists.";
             }
-            catch(UsernameAlreadyExistsException)
+            catch (UsernameAlreadyExistsException)
             {
                 _registerViewModel.ErrorMessage = "An account for this username already exists.";
             }

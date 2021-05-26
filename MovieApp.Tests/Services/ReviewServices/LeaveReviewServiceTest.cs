@@ -47,10 +47,8 @@ namespace MovieApp.Tests.Services.ReviewServices
             Film film = CreateFilm();
             string reviewText = "test review text";
             int score = 5;
-
             string updatedReviewText = "updated test review text";
             int updatedScore = 8;
-
             FilmReview existingFilmReview = CreateFilmReview(user, film, reviewText, score);
             _mockUnitOfWork.Setup(s => s.FilmReviewRepository.GetUserFilmReview(user.ID, film.ID)).ReturnsAsync(existingFilmReview);
             _mockUnitOfWork.Setup(s => s.FilmReviewRepository.Update(It.IsAny<int>(), existingFilmReview))
@@ -76,16 +74,13 @@ namespace MovieApp.Tests.Services.ReviewServices
             Assert.AreEqual(score, filmReview.Score);
         }
 
-        [Test] //LeaveReview_WithExistingUserReview_ReturnsUpdatedFilmReview
+        [Test] 
         public async Task LeaveScore_WithExistingUserScore_ReturnsUpdatedFilmScore()
         {
-
             User user = CreateUser();
             Film film = CreateFilm();
             int score = 5;
-
             int updatedScore = 8;
-
             FilmReview existingFilmReview = CreateFilmReview(user, film, It.IsAny<string>(), score);
             _mockUnitOfWork.Setup(s => s.FilmReviewRepository.GetUserFilmReview(user.ID, film.ID)).ReturnsAsync(existingFilmReview);
             _mockUnitOfWork.Setup(s => s.FilmReviewRepository.Update(It.IsAny<int>(), existingFilmReview))
@@ -122,6 +117,5 @@ namespace MovieApp.Tests.Services.ReviewServices
                 Score = score
             };
         }
-
     }
 }

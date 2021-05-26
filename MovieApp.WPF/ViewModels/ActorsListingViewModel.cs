@@ -24,7 +24,7 @@ namespace MovieApp.WPF.ViewModels
 
         public ActorsListingViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Actor> actorStore)
         {
-            _actors = new ObservableCollection<Actor>(actorStore.Entities.Take(9));
+            _actors = new ObservableCollection<Actor>(actorStore.Entities);
 
             ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }

@@ -22,7 +22,7 @@ namespace MovieApp.WPF.ViewModels
 
         public UpcomingFilmsListViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore)
         {
-            UpcomingFilms = new ObservableCollection<Film>(filmStore.Entities.Where(f => f.ReleaseDate > DateTime.Now).Take(4).OrderBy(d => d.ReleaseDate));
+            UpcomingFilms = new ObservableCollection<Film>(filmStore.Entities);
 
             ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }

@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using MovieApp.WPF.State.NetworkState;
 
 namespace MovieApp.WPF.Commands
 {
     public abstract class AsyncCommandBase : ICommand
     {
         private bool _isExecuting;
+
+        protected AsyncCommandBase()
+        {
+
+            NetworkState.StateChanged += OnCanExecuteChanged;
+        }
+
         public bool IsExecuting
         {
             get
@@ -27,8 +36,9 @@ namespace MovieApp.WPF.Commands
 
         public virtual bool CanExecute(object parameter)
         {
-            return !IsExecuting;
+            return !IsExecuting && ( MovieApp.EntityFramework.MovieAppDbContext.REMOTE_MODE ? NetworkState.IsInternetAvailable : true);
         }
+
 
         public async void Execute(object parameter)
         {
@@ -43,7 +53,7 @@ namespace MovieApp.WPF.Commands
 
         protected void OnCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
+            Application.Current.Dispatcher.Invoke(new Action(() => CanExecuteChanged?.Invoke(this, new EventArgs())));
         }
     }
 }

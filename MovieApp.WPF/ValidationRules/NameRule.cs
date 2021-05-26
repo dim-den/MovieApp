@@ -22,7 +22,7 @@ namespace MovieApp.WPF.ValidationRules
 
             Match match = regexForEmail.Match(name);
             if (!match.Success)
-                return new ValidationResult(false, "wrong field, size [2;64] letters)");
+                return new ValidationResult(false, "wrong field, size [2;64] letters");
 
             return ValidationResult.ValidResult;
         }
