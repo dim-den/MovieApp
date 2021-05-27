@@ -24,7 +24,7 @@
                 Margin="20,0"
                 FontSize="30"
                 Foreground="{StaticResource BrushPrimary1}"
-                Text="Upcoming films:" />
+                Text="{DynamicResource UpcomingFilmsList.UpcomingFilms}" />
 
             <Border.Effect>
                 <DropShadowEffect
@@ -101,7 +101,7 @@
                                     FontStyle="Italic"
                                     FontWeight="Medium"
                                     Foreground="{StaticResource BrushPrimary2}"
-                                    Text="days" />
+                                    Text="{DynamicResource UpcomingFilmsList.Days}" />
                             </StackPanel>
                         </Grid>
                     </DataTemplate>

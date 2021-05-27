@@ -29,13 +29,13 @@
                 FontSize="24"
                 FontWeight="Medium"
                 Foreground="{StaticResource BrushPrimary1}"
-                Text="Popular actors" />
+                Text="{DynamicResource ActorListing.PopularActors}" />
 
             <ListBox
                 x:Name="actorsLB"
                 Margin="0,5"
-                ItemsSource="{Binding Actors}"
                 Cursor="Hand"
+                ItemsSource="{Binding Actors}"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
                 <i:Interaction.Triggers>

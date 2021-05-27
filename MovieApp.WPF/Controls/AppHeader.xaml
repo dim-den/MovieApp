@@ -69,24 +69,24 @@
                 <MenuItem
                     Command="{Binding ChangeViewCommand}"
                     CommandParameter="{Binding CurrentUser}"
-                    Header="Profile" />
+                    Header="{DynamicResource AppHeader.Profile}" />
 
                 <MenuItem
                     Command="{Binding ChangeViewCommand}"
                     CommandParameter="{x:Static viewTypes:ViewType.AdminPanel}"
-                    Header="Admin panel"
+                    Header="{DynamicResource AppHeader.AdminPanel}"
                     Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                 <MenuItem
                     Command="{Binding ChangeViewCommand}"
                     CommandParameter="{x:Static viewTypes:ViewType.Settings}"
-                    Header="Settings"
+                    Header="{DynamicResource AppHeader.Settings}"
                     Icon="{materialDesign:PackIcon Kind=Settings}" />
 
                 <MenuItem
                     Command="{Binding SignOutCommand}"
                     CommandParameter="{x:Static viewTypes:ViewType.Login}"
-                    Header="Sign out"
+                    Header="{DynamicResource AppHeader.SignOut}"
                     Icon="{materialDesign:PackIcon Kind=SignOut}" />
 
                 <MenuItem.Header>

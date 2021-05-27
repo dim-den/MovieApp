@@ -19,5 +19,10 @@ namespace MovieApp.EntityFramework.Services
         {
             return await DbSet.AsNoTracking().Where(f => f.ReleaseDate > DateTime.Now).OrderBy(d => d.ReleaseDate).ToListAsync();
         }
+
+        public async Task<ICollection<Film>> GetRandomReleasedFilms(int randomEntitiesCount)
+        {
+            return await DbSet.AsNoTracking().Where(f => f.ReleaseDate <= DateTime.Now).OrderBy(r => Guid.NewGuid()).Take(randomEntitiesCount).ToListAsync();
+        }
     }
 }

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieApp.WPF", "MovieApp.WP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieApp.Tests", "MovieApp.Tests\MovieApp.Tests.csproj", "{C70E24FA-2EE7-409F-959B-40C5FC00417C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{E19AAB9F-A2C6-451B-9238-95FC05E9EB60}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{4992BB8D-EC8A-4BA7-BC1C-481C5E0CD1B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +39,8 @@ Global
 		{C70E24FA-2EE7-409F-959B-40C5FC00417C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C70E24FA-2EE7-409F-959B-40C5FC00417C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C70E24FA-2EE7-409F-959B-40C5FC00417C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E19AAB9F-A2C6-451B-9238-95FC05E9EB60}.Debug|Any CPU.ActiveCfg = Debug
-		{E19AAB9F-A2C6-451B-9238-95FC05E9EB60}.Release|Any CPU.ActiveCfg = Release
+		{4992BB8D-EC8A-4BA7-BC1C-481C5E0CD1B6}.Debug|Any CPU.ActiveCfg = Debug
+		{4992BB8D-EC8A-4BA7-BC1C-481C5E0CD1B6}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

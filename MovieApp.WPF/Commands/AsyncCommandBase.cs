@@ -15,7 +15,6 @@ namespace MovieApp.WPF.Commands
 
         protected AsyncCommandBase()
         {
-
             NetworkState.StateChanged += OnCanExecuteChanged;
         }
 

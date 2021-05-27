@@ -24,6 +24,8 @@
     <None Remove="Resources\Fonts\Nunito-SemiBoldItalic.ttf" />
     <None Remove="Resources\default-avatar.png" />
     <None Remove="Resources\icon.ico" />
+    <None Remove="Resources\ru.png" />
+    <None Remove="Resources\usa.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,6 +87,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ru.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\usa.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -13,6 +13,9 @@
     <Compile Update="Controls\AppHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\AppLanguagePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\EmailConfirmPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +75,9 @@
     <Page Update="Controls\AppHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\AppLanguagePanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\EmailConfirmPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -91,6 +97,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\UserReviewsPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Localization\lang.ru-RU.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Common.xaml">

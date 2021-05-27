@@ -23,13 +23,13 @@
                 ShadowDepth="3"
                 Color="Black" />
         </Border.Effect>
-        
+
         <StackPanel Margin="30,20">
             <TextBlock
                 FontSize="24"
                 FontWeight="Medium"
                 Foreground="{StaticResource BrushPrimary2}"
-                Text="Email verification" />
+                Text="{DynamicResource EmailConfirmPanel.EmailVerification}" />
             <WrapPanel Orientation="Horizontal" Visibility="{Binding UserConfirmedEmail, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <materialDesign:PackIcon
                     Width="60"
@@ -43,7 +43,7 @@
                     FontStyle="Italic"
                     Foreground="Green"
                     TextWrapping="WrapWithOverflow">
-                    You already confirmed your email <Run FontWeight="Medium" Text="{Binding CurrentUser.Email}" />
+                    <Run Text="{DynamicResource EmailConfirmPanel.AlreadyConfirmed}" /> <Run FontWeight="Medium" Text="{Binding CurrentUser.Email}" />
                 </TextBlock>
             </WrapPanel>
 
@@ -64,7 +64,7 @@
                         FontSize="20"
                         FontStyle="Italic"
                         Foreground="Red"
-                        Text="You will not be able to recover your password using your email"
+                        Text="{DynamicResource EmailConfirmPanel.NotConfirmed}"
                         TextWrapping="WrapWithOverflow" />
                 </WrapPanel>
 
@@ -77,7 +77,7 @@
                     BorderBrush="{StaticResource BrushPrimary3}"
                     BorderThickness="2"
                     Command="{Binding SendEmailConfirmCodeCommand}"
-                    Content="Confirm my email"
+                    Content="{DynamicResource EmailConfirmPanel.ConfirmEmail}"
                     Foreground="{StaticResource BrushPrimary3}">
                     <RadioButton.Style>
                         <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="RadioButton">
@@ -102,12 +102,12 @@
                 <StackPanel Orientation="Vertical" Visibility="{Binding ElementName=confirmPasswordButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Separator Margin="0,20,0,20" Background="{StaticResource BrushPrimary2}" />
                     <TextBlock FontSize="18" Foreground="{StaticResource BrushPrimary2}">
-                        Print here your verification code, that was sent to your email <Run FontWeight="Medium" Text="{Binding CurrentUser.Email}" />
+                        <Run Text="{DynamicResource EmailConfirmPanel.PrintVerificationCode}" /> <Run FontWeight="Medium" Text="{Binding CurrentUser.Email}" />
                         :</TextBlock>
                     <TextBox
                         Width="150"
                         HorizontalAlignment="Left"
-                        materialDesign:HintAssist.Hint="verification code"
+                        materialDesign:HintAssist.Hint="{DynamicResource EmailConfirmPanel.VerificationCode}"
                         FontSize="18"
                         Foreground="{StaticResource BrushPrimary2}"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"

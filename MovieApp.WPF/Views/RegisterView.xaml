@@ -35,7 +35,7 @@
                         VerticalAlignment="Top"
                         FontSize="24"
                         Foreground="Gray"
-                        Text="Registration" />
+                        Text="{DynamicResource RegisterView.Registration}" />
 
                     <StackPanel
                         Margin="15,30,15,0"
@@ -46,7 +46,7 @@
                             x:Name="username"
                             Width="350"
                             Margin="0,5,0,0"
-                            materialDesign:HintAssist.Hint="username"
+                            materialDesign:HintAssist.Hint="{DynamicResource RegisterView.Username}"
                             FontSize="18"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -62,7 +62,7 @@
                             x:Name="email"
                             Width="350"
                             Margin="0,10,0,0"
-                            materialDesign:HintAssist.Hint="email"
+                            materialDesign:HintAssist.Hint="{DynamicResource RegisterView.Email}"
                             FontSize="18"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -78,7 +78,7 @@
                             x:Name="name"
                             Width="350"
                             Margin="0,10,0,0"
-                            materialDesign:HintAssist.Hint="name"
+                            materialDesign:HintAssist.Hint="{DynamicResource RegisterView.Name}"
                             FontSize="18"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -94,7 +94,7 @@
                             x:Name="surname"
                             Width="350"
                             Margin="0,10,0,0"
-                            materialDesign:HintAssist.Hint="surname"
+                            materialDesign:HintAssist.Hint="{DynamicResource RegisterView.Surname}"
                             FontSize="18"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
@@ -110,7 +110,7 @@
                             x:Name="password"
                             Width="350"
                             Margin="0,30,0,0"
-                            materialDesign:HintAssist.Hint="password"
+                            materialDesign:HintAssist.Hint="{DynamicResource RegisterView.Password}"
                             FontSize="18"
                             Validation.ErrorTemplate="{StaticResource errorValidationTemplate}">
                             <components:BindablePasswordBox.Password>
@@ -126,7 +126,7 @@
                             x:Name="confirmPassword"
                             Width="350"
                             Margin="0,30,0,0"
-                            materialDesign:HintAssist.Hint="confirm password"
+                            materialDesign:HintAssist.Hint="{DynamicResource RegisterView.ConfirmPassword}"
                             FontSize="18"
                             Validation.ErrorTemplate="{StaticResource errorValidationTemplate}">
                             <components:BindablePasswordBox.Password>
@@ -148,14 +148,14 @@
                             Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button
-                            Width="150"
+                            Width="200"
                             Margin="0,20,0,0"
                             HorizontalAlignment="Center"
                             VerticalContentAlignment="Center"
                             Background="{StaticResource BrushPrimary2}"
                             BorderThickness="0"
                             Command="{Binding RegisterCommand}"
-                            Content="Register"
+                            Content="{DynamicResource RegisterView.Register}"
                             FontSize="18">
                             <Button.Style>
                                 <Style BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}" TargetType="Button">
@@ -183,7 +183,7 @@
                             BorderThickness="0"
                             Command="{Binding ChangeViewCommand}"
                             CommandParameter="{x:Static viewTypes:ViewType.Login}"
-                            Content="Already have an account?"
+                            Content="{DynamicResource RegisterView.HaveAccount}"
                             Foreground="{StaticResource BrushPrimary4}"
                             Style="{StaticResource MaterialDesignOutlinedButton}" />
                     </StackPanel>

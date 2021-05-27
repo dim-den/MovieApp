@@ -100,13 +100,13 @@
                     <Run Text="{Binding User.Name}" /> <Run Text="{Binding User.Surname}" />
                 </TextBlock>
                 <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
-                    Films watched: <Run
+                    <Run Text="{DynamicResource ProfileView.FilmsWatched}" /> <Run
                         FontStyle="Italic"
                         FontWeight="Medium"
                         Text="{Binding FilmsWatched, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock FontSize="28" Foreground="{StaticResource BrushPrimary1}">
-                    Average score: <Run
+                    <Run Text="{DynamicResource ProfileView.AvgScore}" /> <Run
                         FontStyle="Italic"
                         FontWeight="Medium"
                         Text="{Binding AvgScore, StringFormat={}{0:N2}, Mode=OneWay}" />
@@ -119,16 +119,16 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             MaxWidth="1200"
-            Margin="0 50"
+            Margin="0,50"
             VerticalAlignment="Top">
             <StackPanel Orientation="Vertical">
                 <TextBlock
                     Margin="20,10,0,0"
                     FontSize="32"
                     Foreground="{StaticResource BrushPrimary3}"
-                    Text="User ratings:" />
+                    Text="{DynamicResource UserRatings.UserRatings}" />
 
-                <controls:UserRatings Margin="10" DataContext="{Binding UserRatingsViewModel}"  />
+                <controls:UserRatings Margin="10" DataContext="{Binding UserRatingsViewModel}" />
             </StackPanel>
         </Grid>
     </Grid>

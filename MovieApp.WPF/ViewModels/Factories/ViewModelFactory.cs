@@ -25,9 +25,9 @@ namespace MovieApp.WPF.ViewModels.Factories
             _unitOfWork = new UnitOfWork();
         }
 
-        public async Task<ViewModelBase> CreateViewModel(object viewType)
+        public async Task<ViewModelBase> CreateViewModel(object parameter)
         {
-            if (viewType is Film film)
+            if (parameter is Film film)
             {
                 return (await (await (await FilmViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, film)
                                                                 .LoadFilmCast())
@@ -35,21 +35,21 @@ namespace MovieApp.WPF.ViewModels.Factories
                                                                 .LoadCurrentUserFilmReview())
                                                                 .Build();
             }
-            else if (viewType is Actor actor)
+            else if (parameter is Actor actor)
             {
                 return (await ActorViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, actor)
                                                    .LoadFilmCast())
                                                    .Build();
             }
-            else if (viewType is User user)
+            else if (parameter is User user)
             {
                 return (await ProfileViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, user)
                                                      .LoadUserFilmReviews())
                                                      .Build();
             }
-            else if (viewType is ViewType type)
+            else if (parameter is ViewType viewType)
             {
-                switch (type)
+                switch (viewType)
                 {
                     case ViewType.Login:
                         return new LoginViewModel(_navigator, _authenticator);
@@ -72,7 +72,6 @@ namespace MovieApp.WPF.ViewModels.Factories
 
                     case ViewType.Settings:
                         return new SettingsViewModel(_navigator, _authenticator, _unitOfWork);
-
                 }
             }
 

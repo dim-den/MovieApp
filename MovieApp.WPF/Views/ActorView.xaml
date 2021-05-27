@@ -110,13 +110,13 @@
                     FontSize="28"
                     FontWeight="Medium"
                     Foreground="{StaticResource BrushPrimary3}"
-                    Text="About actor" />
+                    Text="{DynamicResource ActorView.AboutActor}" />
 
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
                     Style="{StaticResource left}"
-                    Text="Country" />
+                    Text="{DynamicResource ActorView.Country}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
@@ -128,7 +128,7 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     Style="{StaticResource left}"
-                    Text="Birthday" />
+                    Text="{DynamicResource ActorView.Birthday}" />
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="1"
@@ -140,7 +140,7 @@
                     Grid.Row="4"
                     Grid.Column="0"
                     Style="{StaticResource left}"
-                    Text="Total movies" />
+                    Text="{DynamicResource ActorView.TotalMovies}" />
                 <TextBlock
                     Grid.Row="4"
                     Grid.Column="1"
@@ -152,7 +152,7 @@
                     Grid.Row="5"
                     Grid.Column="0"
                     Style="{StaticResource left}"
-                    Text="Filming time" />
+                    Text="{DynamicResource ActorView.FilmingTime}" />
                 <TextBlock
                     Grid.Row="5"
                     Grid.Column="1"
@@ -208,9 +208,9 @@
                         <ColumnDefinition Width="1.5*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="Year" />
-                    <TextBlock Grid.Column="1" Text="Title" />
-                    <TextBlock Grid.Column="2" Text="Role" />
+                    <TextBlock Grid.Column="0" Text="{DynamicResource ActorView.Year}" />
+                    <TextBlock Grid.Column="1" Text="{DynamicResource ActorView.Title}" />
+                    <TextBlock Grid.Column="2" Text="{DynamicResource ActorView.Role}" />
                 </Grid>
 
                 <ListBox
@@ -294,18 +294,16 @@
                         </Style>
                     </ListBox.Resources>
                 </ListBox>
-
-
             </Grid>
         </Border>
 
         <TextBlock
             Grid.Row="1"
-            Margin="0 30"
+            Margin="0,30"
             HorizontalAlignment="Center"
             FontSize="36"
             Foreground="{StaticResource BrushPrimary3}"
-            Text="No films found"
+            Text="{DynamicResource ActorView.NoFound}"
             Visibility="{Binding HasFilmCast, Converter={StaticResource InverseBoolToVisConverter}}" />
     </Grid>
 </UserControl>

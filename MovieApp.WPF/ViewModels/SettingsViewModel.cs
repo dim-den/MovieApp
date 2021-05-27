@@ -15,9 +15,11 @@ namespace MovieApp.WPF.ViewModels
     public class SettingsViewModel : ViewModelBase
     {
         public ICommand ChangeImageCommand { get; set; }
+  
 
         public PasswordChangePanelViewModel PasswordChangePanelViewModel { get; }
         public EmailConfirmPanelViewModel EmailConfirmPanelViewModel { get; }
+        public AppLanguagePanelViewModel AppLanguagePanelViewModel { get; }
 
         private readonly IAuthenticator _authentificator;      
 
@@ -26,11 +28,12 @@ namespace MovieApp.WPF.ViewModels
         public SettingsViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
         {
             _authentificator = authentificator;
-          
+
             ChangeImageCommand = new ChangeImageCommand(_authentificator, unitOfWork);
 
             PasswordChangePanelViewModel = new PasswordChangePanelViewModel(_authentificator);
             EmailConfirmPanelViewModel = new EmailConfirmPanelViewModel(_authentificator, unitOfWork);
+            AppLanguagePanelViewModel = new AppLanguagePanelViewModel();
 
             _authentificator.StateChanged += Authenticator_StateChanged;
         }

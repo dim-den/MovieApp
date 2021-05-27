@@ -19,16 +19,17 @@
             FontSize="32"
             FontWeight="Medium"
             Foreground="{StaticResource BrushPrimary3}">
-            Film reviews (<Run Text="{Binding Reviews.Count, Mode=OneWay}" />):</TextBlock>
+            <Run Text="{DynamicResource UserReviewsPanel.FilmReviews}" />
+            (<Run Text="{Binding Reviews.Count, Mode=OneWay}" />):</TextBlock>
         <RadioButton
             x:Name="writeReviewButton"
-            Width="200"
+            Width="280"
             Height="40"
             Margin="0,20"
             HorizontalAlignment="Left"
             Background="{StaticResource BrushPrimary2}"
             BorderBrush="{StaticResource BrushPrimary2}"
-            Content="Add review"
+            Content="{DynamicResource UserReviewsPanel.AddReview}"
             FontSize="24"
             FontWeight="Medium"
             Foreground="{StaticResource BackgroundBrush2}"
@@ -50,7 +51,7 @@
                         VerticalAlignment="Bottom"
                         FontSize="20"
                         Foreground="{StaticResource BrushPrimary3}"
-                        Text="Film score: " />
+                        Text="{DynamicResource UserReviewsPanel.FilmScore}" />
 
                     <Slider
                         x:Name="slider"
@@ -74,7 +75,7 @@
                     MaxHeight="300"
                     Margin="10"
                     materialDesign:HintAssist.Background="{StaticResource BrushPrimary1}"
-                    materialDesign:HintAssist.Hint="Text"
+                    materialDesign:HintAssist.Hint="{DynamicResource UserReviewsPanel.Text}"
                     AcceptsReturn="True"
                     FontSize="16"
                     FontWeight="Thin"
@@ -95,7 +96,7 @@
                     BorderThickness="0"
                     Command="{Binding PublishReviewCommand}"
                     CommandParameter="{Binding ElementName=slider, Path=Value}"
-                    Content="Publish review"
+                    Content="{DynamicResource UserReviewsPanel.PublishReview}"
                     FontSize="20"
                     Foreground="{StaticResource BrushPrimary1}" />
             </StackPanel>
@@ -204,7 +205,7 @@
                                         HorizontalAlignment="Right"
                                         FontSize="24"
                                         Foreground="{StaticResource BrushPrimary3}">
-                                        User score: <Run Text="{Binding Score}" />
+                                        <Run Text="{DynamicResource UserReviewsPanel.UserScore}"/> <Run Text="{Binding Score}" />
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>

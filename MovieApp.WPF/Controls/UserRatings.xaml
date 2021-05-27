@@ -34,22 +34,22 @@
             </Grid.Resources>
             <StackPanel Orientation="Vertical">
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Sort by:" />
+                    <TextBlock Text="{DynamicResource UserRatings.SortBy}" />
                     <Button
                         Command="{Binding FilterReviewsCommand}"
                         CommandParameter="{x:Static filterTypes:FilterReviewType.SortByDate}"
-                        Content="date" />
+                        Content="{DynamicResource UserRatings.Date}" />
                     <Button
                         Command="{Binding FilterReviewsCommand}"
                         CommandParameter="{x:Static filterTypes:FilterReviewType.SortByTitle}"
-                        Content="title name" />
+                        Content="{DynamicResource UserRatings.TitleName}" />
                     <Button
                         Command="{Binding FilterReviewsCommand}"
                         CommandParameter="{x:Static filterTypes:FilterReviewType.SortByScore}"
-                        Content="score" />
+                        Content="{DynamicResource UserRatings.Score}" />
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Score:" />
+                    <TextBlock Text="{DynamicResource UserRatings.Score:}" />
                     <Button
                         Command="{Binding FilterReviewsCommand}"
                         CommandParameter="{x:Static filterTypes:FilterReviewType.ScoreOne}"
@@ -93,16 +93,16 @@
                     <Button
                         Command="{Binding FilterReviewsCommand}"
                         CommandParameter="{x:Static filterTypes:FilterReviewType.SelectAll}"
-                        Content="All" />
+                        Content="{DynamicResource UserRatings.All}" />
                 </WrapPanel>
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Date from:" />
+                    <TextBlock Text="{DynamicResource UserRatings.DateFrom}" />
                     <DatePicker
                         Margin="5"
                         Padding="5"
                         SelectedDate="{Binding FromDate, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignDatePicker}" />
-                    <TextBlock Text=", to:" />
+                    <TextBlock Text="{DynamicResource UserRatings.To}" />
                     <DatePicker
                         Margin="5"
                         Padding="5"
@@ -111,7 +111,7 @@
                     <Button
                         Command="{Binding FilterReviewsCommand}"
                         CommandParameter="{x:Static filterTypes:FilterReviewType.DateBetween}"
-                        Content="select"
+                        Content="{DynamicResource UserRatings.Select}"
                         IsEnabled="{Binding CanUserFilterByDate}" />
                 </WrapPanel>
             </StackPanel>
@@ -141,7 +141,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="70" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.Resources>
@@ -156,18 +156,18 @@
                     <TextBlock
                         Grid.Column="0"
                         Style="{StaticResource headerTextBox}"
-                        Text="Title:" />
+                        Text="{DynamicResource UserRatings.Title}" />
 
                     <TextBlock
                         Grid.Column="1"
                         Style="{StaticResource headerTextBox}"
-                        Text="Date:" />
+                        Text="{DynamicResource UserRatings.DateUpper}" />
 
                     <TextBlock
                         Grid.Column="2"
                         HorizontalAlignment="Left"
                         Style="{StaticResource headerTextBox}"
-                        Text="Score:" />
+                        Text="{DynamicResource UserRatings.ScoreUpper}" />
                 </Grid>
 
                 <ListBox
@@ -195,7 +195,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="200" />
-                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="70" />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid Grid.Column="0" Margin="10">
@@ -255,7 +255,7 @@
             HorizontalAlignment="Center"
             FontSize="24"
             Foreground="{StaticResource BrushPrimary3}"
-            Text="No reviews found"
+            Text="{DynamicResource UserRatings.NoReviews}"
             Visibility="{Binding HasReviews, Converter={StaticResource InverseBoolToVisConverter}}" />
     </Grid>
 </UserControl>

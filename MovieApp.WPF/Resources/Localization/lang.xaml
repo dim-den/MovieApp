@@ -1,0 +1,131 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:v="clr-namespace:System;assembly=mscorlib">
+
+    <v:String x:Key="LoginView.Login">Login</v:String>
+    <v:String x:Key="LoginView.Username">username</v:String>
+    <v:String x:Key="LoginView.Password">password</v:String>
+    <v:String x:Key="LoginView.Register">Don't have an account?</v:String>
+    <v:String x:Key="LoginView.ForgotPass">Forgot your password?</v:String>
+
+    <v:String x:Key="RegisterView.Registration">Registration</v:String>
+    <v:String x:Key="RegisterView.Username">username</v:String>
+    <v:String x:Key="RegisterView.Email">email</v:String>
+    <v:String x:Key="RegisterView.Name">name</v:String>
+    <v:String x:Key="RegisterView.Surname">surname</v:String>
+    <v:String x:Key="RegisterView.Password">password</v:String>
+    <v:String x:Key="RegisterView.ConfirmPassword">confirm password</v:String>
+    <v:String x:Key="RegisterView.Register">Register</v:String>
+    <v:String x:Key="RegisterView.HaveAccount">Already have an account?</v:String>
+
+    <v:String x:Key="PasswordRecoveryView.PasswordRecovery">Password recovery</v:String>
+    <v:String x:Key="PasswordRecoveryView.YourUsername">Your username:</v:String>
+    <v:String x:Key="PasswordRecoveryView.Username">username</v:String>
+    <v:String x:Key="PasswordRecoveryView.Next">Next</v:String>
+    <v:String x:Key="PasswordRecoveryView.PrintCodeSentToEmail">Print verification code, that was sent to your email:</v:String>
+    <v:String x:Key="PasswordRecoveryView.VerificationCode">verification code</v:String>
+    <v:String x:Key="PasswordRecoveryView.CreateNewPass">Create new password:</v:String>
+    <v:String x:Key="PasswordRecoveryView.Password">password</v:String>
+    <v:String x:Key="PasswordRecoveryView.ConfirmPassword">confirm password</v:String>
+    <v:String x:Key="PasswordRecoveryView.Apply">Apply</v:String>
+    <v:String x:Key="PasswordRecoveryView.PassChanged">Your password was successfully changed!</v:String>
+    <v:String x:Key="PasswordRecoveryView.BackToLogin">Back to login</v:String>
+
+    <v:String x:Key="AppHeader.Profile">Profile</v:String>
+    <v:String x:Key="AppHeader.AdminPanel">Admin panel</v:String>
+    <v:String x:Key="AppHeader.Settings">Settings</v:String>
+    <v:String x:Key="AppHeader.SignOut">Sign out</v:String>
+
+    <v:String x:Key="SearchBar.Hint">a film/actor to find</v:String>
+
+    <v:String x:Key="ActorListing.PopularActors">Popular actors</v:String>
+
+    <v:String x:Key="UpcomingFilmsList.UpcomingFilms">Upcoming films:</v:String>
+    <v:String x:Key="UpcomingFilmsList.Days">days</v:String>
+
+    <v:String x:Key="ProfileView.FilmsWatched">Films watched:</v:String>
+    <v:String x:Key="ProfileView.AvgScore">Average score:</v:String>
+
+    <v:String x:Key="UserRatings.UserRatings">User ratings:</v:String>
+    <v:String x:Key="UserRatings.SortBy">Sort by:</v:String>
+    <v:String x:Key="UserRatings.Date">date</v:String>
+    <v:String x:Key="UserRatings.TitleName">title name</v:String>
+    <v:String x:Key="UserRatings.Score">score</v:String>
+    <v:String x:Key="UserRatings.Score:">Score:</v:String>
+    <v:String x:Key="UserRatings.All">all</v:String>
+    <v:String x:Key="UserRatings.DateFrom">Date from:</v:String>
+    <v:String x:Key="UserRatings.To">, to:</v:String>
+    <v:String x:Key="UserRatings.Select">select</v:String>
+    <v:String x:Key="UserRatings.Title">Title</v:String>
+    <v:String x:Key="UserRatings.DateUpper">Date</v:String>
+    <v:String x:Key="UserRatings.ScoreUpper">Score</v:String>
+    <v:String x:Key="UserRatings.NoReviews">No reviews found</v:String>
+
+    <v:String x:Key="SettingsView.Edit">Edit</v:String>
+
+    <v:String x:Key="EmailConfirmPanel.EmailVerification">Email verification</v:String>
+    <v:String x:Key="EmailConfirmPanel.AlreadyConfirmed">You already confirmed your email</v:String>
+    <v:String x:Key="EmailConfirmPanel.NotConfirmed">You will not be able to recover your password using your email</v:String>
+    <v:String x:Key="EmailConfirmPanel.ConfirmEmail">Confirm my email</v:String>
+    <v:String x:Key="EmailConfirmPanel.PrintVerificationCode">Print here your verification code, that was sent to your email</v:String>
+    <v:String x:Key="EmailConfirmPanel.VerificationCode">verification code</v:String>
+
+    <v:String x:Key="PasswordChangePanel.Password">Password</v:String>
+    <v:String x:Key="PasswordChangePanel.ChangePassword">Change password</v:String>
+    <v:String x:Key="PasswordChangePanel.OldPassword">Old password:</v:String>
+    <v:String x:Key="PasswordChangePanel.NewPassword">New password:</v:String>
+    <v:String x:Key="PasswordChangePanel.ConfirmPassword">Confirm password:</v:String>
+    <v:String x:Key="PasswordChangePanel.Change">Change</v:String>
+
+    <v:String x:Key="AdminPanelView.DeleteEntity">Delete entity with ID:</v:String>
+    <v:String x:Key="AdminPanelView.Delete">Delete</v:String>
+    <v:String x:Key="AdminPanelView.UpdateEntity">Update entity with ID:</v:String>
+    <v:String x:Key="AdminPanelView.Update">Update</v:String>
+    <v:String x:Key="AdminPanelView.UpdateInsertEntity">Entity to update / insert values:</v:String>
+    <v:String x:Key="AdminPanelView.Add">Add</v:String>
+    <v:String x:Key="AdminPanelView.Users">Users</v:String>
+    <v:String x:Key="AdminPanelView.FilmReviews">Film reviews</v:String>
+    <v:String x:Key="AdminPanelView.Films">Films</v:String>
+    <v:String x:Key="AdminPanelView.Casts">Casts</v:String>
+    <v:String x:Key="AdminPanelView.Actors">Actors</v:String>
+
+    <v:String x:Key="FilmView.Scores">scores</v:String>
+    <v:String x:Key="FilmView.AboutFilm">About film</v:String>
+    <v:String x:Key="FilmView.ReleaseDate">Release date</v:String>
+    <v:String x:Key="FilmView.Country">Country</v:String>
+    <v:String x:Key="FilmView.Genre">Genre</v:String>
+    <v:String x:Key="FilmView.Director">Director</v:String>
+    <v:String x:Key="FilmView.Budget">Budget</v:String>
+    <v:String x:Key="FilmView.Fees">Fees</v:String>
+    <v:String x:Key="FilmView.FilmCast">Film cast</v:String>
+    <v:String x:Key="FilmView.Actor">Actor</v:String>
+    <v:String x:Key="FilmView.FilmRole">Film role</v:String>
+    <v:String x:Key="FilmView.RoleType">Role type</v:String>
+
+    <v:String x:Key="RateFilmPanel.FilmRating">Film rating</v:String>
+    <v:String x:Key="RateFilmPanel.Scores">scores</v:String>
+    <v:String x:Key="RateFilmPanel.YourScore">Your score:</v:String>
+
+    <v:String x:Key="UserReviewsPanel.FilmReviews">Film reviews</v:String>
+    <v:String x:Key="UserReviewsPanel.AddReview">Add review</v:String>
+    <v:String x:Key="UserReviewsPanel.FilmScore">Film score:</v:String>
+    <v:String x:Key="UserReviewsPanel.Text">Text</v:String>
+    <v:String x:Key="UserReviewsPanel.PublishReview">Publish review</v:String>
+    <v:String x:Key="UserReviewsPanel.UserScore">User score:</v:String>
+
+    <v:String x:Key="ActorView.AboutActor">About actor</v:String>
+    <v:String x:Key="ActorView.Country">Country</v:String>
+    <v:String x:Key="ActorView.Birthday">Birthday</v:String>
+    <v:String x:Key="ActorView.TotalMovies">Total movies</v:String>
+    <v:String x:Key="ActorView.FilmingTime">Filming time</v:String>
+    <v:String x:Key="ActorView.Year">Year</v:String>
+    <v:String x:Key="ActorView.Title">Title</v:String>
+    <v:String x:Key="ActorView.Role">Role</v:String>
+    <v:String x:Key="ActorView.NoFound">No films found</v:String>
+
+        <v:String x:Key="AppLanguagePanel.Language">Language</v:String>
+        <v:String x:Key="AppLanguagePanel.Russian">Russian</v:String>
+        <v:String x:Key="AppLanguagePanel.English">English</v:String>
+
+</ResourceDictionary>

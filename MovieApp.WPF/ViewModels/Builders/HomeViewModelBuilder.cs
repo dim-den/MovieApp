@@ -35,7 +35,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
         public async Task<HomeViewModelBuilder> LoadRandomFilms(int count)
         {
-            _randomFilms = new Store<Film>(await _unitOfWork.FilmRepository.GetRandomEntities(count));
+            _randomFilms = new Store<Film>(await _unitOfWork.FilmRepository.GetRandomReleasedFilms(count));
 
             return this;
         }

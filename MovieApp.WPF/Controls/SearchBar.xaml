@@ -46,7 +46,7 @@
                     MinWidth="200"
                     Margin="8,0,0,0"
                     VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="a film/actor to find"
+                    materialDesign:HintAssist.Hint="{DynamicResource SearchBar.Hint}"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
                     FontSize="16"

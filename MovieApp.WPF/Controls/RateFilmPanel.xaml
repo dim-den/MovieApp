@@ -30,7 +30,7 @@
             Margin="20,5,0,10"
             FontSize="32"
             Foreground="White"
-            Text="Film rating" />
+            Text="{DynamicResource RateFilmPanel.FilmRating}" />
 
         <WrapPanel
             Grid.Row="1"
@@ -283,7 +283,8 @@
                     FontStyle="Italic"
                     Foreground="{StaticResource BrushPrimary4}">
                     <Run Text="{Binding FilmReviewsCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
-                    scores</TextBlock>
+                    <Run Text="{DynamicResource RateFilmPanel.Scores}" />
+                </TextBlock>
             </StackPanel>
         </WrapPanel>
 
@@ -297,7 +298,7 @@
                     FontSize="24"
                     FontStyle="Italic"
                     Foreground="{StaticResource BrushPrimary1}"
-                    Text="Your score:" />
+                    Text="{DynamicResource RateFilmPanel.YourScore}" />
                 <TextBlock
                     Margin="30,0"
                     HorizontalAlignment="Left"

@@ -70,24 +70,24 @@
         <Grid Grid.Row="0">
             <StackPanel Margin="50" Orientation="Vertical">
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Delete entity with ID:" />
+                    <TextBlock Text="{DynamicResource AdminPanelView.DeleteEntity}" />
                     <TextBox Padding="5" Text="{Binding DeleteEntityID, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Command="{Binding DeleteEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Delete" />
+                        Content="{DynamicResource AdminPanelView.Delete}" />
                 </WrapPanel>
 
                 <WrapPanel Orientation="Horizontal">
-                    <TextBlock Text="Update entity with ID:" />
+                    <TextBlock Text="{DynamicResource AdminPanelView.UpdateEntity}" />
                     <TextBox Padding="5" Text="{Binding UpdateEntityID, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Command="{Binding UpdateEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Update" />
+                        Content="{DynamicResource AdminPanelView.Update}" />
                 </WrapPanel>
 
-                <TextBlock Text="Entity to update / insert values:" />
+                <TextBlock Text="{DynamicResource AdminPanelView.UpdateInsertEntity}" />
 
                 <WrapPanel Margin="-10,0,0,0" Orientation="Horizontal">
                     <TextBox
@@ -105,8 +105,7 @@
                     <CheckBox
                         Background="{StaticResource BrushPrimary3}"
                         Content="Email confirmed"
-                        IsChecked="{Binding User.ConfirmedEmail, UpdateSourceTrigger=PropertyChanged}"
-                        />
+                        IsChecked="{Binding User.ConfirmedEmail, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBox
                         Padding="5"
                         materialDesign:HintAssist.Hint="name"
@@ -128,7 +127,7 @@
                     <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Add" />
+                        Content="{DynamicResource AdminPanelView.Add}" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -166,7 +165,7 @@
                     <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Add" />
+                        Content="{DynamicResource AdminPanelView.Add}" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -222,7 +221,7 @@
                     <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Add" />
+                        Content="{DynamicResource AdminPanelView.Add}" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -256,7 +255,7 @@
                     <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Add" />
+                        Content="{DynamicResource AdminPanelView.Add}" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -296,7 +295,7 @@
                     <Button
                         Command="{Binding AddEntityCommand}"
                         CommandParameter="{Binding ElementName=tabControl, Path=SelectedIndex}"
-                        Content="Add" />
+                        Content="{DynamicResource AdminPanelView.Add}" />
 
                     <WrapPanel.Style>
                         <Style TargetType="WrapPanel">
@@ -325,7 +324,7 @@
             x:Name="tabControl"
             Grid.Row="1"
             Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
-            <TabItem Header="Users">
+            <TabItem Header="{DynamicResource AdminPanelView.Users}">
                 <DataGrid ItemsSource="{Binding Users}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -366,7 +365,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Film reviews">
+            <TabItem Header="{DynamicResource AdminPanelView.FilmReviews}">
                 <DataGrid ItemsSource="{Binding Reviews}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -396,7 +395,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Films">
+            <TabItem Header="{DynamicResource AdminPanelView.Films}">
                 <DataGrid ItemsSource="{Binding Films}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -450,7 +449,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Casts">
+            <TabItem Header="{DynamicResource AdminPanelView.Casts}">
                 <DataGrid ItemsSource="{Binding Casts}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
@@ -476,7 +475,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Actors">
+            <TabItem Header="{DynamicResource AdminPanelView.Actors}">
                 <DataGrid ItemsSource="{Binding Actors}">
                     <DataGrid.Columns>
                         <DataGridTextColumn

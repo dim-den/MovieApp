@@ -90,8 +90,8 @@
                         FontSize="16"
                         FontStyle="Italic"
                         Foreground="white">
-                        <Run Text="{Binding FilmReviewsCount, Mode=OneWay}" />
-                        scores</TextBlock>
+                        <Run Text="{Binding FilmReviewsCount, Mode=OneWay}" /> <Run Text="{DynamicResource FilmView.Scores}" />
+                    </TextBlock>
                 </StackPanel>
             </StackPanel>
 
@@ -163,13 +163,13 @@
                         FontSize="28"
                         FontWeight="Medium"
                         Foreground="{StaticResource BrushPrimary3}"
-                        Text="About film" />
+                        Text="{DynamicResource FilmView.AboutFilm}" />
 
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
                         Style="{StaticResource left}"
-                        Text="Release date" />
+                        Text="{DynamicResource FilmView.ReleaseDate}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
@@ -182,7 +182,7 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         Style="{StaticResource left}"
-                        Text="Country" />
+                        Text="{DynamicResource FilmView.Country}" />
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="1"
@@ -195,7 +195,7 @@
                         Grid.Row="3"
                         Grid.Column="0"
                         Style="{StaticResource left}"
-                        Text="Genre" />
+                        Text="{DynamicResource FilmView.Genre}" />
                     <TextBlock
                         Grid.Row="3"
                         Grid.Column="1"
@@ -208,7 +208,7 @@
                         Grid.Row="4"
                         Grid.Column="0"
                         Style="{StaticResource left}"
-                        Text="Director" />
+                        Text="{DynamicResource FilmView.Director}" />
                     <TextBlock
                         Grid.Row="4"
                         Grid.Column="1"
@@ -221,7 +221,7 @@
                         Grid.Row="5"
                         Grid.Column="0"
                         Style="{StaticResource left}"
-                        Text="Budget" />
+                        Text="{DynamicResource FilmView.Budget}" />
                     <TextBlock
                         Grid.Row="5"
                         Grid.Column="1"
@@ -243,7 +243,7 @@
                         Grid.Row="6"
                         Grid.Column="0"
                         Style="{StaticResource left}"
-                        Text="Fees" />
+                        Text="{DynamicResource FilmView.Fees}" />
                     <TextBlock
                         Grid.Row="6"
                         Grid.Column="1"
@@ -276,7 +276,7 @@
                     FontSize="32"
                     FontWeight="Medium"
                     Foreground="{StaticResource BrushPrimary3}"
-                    Text="Film cast" />
+                    Text="{DynamicResource FilmView.FilmCast}" />
 
                 <Border
                     BorderBrush="{StaticResource BrushPrimary2}"
@@ -303,7 +303,6 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-
                         <Grid.Resources>
                             <Style x:Key="headerTextBox" TargetType="TextBlock">
                                 <Setter Property="FontSize" Value="22" />
@@ -318,20 +317,19 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Style="{StaticResource headerTextBox}"
-                            Text="Actor" />
+                            Text="{DynamicResource FilmView.Actor}" />
 
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="1"
                             Style="{StaticResource headerTextBox}"
-                            Text="Film role" />
+                            Text="{DynamicResource FilmView.FilmRole}" />
 
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="2"
                             Style="{StaticResource headerTextBox}"
-                            Text="Role type" />
-
+                            Text="{DynamicResource FilmView.RoleType}" />
 
                         <ListBox
                             x:Name="castLB"

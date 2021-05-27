@@ -10,5 +10,7 @@ namespace MovieApp.Domain.Services
     public interface IFilmDataService : IGenericDataService<Film>
     {
         Task<ICollection<Film>> GetUpcomingFilms();
+
+        Task<ICollection<Film>> GetRandomReleasedFilms(int randomEntitiesCount);
     }
 }

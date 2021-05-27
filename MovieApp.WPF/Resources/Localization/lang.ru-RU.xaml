@@ -1,0 +1,131 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:v="clr-namespace:System;assembly=mscorlib">
+
+    <v:String x:Key="LoginView.Login">Вход</v:String>
+    <v:String x:Key="LoginView.Username">никнейм</v:String>
+    <v:String x:Key="LoginView.Password">пароль</v:String>
+    <v:String x:Key="LoginView.Register">Нет аккаунта?</v:String>
+    <v:String x:Key="LoginView.ForgotPass">Забыли пароль?</v:String>
+
+    <v:String x:Key="RegisterView.Registration">Регистрация</v:String>
+    <v:String x:Key="RegisterView.Username">никнейм</v:String>
+    <v:String x:Key="RegisterView.Email">почта</v:String>
+    <v:String x:Key="RegisterView.Name">имя</v:String>
+    <v:String x:Key="RegisterView.Surname">фамилия</v:String>
+    <v:String x:Key="RegisterView.Password">пароль</v:String>
+    <v:String x:Key="RegisterView.ConfirmPassword">потверждение пароля</v:String>
+    <v:String x:Key="RegisterView.Register">Зарегистрировать</v:String>
+    <v:String x:Key="RegisterView.HaveAccount">Уже есть аккаунт?</v:String>
+
+    <v:String x:Key="PasswordRecoveryView.PasswordRecovery">Восстановление пароля</v:String>
+    <v:String x:Key="PasswordRecoveryView.YourUsername">Ваш никнейм:</v:String>
+    <v:String x:Key="PasswordRecoveryView.Username">никнейм</v:String>
+    <v:String x:Key="PasswordRecoveryView.Next">Дальше</v:String>
+    <v:String x:Key="PasswordRecoveryView.PrintCodeSentToEmail">Введите верификационный код, отправленный на почту:</v:String>
+    <v:String x:Key="PasswordRecoveryView.VerificationCode">верификационный код</v:String>
+    <v:String x:Key="PasswordRecoveryView.CreateNewPass">Создать новый пароль:</v:String>
+    <v:String x:Key="PasswordRecoveryView.Password">пароль</v:String>
+    <v:String x:Key="PasswordRecoveryView.ConfirmPassword">потверждение пароля</v:String>
+    <v:String x:Key="PasswordRecoveryView.Apply">Применить</v:String>
+    <v:String x:Key="PasswordRecoveryView.PassChanged">Ваш пароль бы успешно изменен!</v:String>
+    <v:String x:Key="PasswordRecoveryView.BackToLogin">Назад к входу</v:String>
+
+    <v:String x:Key="AppHeader.Profile">Профиль</v:String>
+    <v:String x:Key="AppHeader.AdminPanel">Панель админа</v:String>
+    <v:String x:Key="AppHeader.Settings">Настройки</v:String>
+    <v:String x:Key="AppHeader.SignOut">Выход</v:String>
+
+    <v:String x:Key="SearchBar.Hint">введите фильм/актера</v:String>
+
+    <v:String x:Key="ActorListing.PopularActors">Популярные актеры</v:String>
+
+    <v:String x:Key="UpcomingFilmsList.UpcomingFilms">Выходящие фильмы:</v:String>
+    <v:String x:Key="UpcomingFilmsList.Days">дней</v:String>
+
+    <v:String x:Key="ProfileView.FilmsWatched">Фильмов просмотрено:</v:String>
+    <v:String x:Key="ProfileView.AvgScore">Средняя оценка:</v:String>
+
+    <v:String x:Key="UserRatings.UserRatings">Оценки пользователя:</v:String>
+    <v:String x:Key="UserRatings.SortBy">Сортировать по:</v:String>
+    <v:String x:Key="UserRatings.Date">дате</v:String>
+    <v:String x:Key="UserRatings.TitleName">названию</v:String>
+    <v:String x:Key="UserRatings.Score">оценке</v:String>
+    <v:String x:Key="UserRatings.Score:">Оценка:</v:String>
+    <v:String x:Key="UserRatings.All">все</v:String>
+    <v:String x:Key="UserRatings.DateFrom">Дата с:</v:String>
+    <v:String x:Key="UserRatings.To">, до:</v:String>
+    <v:String x:Key="UserRatings.Select">выбрать</v:String>
+    <v:String x:Key="UserRatings.Title">Название</v:String>
+    <v:String x:Key="UserRatings.DateUpper">Дата</v:String>
+    <v:String x:Key="UserRatings.ScoreUpper">Оценка</v:String>
+    <v:String x:Key="UserRatings.NoReviews">Не было найдено отзывов</v:String>
+
+    <v:String x:Key="SettingsView.Edit">Изменить</v:String>
+
+    <v:String x:Key="EmailConfirmPanel.EmailVerification">Потверждение почты</v:String>
+    <v:String x:Key="EmailConfirmPanel.AlreadyConfirmed">Вы уже потвердили свою почту</v:String>
+    <v:String x:Key="EmailConfirmPanel.NotConfirmed">Вы не сможете восстановить пароль, используя почту</v:String>
+    <v:String x:Key="EmailConfirmPanel.ConfirmEmail">Потвердить</v:String>
+    <v:String x:Key="EmailConfirmPanel.PrintVerificationCode">Введите верификационный код, отправленный на вашу почту</v:String>
+    <v:String x:Key="EmailConfirmPanel.VerificationCode">код</v:String>
+
+    <v:String x:Key="PasswordChangePanel.Password">Пароль</v:String>
+    <v:String x:Key="PasswordChangePanel.ChangePassword">Изменить пароль</v:String>
+    <v:String x:Key="PasswordChangePanel.OldPassword">Старый пароль:</v:String>
+    <v:String x:Key="PasswordChangePanel.NewPassword">Новый пароль:</v:String>
+    <v:String x:Key="PasswordChangePanel.ConfirmPassword">Потверждение пароля:</v:String>
+    <v:String x:Key="PasswordChangePanel.Change">Изменить</v:String>
+
+    <v:String x:Key="AdminPanelView.DeleteEntity">Удалить элемент с ID:</v:String>
+    <v:String x:Key="AdminPanelView.Delete">Удалить</v:String>
+    <v:String x:Key="AdminPanelView.UpdateEntity">Обновить элемент с ID:</v:String>
+    <v:String x:Key="AdminPanelView.Update">Обновить</v:String>
+    <v:String x:Key="AdminPanelView.UpdateInsertEntity">Значение полей добавляемого/обновлеямого элемента:</v:String>
+    <v:String x:Key="AdminPanelView.Add">Добавить</v:String>
+    <v:String x:Key="AdminPanelView.Users">Пользователя</v:String>
+    <v:String x:Key="AdminPanelView.FilmReviews">Рецензии</v:String>
+    <v:String x:Key="AdminPanelView.Films">Фильмы</v:String>
+    <v:String x:Key="AdminPanelView.Casts">Роли</v:String>
+    <v:String x:Key="AdminPanelView.Actors">Актеры</v:String>
+
+    <v:String x:Key="FilmView.Scores">оценок</v:String>
+    <v:String x:Key="FilmView.AboutFilm">О фильме</v:String>
+    <v:String x:Key="FilmView.ReleaseDate">Дата выхода</v:String>
+    <v:String x:Key="FilmView.Country">Страна</v:String>
+    <v:String x:Key="FilmView.Genre">Жанр</v:String>
+    <v:String x:Key="FilmView.Director">Режиссер</v:String>
+    <v:String x:Key="FilmView.Budget">Бюджет</v:String>
+    <v:String x:Key="FilmView.Fees">Сборы</v:String>
+    <v:String x:Key="FilmView.FilmCast">Актеры фильма</v:String>
+    <v:String x:Key="FilmView.Actor">Актер</v:String>
+    <v:String x:Key="FilmView.FilmRole">Роль</v:String>
+    <v:String x:Key="FilmView.RoleType">Тип роли</v:String>
+
+    <v:String x:Key="RateFilmPanel.FilmRating">Рейтинг фильма</v:String>
+    <v:String x:Key="RateFilmPanel.Scores">оценок</v:String>
+    <v:String x:Key="RateFilmPanel.YourScore">Ваша оценка:</v:String>
+
+    <v:String x:Key="UserReviewsPanel.FilmReviews">Рецензии на фильм</v:String>
+    <v:String x:Key="UserReviewsPanel.AddReview">Добавить рецензию</v:String>
+    <v:String x:Key="UserReviewsPanel.FilmScore">Оценка фильму:</v:String>
+    <v:String x:Key="UserReviewsPanel.Text">Текст</v:String>
+    <v:String x:Key="UserReviewsPanel.PublishReview">Опубликовать отзыв</v:String>
+    <v:String x:Key="UserReviewsPanel.UserScore">Оценка:</v:String>
+
+    <v:String x:Key="ActorView.AboutActor">Об актере</v:String>
+    <v:String x:Key="ActorView.Country">Страна</v:String>
+    <v:String x:Key="ActorView.Birthday">Дата рождения</v:String>
+    <v:String x:Key="ActorView.TotalMovies">Всего фильмов</v:String>
+    <v:String x:Key="ActorView.FilmingTime">Годы съемки</v:String>
+    <v:String x:Key="ActorView.Year">Год</v:String>
+    <v:String x:Key="ActorView.Title">Фильм</v:String>
+    <v:String x:Key="ActorView.Role">Роль</v:String>
+    <v:String x:Key="ActorView.NoFound">Не было найдено фильмов</v:String>
+
+    <v:String x:Key="AppLanguagePanel.Language">Язык</v:String>
+    <v:String x:Key="AppLanguagePanel.Russian">Русский</v:String>
+    <v:String x:Key="AppLanguagePanel.English">Английский, США</v:String>
+
+</ResourceDictionary>
