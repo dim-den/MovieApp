@@ -8,7 +8,7 @@ namespace MovieApp.EntityFramework
     {
         public static bool REMOTE_MODE = true;
 
-        private const string _remoteDbConnectionString = "Server=tcp:dimden.database.windows.net,1433;Initial Catalog=MovieAppDB;Persist Security Info=False;User ID=dimden;Password=pm8kRXJvwbLzDTsMM9ki;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private const string _remoteDbConnectionString = "Server=tcp:dimden.database.windows.net,1433;Initial Catalog=MovieAppDB;Persist Security Info=False;User ID=nickname;Password=password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private const string _localDbConnectionString = "data source=(localdb)\\MSSQLLocalDB;Initial Catalog=MovieAppDB;Integrated Security=True;";
 
         public DbSet<User> Users { get; set; }
