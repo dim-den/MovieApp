@@ -18,9 +18,9 @@
         VerticalAlignment="Center"
         Background="Transparent"
         BorderThickness="0"
-        Cursor="Hand"
         Command="{Binding ChangeViewCommand}"
         CommandParameter="{Binding CurrentFilm}"
+        Cursor="Hand"
         Template="{StaticResource emptyButton}">
         <Grid>
             <Grid.ColumnDefinitions>
