@@ -17,9 +17,7 @@ namespace MovieApp.WPF.ViewModels
 {
     public class UpcomingFilmsListViewModel : ViewModelBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public ICommand  ChangeViewCommand { get; }
+        public ICommand ChangeViewCommand { get; }
 
         private ObservableCollection<Film> _upcomingFilms;
         public ObservableCollection<Film> UpcomingFilms
@@ -31,29 +29,9 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(UpcomingFilms));
             }
         }
-        public UpcomingFilmsListViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        public UpcomingFilmsListViewModel(ICommand changeViewCommand)
         {
-            _unitOfWork = unitOfWork;
             ChangeViewCommand = changeViewCommand;
-        }
-
-        public static UpcomingFilmsListViewModel LoadUpcomingFilmsListViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
-        {
-            UpcomingFilmsListViewModel upcomingFilmsListViewModel = new UpcomingFilmsListViewModel(unitOfWork, changeViewCommand);
-            upcomingFilmsListViewModel.LoadFilms();
-
-            return upcomingFilmsListViewModel;
-        }
-
-        private void LoadFilms()
-        {
-            _unitOfWork.FilmRepository.GetUpcomingFilms().ContinueWith(task =>
-            {
-                if (task.Exception == null)
-                {
-                    UpcomingFilms = new ObservableCollection<Film>(task.Result.Take(4));
-                }
-            });
         }
     }
 }

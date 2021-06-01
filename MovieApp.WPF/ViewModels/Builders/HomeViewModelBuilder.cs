@@ -13,50 +13,59 @@ namespace MovieApp.WPF.ViewModels.Builders
 {
     public class HomeViewModelBuilder : IViewModelBuilder<HomeViewModel>
     {
-        private readonly INavigator _navigator;
-        private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthenticator _authenticator;
 
-        private IStore<Film> _randomFilms;
-        private IStore<Actor> _randomActors;
-        private IStore<Film> _upcomingFilms;
+        private MovieCarouselViewModelBuilder _movieCarouselViewModelBuilder;
+        private ActorsSummaryViewModelBuilder _actorsSummaryViewModelBuilder;
+        private UpcomingFilmsListViewModelBuilder _upcomingFilmsListViewModelBuilder;
 
-        private HomeViewModelBuilder(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork)
+        private HomeViewModel _homeViewModel;
+
+        private HomeViewModelBuilder(MovieCarouselViewModelBuilder movieCarouselViewModelBuilder,
+                                     ActorsSummaryViewModelBuilder actorsSummaryViewModelBuilder,
+                                     UpcomingFilmsListViewModelBuilder upcomingFilmsListViewModelBuilder)
         {
-            _navigator = navigator;
-            _authenticator = authenticator;
-            _unitOfWork = unitOfWork;
+            _movieCarouselViewModelBuilder = movieCarouselViewModelBuilder;
+            _actorsSummaryViewModelBuilder = actorsSummaryViewModelBuilder;
+            _upcomingFilmsListViewModelBuilder = upcomingFilmsListViewModelBuilder;
+
+            _homeViewModel = new HomeViewModel();
         }
 
-        public static HomeViewModelBuilder Init(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork)
+        public HomeViewModelBuilder SetCarouselFilmsCount(int count)
         {
-            return new HomeViewModelBuilder(navigator, authenticator, unitOfWork);
-        }
-
-        public async Task<HomeViewModelBuilder> LoadRandomFilms(int count)
-        {
-            _randomFilms = new Store<Film>(await _unitOfWork.FilmRepository.GetRandomReleasedFilms(count));
+            _homeViewModel.MovieCarouselViewModel = _movieCarouselViewModelBuilder.SetFilmCount(count).Build();
 
             return this;
         }
 
-        public async Task<HomeViewModelBuilder> LoadRandomActors(int count)
+        public HomeViewModelBuilder SetActorsCount(int count)
         {
-            _randomActors = new Store<Actor>(await _unitOfWork.ActorRepository.GetRandomEntities(count));
+            _homeViewModel.ActorsSummaryViewModel = _actorsSummaryViewModelBuilder.SetActorsCount(count).Build();
 
             return this;
         }
 
-        public async Task<HomeViewModelBuilder> LoadUpcomingFilms(int count)
+        public HomeViewModelBuilder SetUpcomingFilmsCount(int count)
         {
-            _upcomingFilms = new Store<Film>((await _unitOfWork.FilmRepository.GetUpcomingFilms()).Take(count).ToList());
+            _homeViewModel.UpcomingFilmsListViewModel = _upcomingFilmsListViewModelBuilder.SetFilmCount(count).Build();
 
             return this;
+        }
+
+        public static HomeViewModelBuilder Init(MovieCarouselViewModelBuilder movieCarouselViewModelBuilder,
+                                                ActorsSummaryViewModelBuilder actorsSummaryViewModelBuilder,
+                                                UpcomingFilmsListViewModelBuilder upcomingFilmsListViewModelBuilder)
+        {
+            return new HomeViewModelBuilder(movieCarouselViewModelBuilder,
+                                            actorsSummaryViewModelBuilder,
+                                            upcomingFilmsListViewModelBuilder);
         }
 
         public HomeViewModel Build()
         {
-            return null;
+            return _homeViewModel;
         }
     }
 }

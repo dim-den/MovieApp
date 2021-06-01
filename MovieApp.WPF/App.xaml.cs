@@ -72,15 +72,34 @@ namespace MovieApp.WPF
 
             services.AddSingleton<ChangeViewCommand>();
 
-            services.AddSingleton<HomeViewModel>(services => new HomeViewModel(
-                   MovieCarouselViewModel.LoadMovieCarouselViewModel(services.GetRequiredService<IUnitOfWork>(), services.GetRequiredService<ChangeViewCommand>()),
-                   ActorsSummaryViewModel.LoadActorsSummaryViewModel(services.GetRequiredService<IUnitOfWork>(), services.GetRequiredService<ChangeViewCommand>()),
-                   UpcomingFilmsListViewModel.LoadUpcomingFilmsListViewModel(services.GetRequiredService<IUnitOfWork>(), services.GetRequiredService<ChangeViewCommand>())
-                   ));
+            services.AddSingleton<MovieCarouselViewModelBuilder>(services => MovieCarouselViewModelBuilder.Init(
+                  services.GetRequiredService<IUnitOfWork>(),
+                  services.GetRequiredService<ChangeViewCommand>()
+                  )
+                );
+
+            services.AddSingleton<ActorsSummaryViewModelBuilder>(services => ActorsSummaryViewModelBuilder.Init(
+                  services.GetRequiredService<IUnitOfWork>(),
+                  services.GetRequiredService<ChangeViewCommand>()
+                  )
+                );
+
+            services.AddSingleton<UpcomingFilmsListViewModelBuilder>(services => UpcomingFilmsListViewModelBuilder.Init(
+                  services.GetRequiredService<IUnitOfWork>(),
+                  services.GetRequiredService<ChangeViewCommand>()
+                  )
+                );
+
+            services.AddSingleton<HomeViewModelBuilder>(services => HomeViewModelBuilder.Init(
+                                                        services.GetRequiredService<MovieCarouselViewModelBuilder>(),
+                                                        services.GetRequiredService<ActorsSummaryViewModelBuilder>(),
+                                                        services.GetRequiredService<UpcomingFilmsListViewModelBuilder>())
+               );
+
 
             services.AddSingleton<CreateViewModel<HomeViewModel>>(services =>
             {
-                return () => services.GetRequiredService<HomeViewModel>();
+                return () => services.GetRequiredService<HomeViewModelBuilder>().SetCarouselFilmsCount(5).SetActorsCount(9).SetUpcomingFilmsCount(4).Build();
             });
 
             services.AddSingleton<Renavigator<HomeViewModel>>();
@@ -185,14 +204,17 @@ namespace MovieApp.WPF
                  )
                );
 
-
-            services.AddTransient<CreateViewModelWithParam<FilmViewModel, Film>>(services =>
-            {
-                return param => FilmViewModelBuilder.Init(services.GetRequiredService<RateFilmPanelViewModelBuilder>(),
+            services.AddSingleton<FilmViewModelBuilder>(services => FilmViewModelBuilder.Init(
+                                                          services.GetRequiredService<RateFilmPanelViewModelBuilder>(),
                                                           services.GetRequiredService<UserReviewsPanelViewModelBuilder>(),
                                                           services.GetRequiredService<FilmCastListViewModelBuilder>(),
                                                           services.GetRequiredService<IUnitOfWork>(),
-                                                          services.GetRequiredService<IAuthenticator>()).SetFilm(param).Build();  
+                                                          services.GetRequiredService<IAuthenticator>())
+               );
+
+            services.AddTransient<CreateViewModelWithParam<FilmViewModel, Film>>(services =>
+            {
+                return param => services.GetRequiredService<FilmViewModelBuilder>().SetFilm(param).Build();  
             });
 
             services.AddSingleton<AppHeaderViewModel>(services => new AppHeaderViewModel(

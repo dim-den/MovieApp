@@ -19,7 +19,6 @@ namespace MovieApp.WPF.ViewModels
 {
     public class MovieCarouselViewModel : ViewModelBase
     {
-        private readonly IUnitOfWork _unitOfWork;
         public ICommand ChangeMovieCarouselCommand { get; }
         public ICommand ChangeViewCommand { get; }
 
@@ -33,7 +32,6 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(Films));
             }
         }
-
 
         private int _currentIndex;
         public int CurrentIndex
@@ -52,10 +50,8 @@ namespace MovieApp.WPF.ViewModels
 
         private readonly DispatcherTimer _timer;
         public DispatcherTimer Timer => _timer;
-        public MovieCarouselViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        public MovieCarouselViewModel(ICommand changeViewCommand)
         {
-            _unitOfWork = unitOfWork;
-
             ChangeViewCommand = changeViewCommand;
 
             _timer = new DispatcherTimer();
@@ -66,26 +62,7 @@ namespace MovieApp.WPF.ViewModels
             Timer.Start();
 
             ChangeMovieCarouselCommand = new ChangeMovieCarouselCommand(this);
-        }
-
-        public static MovieCarouselViewModel LoadMovieCarouselViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
-        {
-            MovieCarouselViewModel majorIndexViewModel = new MovieCarouselViewModel(unitOfWork, changeViewCommand);
-            majorIndexViewModel.LoadFilms();
-
-            return majorIndexViewModel;
-        }
-
-        private void LoadFilms()
-        {
-            _unitOfWork.FilmRepository.GetRandomReleasedFilms(5).ContinueWith(task =>
-            {
-                if(task.Exception == null)
-                {
-                    Films = new ObservableCollection<Film>(task.Result);
-                }
-            });
-        }
+        }        
 
         private void TimerTick(object sender, EventArgs e)
         {

@@ -15,17 +15,41 @@ namespace MovieApp.WPF.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        public MovieCarouselViewModel MovieCarouselViewModel { get; }
-
-        public ActorsSummaryViewModel ActorsSummaryViewModel { get; }
-
-        public UpcomingFilmsListViewModel UpcomingFilmsListViewModel { get; }
-
-        public HomeViewModel( MovieCarouselViewModel movieCarouselViewModel, ActorsSummaryViewModel actorsSummaryViewModel, UpcomingFilmsListViewModel upcomingFilmsListViewModel)
+        private MovieCarouselViewModel _movieCarouselViewModel;
+        public MovieCarouselViewModel MovieCarouselViewModel
         {
-            MovieCarouselViewModel = movieCarouselViewModel;
-            ActorsSummaryViewModel = actorsSummaryViewModel;
-            UpcomingFilmsListViewModel = upcomingFilmsListViewModel;
+            get => _movieCarouselViewModel;
+            set
+            {
+                _movieCarouselViewModel = value;
+                OnPropertyChanged(nameof(MovieCarouselViewModel));
+            }
+        }
+
+        private ActorsSummaryViewModel _actorsSummaryViewModel;
+        public ActorsSummaryViewModel ActorsSummaryViewModel
+        {
+            get => _actorsSummaryViewModel;
+            set
+            {
+                _actorsSummaryViewModel = value;
+                OnPropertyChanged(nameof(ActorsSummaryViewModel));
+            }
+        }
+
+        private UpcomingFilmsListViewModel _upcomingFilmsListViewModel;
+        public UpcomingFilmsListViewModel UpcomingFilmsListViewModel
+        {
+            get => _upcomingFilmsListViewModel;
+            set
+            {
+                _upcomingFilmsListViewModel = value;
+                OnPropertyChanged(nameof(UpcomingFilmsListViewModel));
+            }
+        }
+
+        public HomeViewModel()
+        {
         }
     }
 }

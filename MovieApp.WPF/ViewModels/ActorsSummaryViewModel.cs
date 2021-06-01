@@ -16,8 +16,6 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ActorsSummaryViewModel : ViewModelBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-
         public ICommand ChangeViewCommand { get; }
 
         private ObservableCollection<Actor> _actors;
@@ -30,29 +28,9 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(Actors));
             }
         }
-        public ActorsSummaryViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        public ActorsSummaryViewModel(ICommand changeViewCommand)
         {
-            _unitOfWork = unitOfWork;
             ChangeViewCommand = changeViewCommand;
-        }
-
-        public static ActorsSummaryViewModel LoadActorsSummaryViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
-        {
-            ActorsSummaryViewModel actorsSummaryViewModel = new ActorsSummaryViewModel(unitOfWork, changeViewCommand);
-            actorsSummaryViewModel.LoadActors();
-
-            return actorsSummaryViewModel;       
-        }
-
-        private void LoadActors()
-        {
-            _unitOfWork.ActorRepository.GetRandomEntities(9).ContinueWith(task =>
-            {
-                if (task.Exception == null)
-                {
-                    Actors = new ObservableCollection<Actor>(task.Result);
-                }
-            });
         }
     }
 }
