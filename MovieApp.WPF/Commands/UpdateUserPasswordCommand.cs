@@ -18,6 +18,7 @@ namespace MovieApp.WPF.Commands
         private readonly PasswordRecoveryViewModel _passwordRecoveryViewModel;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IAuthenticationService _authenticationService;
 
         public override bool CanExecute(object parameter)
         {

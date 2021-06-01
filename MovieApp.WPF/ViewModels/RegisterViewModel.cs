@@ -14,6 +14,8 @@ namespace MovieApp.WPF.ViewModels
 {
     public class RegisterViewModel : ViewModelBase 
     {
+        public ICommand ChangeViewCommand { get; }
+
         private string _email;
         public string Email
         {
@@ -116,14 +118,13 @@ namespace MovieApp.WPF.ViewModels
                                    !string.IsNullOrEmpty(Surname);
 
         public ICommand RegisterCommand { get; }
-        public ICommand ChangeViewCommand { get; set; }
 
-        public RegisterViewModel(INavigator navigator, IAuthenticator authentificator)
+        public RegisterViewModel(IAuthenticator authentificator, ICommand changeViewCommand, IRenavigator registerRenavigator)
         {
             ErrorMessageViewModel = new MessageViewModel();
 
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
-            RegisterCommand = new RegisterCommand(this, authentificator, navigator);
+            ChangeViewCommand = changeViewCommand;
+            RegisterCommand = new RegisterCommand(this, authentificator, registerRenavigator);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand LoginCommand { get; }
         public bool CanLogin => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
 
-        private string _username;
+        private string _username = "dimden";
 		public string Username
 		{
 			get
@@ -32,7 +32,7 @@ namespace MovieApp.WPF.ViewModels
 				OnPropertyChanged(nameof(CanLogin));
 			}
 		}
-        private string _password;
+        private string _password = "admin";
         public string Password
         {
             get
@@ -51,12 +51,12 @@ namespace MovieApp.WPF.ViewModels
         {
             set => ErrorMessageViewModel.Message = value;
         }  
-        public LoginViewModel(INavigator navigator, IAuthenticator authentificator)
+        public LoginViewModel(IAuthenticator authentificator, ICommand changeViewCommand, IRenavigator loginRenavigator)
         {
             ErrorMessageViewModel = new MessageViewModel();
+            ChangeViewCommand = changeViewCommand;
 
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
-            LoginCommand = new LoginCommand(this, authentificator, navigator);
+            LoginCommand = new LoginCommand(this, authentificator, loginRenavigator);
         }
     }
 }

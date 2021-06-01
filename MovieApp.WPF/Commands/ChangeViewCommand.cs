@@ -16,19 +16,26 @@ using MovieApp.WPF.ViewModels.Factories;
 
 namespace MovieApp.WPF.Commands
 {
-    public class ChangeViewCommand : AsyncCommandBase
+    public class ChangeViewCommand : ICommand
     {
         private readonly INavigator _navigator;
         private readonly IViewModelFactory _viewModelFactory;
-        public ChangeViewCommand(INavigator navigator, IAuthenticator authenticator = null)
+        public ChangeViewCommand(INavigator navigator, IViewModelFactory viewModelFactory)
         {
             _navigator = navigator;
-            _viewModelFactory = new ViewModelFactory(navigator, authenticator);
+            _viewModelFactory = viewModelFactory;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
         {
-            _navigator.CurrentViewModel = await _viewModelFactory.CreateViewModel(parameter);
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(parameter);
         }
     }
 }

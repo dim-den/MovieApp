@@ -113,14 +113,14 @@ namespace MovieApp.WPF.ViewModels
             set => ErrorPasswordMessageViewModel.Message = value;
         }
 
-        public PasswordRecoveryViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
+        public PasswordRecoveryViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand, IEmailService emailService, IPasswordHasher passwordHasher)
         {
             ErrorUsernameMessageViewModel = new MessageViewModel();
             ErrorPasswordMessageViewModel = new MessageViewModel();
+            ChangeViewCommand = changeViewCommand;
 
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
-            NextStepPasswordRecoveryCommand = new NextStepPasswordRecoveryCommand(this, unitOfWork);
-            UpdateUserPasswordCommand = new UpdateUserPasswordCommand(this, unitOfWork, new PasswordHasher());
+            NextStepPasswordRecoveryCommand = new NextStepPasswordRecoveryCommand(this, unitOfWork, emailService);
+            UpdateUserPasswordCommand = new UpdateUserPasswordCommand(this, unitOfWork, passwordHasher);
         }
 
     }

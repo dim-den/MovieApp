@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,31 +12,62 @@ using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.Stores;
+using MovieApp.WPF.ViewModels.Factories;
 
 namespace MovieApp.WPF.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
-        public UserRatingsViewModel UserRatingsViewModel { get; }
+        private ObservableCollection<FilmReview> _userFilmReviews;
+        public ObservableCollection<FilmReview> UserFilmReviews
+        {
+            get => _userFilmReviews;
+            set
+            {
+                _userFilmReviews = value;
+                OnPropertyChanged(nameof(UserFilmReviews));
+                OnPropertyChanged(nameof(HasReviews));
+                OnPropertyChanged(nameof(FilmsWatched));
+                OnPropertyChanged(nameof(AvgScore));
+            }
 
-        private readonly IStore<FilmReview> _userFilmReviewsStore;
+        }
 
-        public User User { get; }
+        private UserRatingsViewModel _userRatingsViewModel;
+        public UserRatingsViewModel UserRatingsViewModel
+        {
+            get => _userRatingsViewModel;
+            set
+            {
+                _userRatingsViewModel = value;
+                OnPropertyChanged(nameof(UserRatingsViewModel));
+            }
+        }
 
-        public bool HasReviews => _userFilmReviewsStore.Entities != null && _userFilmReviewsStore.Entities.Count > 0;
+        public ICommand ChangeViewCommand { get; }
+
+        private User _user;
+        public User User
+        {
+            get => _user;
+            set
+            {
+                _user = value;
+                OnPropertyChanged(nameof(User));
+            }
+        }
+
+        public bool HasReviews => UserFilmReviews != null && UserFilmReviews != null && UserFilmReviews.Count > 0;
 
         public byte[] ImageData => User?.ImageData;
 
-        public int FilmsWatched => (HasReviews == true) ? _userFilmReviewsStore.Entities.Count : 0;
+        public int FilmsWatched => (HasReviews == true) ? UserFilmReviews.Count : 0;
 
-        public double AvgScore => (HasReviews == true) ? _userFilmReviewsStore.Entities.Average(u => u.Score) : 0.0;
-
-        public ProfileViewModel(INavigator navigator, IAuthenticator authenticator, User user, IStore<FilmReview> userFilmReviewsStore)
+        public double AvgScore => (HasReviews == true) ? UserFilmReviews.Average(u => u.Score) : 0.0;
+        
+        public ProfileViewModel(ICommand changeViewCommand)
         {
-            User = user;
-            _userFilmReviewsStore = userFilmReviewsStore;
-
-            UserRatingsViewModel = new UserRatingsViewModel(navigator, authenticator, userFilmReviewsStore);
+            ChangeViewCommand = changeViewCommand;
         }
     }
 }

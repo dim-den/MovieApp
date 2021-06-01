@@ -18,6 +18,7 @@ namespace MovieApp.WPF.ViewModels
 {
     public class UserReviewsPanelViewModel : ViewModelBase
     {
+        private readonly ILeaveReviewService _leaveReviewService;
         public ICommand PublishReviewCommand { get; }
         public ICommand ChangeViewCommand { get; }
 
@@ -25,7 +26,16 @@ namespace MovieApp.WPF.ViewModels
 
         private string _reviewText = string.Empty;
 
-        public ObservableCollection<FilmReview> Reviews { get; }
+        private ObservableCollection<FilmReview> _reviews;
+        public ObservableCollection<FilmReview> Reviews
+        {
+            get => _reviews; 
+            set
+            {
+                _reviews = value;
+                OnPropertyChanged(nameof(Reviews));
+            }
+        }
 
         public string ReviewText
         {
@@ -48,23 +58,31 @@ namespace MovieApp.WPF.ViewModels
             }
         }
 
-        public Film Film { get; }
+        private Film _film;
+        public Film Film
+        {
+            get => _film;
+            set
+            {
+                _film = value;
+                OnPropertyChanged(nameof(Film));
+            }
+        }
 
         public string InfoMessage
         {
             set => InfoMessageViewModel.Message = value;
         }
 
-        public UserReviewsPanelViewModel(FilmReview currentUserFilmReview, Film film, IAuthenticator authentificator, INavigator navigator, IUnitOfWork unitOfWork, IStore<FilmReview> filmReviewStore)
+        public UserReviewsPanelViewModel(IAuthenticator authentificator, ILeaveReviewService leaveReviewService, ICommand changeViewCommand)
         {
-            _currentUserFilmReview = currentUserFilmReview;
-            Film = film;
-            Reviews = new ObservableCollection<FilmReview>(filmReviewStore.Entities);
+            _leaveReviewService = leaveReviewService;
 
-            PublishReviewCommand = new PublishReviewCommand(this, authentificator, new LeaveReviewService(unitOfWork));
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
+            PublishReviewCommand = new PublishReviewCommand(this, authentificator, leaveReviewService);
+            ChangeViewCommand = changeViewCommand;
 
             InfoMessageViewModel = new MessageViewModel();
         }
+
     }
 }

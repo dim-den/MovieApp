@@ -22,7 +22,7 @@ namespace MovieApp.WPF.Commands
     {
         private readonly IAuthenticator _authenticator;
         private readonly RegisterViewModel _registerViewModel;
-        private readonly INavigator _navigator;
+        private readonly IRenavigator _renavigator;
 
         public override bool CanExecute(object parameter)
         {
@@ -43,11 +43,7 @@ namespace MovieApp.WPF.Commands
                             _registerViewModel.Name,
                             _registerViewModel.Surname);
 
-                _navigator.CurrentViewModel = (await (await (await HomeViewModelBuilder.Init(_navigator, _authenticator, new UnitOfWork())
-                                                                        .LoadRandomFilms(5))
-                                                                        .LoadRandomActors(9))
-                                                                        .LoadUpcomingFilms(4))
-                                                                        .Build();
+                _renavigator.Renavigate();
             }
             catch (PasswordsMismatchException)
             {
@@ -66,11 +62,11 @@ namespace MovieApp.WPF.Commands
                 _registerViewModel.ErrorMessage = "Registration failed.";
             }
         }
-        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, INavigator navigator)
+        public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
         {
             _registerViewModel = loginViewModel;
             _authenticator = authenticator;
-            _navigator = navigator;
+            _renavigator = renavigator;
 
             _registerViewModel.PropertyChanged += RegisterViewModel_PropertyChanged;
         }

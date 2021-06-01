@@ -15,8 +15,9 @@ using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.NetworkState;
 using MovieApp.WPF.State.Stores;
+using MovieApp.WPF.ViewModels.Factories;
 
-    namespace MovieApp.WPF.ViewModels
+namespace MovieApp.WPF.ViewModels
     {
     public class MainViewModel : ViewModelBase
     {
@@ -24,20 +25,26 @@ using MovieApp.WPF.State.Stores;
         private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
 
+        public ICommand ChangeViewCommand { get; }
+
         public bool IsLoggedIn => _authenticator.IsLoggedIn;
         public bool IsInternetAvailable => NetworkState.IsInternetAvailable;
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
         public User CurrentUser => _authenticator.CurrentUser;
 
         public AppHeaderViewModel AppHeaderViewModel { get; }
-        public MainViewModel()
+        public MainViewModel(INavigator navigator, IUnitOfWork unitOfWork, IAuthenticator authenticator,
+                             ChangeViewCommand changeViewCommand, AppHeaderViewModel appHeaderViewModel)
         {
-            _navigator = new Navigator();
-            _unitOfWork = new UnitOfWork();
-            _authenticator = new Authenticator(new AuthenticationService(_unitOfWork, new PasswordHasher()), new Account());
+            _navigator = navigator;
+            _unitOfWork = unitOfWork;
+            _authenticator = authenticator;
 
-            _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
-            AppHeaderViewModel = new AppHeaderViewModel(_navigator, _authenticator, _unitOfWork);
+            ChangeViewCommand = changeViewCommand;
+
+            AppHeaderViewModel = appHeaderViewModel;
+
+            ChangeViewCommand.Execute(ViewType.Login);
 
             _navigator.StateChanged += OnCurrentViewModelChanged;
             _authenticator.StateChanged += Authenticator_StateChanged;

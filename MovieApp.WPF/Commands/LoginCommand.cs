@@ -24,7 +24,7 @@ namespace MovieApp.WPF.Commands
     {
         private readonly IAuthenticator _authenticator;
         private readonly LoginViewModel _loginViewModel;
-        private readonly INavigator _navigator;
+        private readonly IRenavigator _renavigator;
 
         public override bool CanExecute(object parameter)
         {
@@ -39,11 +39,7 @@ namespace MovieApp.WPF.Commands
             {       
                 await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
-                _navigator.CurrentViewModel = (await (await (await HomeViewModelBuilder.Init(_navigator, _authenticator, new UnitOfWork())
-                                                                        .LoadRandomFilms(5))
-                                                                        .LoadRandomActors(9))
-                                                                        .LoadUpcomingFilms(4))
-                                                                        .Build();
+                _renavigator.Renavigate();
             }
             catch (UserNotFoundException)
             {
@@ -59,11 +55,11 @@ namespace MovieApp.WPF.Commands
             }
         }
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, INavigator navigator)
+        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
         {
             _loginViewModel = loginViewModel;
             _authenticator = authenticator;
-            _navigator = navigator;
+            _renavigator = renavigator;
 
             _loginViewModel.PropertyChanged += LoginViewModel_PropertyChanged;
         }

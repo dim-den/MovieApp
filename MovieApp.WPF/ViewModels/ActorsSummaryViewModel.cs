@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.EntityFramework;
@@ -14,10 +16,43 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ActorsSummaryViewModel : ViewModelBase
     {
-        public ActorsListingViewModel ActorsListingViewModel { get; }
-        public ActorsSummaryViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Actor> actorStore)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ICommand ChangeViewCommand { get; }
+
+        private ObservableCollection<Actor> _actors;
+        public ObservableCollection<Actor> Actors
         {
-            ActorsListingViewModel = new ActorsListingViewModel(navigator, authentificator, actorStore);
+            get => _actors;
+            set
+            {
+                _actors = value;
+                OnPropertyChanged(nameof(Actors));
+            }
+        }
+        public ActorsSummaryViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        {
+            _unitOfWork = unitOfWork;
+            ChangeViewCommand = changeViewCommand;
+        }
+
+        public static ActorsSummaryViewModel LoadActorsSummaryViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        {
+            ActorsSummaryViewModel actorsSummaryViewModel = new ActorsSummaryViewModel(unitOfWork, changeViewCommand);
+            actorsSummaryViewModel.LoadActors();
+
+            return actorsSummaryViewModel;       
+        }
+
+        private void LoadActors()
+        {
+            _unitOfWork.ActorRepository.GetRandomEntities(9).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    Actors = new ObservableCollection<Actor>(task.Result);
+                }
+            });
         }
     }
 }

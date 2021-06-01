@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
+using MovieApp.Domain.Services.EmailServices;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 
@@ -54,12 +55,12 @@ namespace MovieApp.WPF.ViewModels
             set => ErrorMessageViewModel.Message = value;
         }
 
-        public EmailConfirmPanelViewModel(IAuthenticator authenticator, IUnitOfWork unitOfWork)
+        public EmailConfirmPanelViewModel(IAuthenticator authenticator, IUnitOfWork unitOfWork, IEmailService emailService)
         {
             _authentificator = authenticator;
             _unitOfWork = unitOfWork;
 
-            SendEmailConfirmCodeCommand = new SendEmailConfirmCodeCommand(this, verificationCodeLength);
+            SendEmailConfirmCodeCommand = new SendEmailConfirmCodeCommand(this, emailService, verificationCodeLength);
 
             ErrorMessageViewModel = new MessageViewModel();
 

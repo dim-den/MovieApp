@@ -21,16 +21,11 @@ namespace MovieApp.WPF.ViewModels
 
         public UpcomingFilmsListViewModel UpcomingFilmsListViewModel { get; }
 
-        private readonly INavigator _navigator;
-
-        public HomeViewModel(INavigator navigator, IAuthenticator authentificator, 
-            IStore<Film> randomFilms, IStore<Actor> randomActors, IStore<Film> upcomingFilms)
+        public HomeViewModel( MovieCarouselViewModel movieCarouselViewModel, ActorsSummaryViewModel actorsSummaryViewModel, UpcomingFilmsListViewModel upcomingFilmsListViewModel)
         {
-            _navigator = navigator;
-
-            MovieCarouselViewModel = new MovieCarouselViewModel(_navigator, authentificator, randomFilms);
-            ActorsSummaryViewModel = new ActorsSummaryViewModel(_navigator, authentificator, randomActors);
-            UpcomingFilmsListViewModel = new UpcomingFilmsListViewModel(_navigator, authentificator, upcomingFilms);
+            MovieCarouselViewModel = movieCarouselViewModel;
+            ActorsSummaryViewModel = actorsSummaryViewModel;
+            UpcomingFilmsListViewModel = upcomingFilmsListViewModel;
         }
     }
 }

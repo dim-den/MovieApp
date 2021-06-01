@@ -15,63 +15,72 @@ namespace MovieApp.WPF.ViewModels.Factories
 {
     public class ViewModelFactory : IViewModelFactory
     {
-        private readonly INavigator _navigator;
-        private readonly IAuthenticator _authenticator;
-        private readonly IUnitOfWork _unitOfWork;
-        public ViewModelFactory(INavigator navigator, IAuthenticator authenticator = null)
+        private readonly CreateViewModelWithParam<ActorViewModel, Actor> _createActorViewModel;
+        private readonly CreateViewModel<AdminPanelViewModel> _createAdminViewModel;
+        private readonly CreateViewModelWithParam<FilmViewModel, Film> _createFilmViewModel;
+        private readonly CreateViewModel<HomeViewModel> _createHomeViewModel;
+        private readonly CreateViewModel<LoginViewModel> _createLoginViewModel;
+        private readonly CreateViewModel<PasswordRecoveryViewModel> _createPasswordRecoveryViewModel;
+        private readonly CreateViewModelWithParam<ProfileViewModel, User> _createProfileViewModel;
+        private readonly CreateViewModel<RegisterViewModel> _createRegisterViewModel;
+        private readonly CreateViewModel<SettingsViewModel> _createSettingsViewModel;
+
+        public ViewModelFactory(CreateViewModelWithParam<ActorViewModel, Actor> createActorViewModel, 
+                                CreateViewModel<AdminPanelViewModel> createAdminViewModel,
+                                CreateViewModelWithParam<FilmViewModel, Film> createFilmViewModel, 
+                                CreateViewModel<HomeViewModel> createHomeViewModel, 
+                                CreateViewModel<LoginViewModel> createLoginViewModel, 
+                                CreateViewModel<PasswordRecoveryViewModel> createPasswordRecoveryViewModel,
+                                CreateViewModelWithParam<ProfileViewModel, User> createProfileViewModel, 
+                                CreateViewModel<RegisterViewModel> createRegisterViewModel, 
+                                CreateViewModel<SettingsViewModel> createSettingsViewModel)
         {
-            _navigator = navigator;
-            _authenticator = authenticator;
-            _unitOfWork = new UnitOfWork();
+            _createActorViewModel = createActorViewModel;
+            _createAdminViewModel = createAdminViewModel;
+            _createFilmViewModel = createFilmViewModel;
+            _createHomeViewModel = createHomeViewModel;
+            _createLoginViewModel = createLoginViewModel;
+            _createPasswordRecoveryViewModel = createPasswordRecoveryViewModel;
+            _createProfileViewModel = createProfileViewModel;
+            _createRegisterViewModel = createRegisterViewModel;
+            _createSettingsViewModel = createSettingsViewModel;
         }
 
-        public async Task<ViewModelBase> CreateViewModel(object parameter)
+        public ViewModelBase CreateViewModel(object parameter)
         {
             if (parameter is Film film)
             {
-                return (await (await (await FilmViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, film)
-                                                                .LoadFilmCast())
-                                                                .LoadFilmReviews())
-                                                                .LoadCurrentUserFilmReview())
-                                                                .Build();
+                return _createFilmViewModel(film);
             }
             else if (parameter is Actor actor)
             {
-                return (await ActorViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, actor)
-                                                   .LoadFilmCast())
-                                                   .Build();
+                return _createActorViewModel(actor);
             }
             else if (parameter is User user)
             {
-                return (await ProfileViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork, user)
-                                                     .LoadUserFilmReviews())
-                                                     .Build();
+                return _createProfileViewModel(user);
             }
             else if (parameter is ViewType viewType)
             {
                 switch (viewType)
                 {
                     case ViewType.Login:
-                        return new LoginViewModel(_navigator, _authenticator);
+                        return _createLoginViewModel();
 
                     case ViewType.Register:
-                        return new RegisterViewModel(_navigator, _authenticator);
+                        return _createRegisterViewModel();
 
                     case ViewType.PasswordRecovery:
-                        return new PasswordRecoveryViewModel(_navigator, _authenticator, _unitOfWork);
+                        return _createPasswordRecoveryViewModel();
 
                     case ViewType.Home:
-                        return (await (await (await HomeViewModelBuilder.Init(_navigator, _authenticator, _unitOfWork)
-                                                                        .LoadRandomFilms(5))
-                                                                        .LoadRandomActors(9))
-                                                                        .LoadUpcomingFilms(4))
-                                                                        .Build();
+                        return _createHomeViewModel();
 
                     case ViewType.AdminPanel:
-                        return new AdminPanelViewModel(_authenticator, _unitOfWork);
+                        return _createAdminViewModel();
 
                     case ViewType.Settings:
-                        return new SettingsViewModel(_navigator, _authenticator, _unitOfWork);
+                        return _createSettingsViewModel();
                 }
             }
 

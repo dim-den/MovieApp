@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.WPF.State.Authentificator;
@@ -13,60 +14,69 @@ namespace MovieApp.WPF.ViewModels.Builders
 {
     public class FilmViewModelBuilder : IViewModelBuilder<FilmViewModel>
     {
-        private readonly INavigator _navigator;
-        private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Film _film;
+        private readonly IAuthenticator _authenticator;
 
-        private IStore<FilmCast> _filmCastStore;
-        private IStore<FilmReview> _filmReviewStore;
-        private FilmReview _userFilmReview;
+        private RateFilmPanelViewModelBuilder _rateFilmPanelViewModelBuilder;
+        private UserReviewsPanelViewModelBuilder _userReviewsPanelViewModelBuilder;
+        private FilmCastListViewModelBuilder _filmCastListViewModelBuilder;
 
-        public async Task<FilmViewModelBuilder> LoadFilmCast()
+        private FilmViewModel _filmViewModel;
+
+        private FilmViewModelBuilder(RateFilmPanelViewModelBuilder rateFilmPanelViewModelBuilder,
+                                     UserReviewsPanelViewModelBuilder userReviewsPanelViewModelBuilder,
+                                     FilmCastListViewModelBuilder filmCastListViewModelBuilder,
+                                     IUnitOfWork unitOfWork, IAuthenticator authenticator)
         {
-            await _filmCastStore.LoadWithInclude(f => f.FilmID == _film.ID, f => f.Actor);
+            _rateFilmPanelViewModelBuilder = rateFilmPanelViewModelBuilder;
+            _userReviewsPanelViewModelBuilder = userReviewsPanelViewModelBuilder;
+            _filmCastListViewModelBuilder = filmCastListViewModelBuilder;
 
-            return this;
-        }
-
-        public async Task<FilmViewModelBuilder> LoadFilmReviews()
-        {
-            await _filmReviewStore.LoadWithInclude(r => r.FilmID == _film.ID && !string.IsNullOrEmpty(r.ReviewText), r => r.User);
-
-            return this;
-        }
-
-        public async Task<FilmViewModelBuilder> LoadCurrentUserFilmReview()
-        {
-            _userFilmReview = await _unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, _film.ID);
-
-            return this;
-        }
-
-        private FilmViewModelBuilder(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork, Film film)
-        {
-            _navigator = navigator;
-            _authenticator = authenticator;
             _unitOfWork = unitOfWork;
-            _film = film;
+            _authenticator = authenticator;
 
-            _filmCastStore = new Store<FilmCast>(_unitOfWork.FilmCastRepository);
-            _filmReviewStore = new Store<FilmReview>(_unitOfWork.FilmReviewRepository);
+            _filmViewModel = new FilmViewModel(_unitOfWork);
         }
 
-        public static FilmViewModelBuilder Init(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork, Film film)
+        public FilmViewModelBuilder SetFilm(Film film)
         {
-            return new FilmViewModelBuilder(navigator, authenticator, unitOfWork, film);
+            _filmViewModel.Film = film;
+            LoadCurrentUserFilmReview();
+
+            _filmViewModel.RateFilmPanelViewModel = _rateFilmPanelViewModelBuilder.SetFilm(film).Build();
+            _filmViewModel.UserReviewsPanelViewModel = _userReviewsPanelViewModelBuilder.SetFilm(film).Build();
+            _filmViewModel.FilmCastListViewModel = _filmCastListViewModelBuilder.SetFilm(film).Build();
+
+            return this;
+        }
+        public static FilmViewModelBuilder Init(RateFilmPanelViewModelBuilder rateFilmPanelViewModelBuilder, 
+                                                UserReviewsPanelViewModelBuilder userReviewsPanelViewModelBuilder,
+                                                FilmCastListViewModelBuilder filmCastListViewModelBuilder,
+                                                IUnitOfWork unitOfWork, IAuthenticator authenticator)
+        {
+            return new FilmViewModelBuilder(rateFilmPanelViewModelBuilder, userReviewsPanelViewModelBuilder, 
+                                            filmCastListViewModelBuilder, unitOfWork, authenticator);
         }
 
         public FilmViewModel Build()
         {
-            return new FilmViewModel(_navigator,
-                                     _authenticator,
-                                     _filmCastStore,
-                                     _filmReviewStore,
-                                     _film,
-                                     _userFilmReview);
+            return _filmViewModel;
+        }
+
+        private void LoadCurrentUserFilmReview()
+        {
+            _unitOfWork.FilmReviewRepository.GetUserFilmReview(_authenticator.CurrentUser.ID, _filmViewModel.Film.ID).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    var currentUserFilmReview = task.Result;
+                    _filmViewModel.CurrentUserFilmReview = currentUserFilmReview;
+
+                    _filmViewModel.RateFilmPanelViewModel.CurrentUserFilmReview = currentUserFilmReview;
+                    _filmViewModel.UserReviewsPanelViewModel.CurrentUserFilmReview = currentUserFilmReview;
+
+                }
+            });
         }
     }
 }

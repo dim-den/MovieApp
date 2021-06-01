@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.WPF.State.Authentificator;
@@ -13,41 +15,42 @@ namespace MovieApp.WPF.ViewModels.Builders
 {
     public class ProfileViewModelBuilder : IViewModelBuilder<ProfileViewModel>
     {
-        private readonly INavigator _navigator;
-        private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly User _user;
+        private ProfileViewModel _profileViewModel;
 
-        private IStore<FilmReview> _userFilmReviewsStore;
-
-        public async Task<ProfileViewModelBuilder> LoadUserFilmReviews()
+        private ProfileViewModelBuilder(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
-            await _userFilmReviewsStore.LoadWithInclude(f => f.UserID == _user.ID, f => f.Film);
+            _profileViewModel = new ProfileViewModel(changeViewCommand);
+            _unitOfWork = unitOfWork;
+        }
+
+        public ProfileViewModelBuilder SetUser(User user)
+        {
+            _profileViewModel.User = user;
+            LoadUserReviews();
 
             return this;
         }
-
-        private ProfileViewModelBuilder(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork, User user)
+        public static ProfileViewModelBuilder Init(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
-            _navigator = navigator;
-            _authenticator = authenticator;
-            _unitOfWork = unitOfWork;
-            _user = user;
-
-            _userFilmReviewsStore = new Store<FilmReview>(_unitOfWork.FilmReviewRepository);
-        }
-
-        public static ProfileViewModelBuilder Init(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork, User user)
-        {
-            return new ProfileViewModelBuilder(navigator, authenticator, unitOfWork, user);
+            return new ProfileViewModelBuilder(unitOfWork, changeViewCommand);
         }
 
         public ProfileViewModel Build()
         {
-            return new ProfileViewModel(_navigator,
-                                        _authenticator,
-                                        _user,
-                                        _userFilmReviewsStore);
+            return _profileViewModel;
+        }
+
+        private void LoadUserReviews()
+        {
+            _unitOfWork.FilmReviewRepository.GetWithInclude(f => f.UserID == _profileViewModel.User.ID, f => f.Film).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                   _profileViewModel.UserFilmReviews = new ObservableCollection<FilmReview>(task.Result);
+                   _profileViewModel.UserRatingsViewModel = new UserRatingsViewModel(_profileViewModel.UserFilmReviews, _profileViewModel.ChangeViewCommand);
+                }
+            });
         }
     }
 }

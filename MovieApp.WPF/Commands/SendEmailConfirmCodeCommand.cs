@@ -14,9 +14,9 @@ namespace MovieApp.WPF.Commands
         private int _verificationCodeLength;
         private readonly IEmailService _emailService;
         private readonly EmailConfirmPanelViewModel _emailConfirmPanelViewModel;
-        public SendEmailConfirmCodeCommand(EmailConfirmPanelViewModel emailConfirmPanelViewModel, int verificationCodeLength)
+        public SendEmailConfirmCodeCommand(EmailConfirmPanelViewModel emailConfirmPanelViewModel, IEmailService emailService, int verificationCodeLength)
         {
-            _emailService = new EmailService();
+            _emailService = emailService;
             _emailConfirmPanelViewModel = emailConfirmPanelViewModel;
             _verificationCodeLength = verificationCodeLength;
         }

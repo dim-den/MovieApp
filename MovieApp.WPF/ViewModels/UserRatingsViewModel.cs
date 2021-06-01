@@ -67,12 +67,12 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CanUserFilterByDate));
             }
         }
-        public UserRatingsViewModel(INavigator navigator, IAuthenticator authentificator, IStore<FilmReview> filmReviewsStore)
+        public UserRatingsViewModel(ObservableCollection<FilmReview> filmReviewsStore, ICommand changeViewCommand)
         {
             FilterReviewsCommand = new UserReviewsFilterCommand(this, filmReviewsStore);
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
+            ChangeViewCommand = changeViewCommand;
 
-            _userReviews = new ObservableCollection<FilmReview>(filmReviewsStore.Entities);
+            _userReviews = filmReviewsStore;
         }
     }
 }

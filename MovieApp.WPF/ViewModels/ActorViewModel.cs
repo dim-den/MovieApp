@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
@@ -15,29 +17,43 @@ namespace MovieApp.WPF.ViewModels
 {
     public class ActorViewModel : ViewModelBase
     {
+        private readonly IUnitOfWork _unitOfWork;
         public ICommand ChangeViewCommand { get; }
 
-        private readonly IStore<FilmCast> _actorFilmCastStore;
+        private Actor _actor;
+        public Actor Actor
+        {
+            get => _actor;
+            set
+            {
+                _actor = value;
+                OnPropertyChanged(nameof(Actor));
+            }
+        }
 
-        public Actor Actor { get;  }
-
-        public IOrderedEnumerable<FilmCast> ActorFilmCast => _actorFilmCastStore.Entities.OrderByDescending(u => u.Film.ReleaseDate);
+        private ObservableCollection<FilmCast> _actorFilmCast;
+        public ObservableCollection<FilmCast> ActorFilmCast
+        {
+            get => _actorFilmCast;
+            set
+            {
+                _actorFilmCast = value;
+                OnPropertyChanged(nameof(ActorFilmCast));
+                OnPropertyChanged(nameof(HasFilmCast));
+                OnPropertyChanged(nameof(FilmingTime));
+            }
+        }
 
         public bool HasFilmCast => ActorFilmCast != null && ActorFilmCast.Count() > 0;
 
-        public string FilmingTime => $"{ActorFilmCast.Min(f => f.Film.ReleaseDate).Year} - {ActorFilmCast.Max(f => f.Film.ReleaseDate).Year}";
+        public string FilmingTime => HasFilmCast ? $"{ActorFilmCast.Min(f => f.Film.ReleaseDate).Year} - {ActorFilmCast.Max(f => f.Film.ReleaseDate).Year}" : "no info";
 
-        public static double GetFilmRating(int filmID)
+        public ActorViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
-            return (new UnitOfWork()).FilmReviewRepository.GetFilmAvgScore(filmID);
-        }
+            _unitOfWork = unitOfWork;
 
-        public ActorViewModel(INavigator navigator, IAuthenticator authentificator, Actor actor, IStore<FilmCast> actorFilmCastStore)
-        {
-            Actor = actor;
-            _actorFilmCastStore = actorFilmCastStore;
-
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
+            ChangeViewCommand = changeViewCommand;
         }
+      
     }
 }

@@ -15,14 +15,10 @@ namespace MovieApp.WPF.ViewModels
 {
     public class SearchBarViewModel : ViewModelBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public ICommand ChangeViewCommand { get;  }
+        public ICommand ChangeViewCommand { get; }
 
         private ICollection<Film> _allFilms;
         private ICollection<Actor> _allActors;
-
-        public ICollection<Film> AllFilms => _allFilms ??= _unitOfWork.FilmRepository.GetAllSync();
-        public ICollection<Actor> AllActors => _allActors ??= _unitOfWork.ActorRepository.GetAllSync();
 
         private ObservableCollection<Film> _films;
         private ObservableCollection<Actor> _actors;
@@ -63,7 +59,7 @@ namespace MovieApp.WPF.ViewModels
         {
             Films = string.IsNullOrEmpty(toFind) ?
                 new ObservableCollection<Film>() :
-                new ObservableCollection<Film>(AllFilms
+                new ObservableCollection<Film>(_allFilms?
                 .Where(f => f.Title.ToLower().Contains(toFind) ||
                             f.Genre.ToLower().Contains(toFind))
                 .Take(6));
@@ -72,17 +68,18 @@ namespace MovieApp.WPF.ViewModels
         {
             Actors = string.IsNullOrEmpty(toFind) ?
                 new ObservableCollection<Actor>() :
-                new ObservableCollection<Actor>(AllActors
+                new ObservableCollection<Actor>(_allActors?
                 .Where(a => a.Name.ToLower().Contains(toFind) ||
                             a.Surname.ToLower().Contains(toFind))
                 .Take(4));
         }
 
-        public SearchBarViewModel(INavigator navigator, IAuthenticator authentificator, IUnitOfWork unitOfWork)
+        public SearchBarViewModel(ICollection<Film> films, ICollection<Actor> actors, ICommand changeViewCommand )
         {
-            _unitOfWork = unitOfWork;
+            _allFilms = films;
+            _allActors = actors;
 
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
+            ChangeViewCommand = changeViewCommand;
 
             _films = new ObservableCollection<Film>();
             _actors = new ObservableCollection<Actor>();

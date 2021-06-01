@@ -60,11 +60,11 @@ namespace MovieApp.WPF.Commands
             }
         }
 
-        public NextStepPasswordRecoveryCommand(PasswordRecoveryViewModel passwordRecoveryViewModel, IUnitOfWork unitOfWork)
+        public NextStepPasswordRecoveryCommand(PasswordRecoveryViewModel passwordRecoveryViewModel, IUnitOfWork unitOfWork, IEmailService email)
         {
             _passwordRecoveryViewModel = passwordRecoveryViewModel;   
             _unitOfWork = unitOfWork;
-            _emailService = new EmailService();
+            _emailService = email;
 
             _passwordRecoveryViewModel.PropertyChanged += PasswordRecoveryViewModel_PropertyChanged;
         }

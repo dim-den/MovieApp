@@ -56,7 +56,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
         public HomeViewModel Build()
         {
-            return new HomeViewModel(_navigator, _authenticator, _randomFilms, _randomActors, _upcomingFilms);
+            return null;
         }
     }
 }

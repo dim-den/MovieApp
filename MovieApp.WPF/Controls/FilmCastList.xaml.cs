@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MovieApp.WPF.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для ActorsListing.xaml
+    /// Interaction logic for FilmCastList.xaml
     /// </summary>
-    public partial class ActorsListing : UserControl
+    public partial class FilmCastList : UserControl
     {
-        public ActorsListing()
+        public FilmCastList()
         {
             InitializeComponent();
         }

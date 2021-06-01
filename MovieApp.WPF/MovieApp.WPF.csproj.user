@@ -4,9 +4,6 @@
     <_LastSelectedProfileId>C:\Users\dimde\OneDrive\Рабочий стол\ООТП\4 семестр\Курсовой\MovieApp\MovieApp.WPF\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Controls\ActorsListing.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Controls\ActorsSummary.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -17,6 +14,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\EmailConfirmPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\FilmCastList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\MovieCarousel.xaml.cs">
@@ -66,9 +66,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Controls\ActorsListing.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Controls\ActorsSummary.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -79,6 +76,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\EmailConfirmPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\FilmCastList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\MovieCarousel.xaml">

@@ -1,8 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.WPF.State.Authentificator;
@@ -13,41 +16,41 @@ namespace MovieApp.WPF.ViewModels.Builders
 {
     public class ActorViewModelBuilder : IViewModelBuilder<ActorViewModel>
     {
-        private readonly INavigator _navigator;
-        private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Actor _actor;
+        private ActorViewModel _actorViewModel;
 
-        private IStore<FilmCast> _filmCastStore;
-
-        public async Task<ActorViewModelBuilder> LoadFilmCast()
+        private ActorViewModelBuilder(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
-            await _filmCastStore.LoadWithInclude(c => c.ActorID == _actor.ID, c => c.Film);
+            _actorViewModel = new ActorViewModel(unitOfWork, changeViewCommand);
+            _unitOfWork = unitOfWork;
+        }
+
+        public ActorViewModelBuilder SetActor(Actor actor)
+        {
+            _actorViewModel.Actor = actor;
+            LoadActorFilmCast();
 
             return this;
         }
-
-        private ActorViewModelBuilder(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork, Actor actor)
+        public static ActorViewModelBuilder Init(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
-            _navigator = navigator;
-            _authenticator = authenticator;
-            _unitOfWork = unitOfWork;
-            _actor = actor;
-
-            _filmCastStore = new Store<FilmCast>(_unitOfWork.FilmCastRepository);
-        }
-
-        public static ActorViewModelBuilder Init(INavigator navigator, IAuthenticator authenticator, IUnitOfWork unitOfWork, Actor actor)
-        {
-            return new ActorViewModelBuilder(navigator, authenticator, unitOfWork, actor);
+            return new ActorViewModelBuilder(unitOfWork, changeViewCommand);
         }
 
         public ActorViewModel Build()
         {
-            return new ActorViewModel(_navigator,
-                                     _authenticator,
-                                     _actor,
-                                     _filmCastStore);
+            return _actorViewModel;
+        }
+
+        private void LoadActorFilmCast()
+        {
+            _unitOfWork.FilmCastRepository.GetWithInclude(c => c.ActorID == _actorViewModel.Actor.ID, c => c.Film).ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    _actorViewModel.ActorFilmCast = new ObservableCollection<FilmCast>(task.Result.OrderByDescending(f => f.Film.ReleaseDate));
+                }
+            });
         }
     }
 }

@@ -265,136 +265,14 @@
             </Grid>
         </Grid>
 
-
-        <Grid Grid.Row="2">
-            <StackPanel
-                Margin="50,30,50,50"
-                HorizontalAlignment="Stretch"
-                Orientation="Vertical">
-                <TextBlock
-                    Margin="0,0,0,20"
-                    FontSize="32"
-                    FontWeight="Medium"
-                    Foreground="{StaticResource BrushPrimary3}"
-                    Text="{DynamicResource FilmView.FilmCast}" />
-
-                <Border
-                    BorderBrush="{StaticResource BrushPrimary2}"
-                    BorderThickness="4"
-                    CornerRadius="4">
-
-                    <Border.Effect>
-                        <DropShadowEffect
-                            BlurRadius="10"
-                            Opacity="0.4"
-                            RenderingBias="Quality"
-                            ShadowDepth="3"
-                            Color="Black" />
-                    </Border.Effect>
-                    <Grid HorizontalAlignment="Stretch" Background="{StaticResource BrushPrimary2}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="170" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid.Resources>
-                            <Style x:Key="headerTextBox" TargetType="TextBlock">
-                                <Setter Property="FontSize" Value="22" />
-                                <Setter Property="FontWeight" Value="Normal" />
-                                <Setter Property="Margin" Value="10,0,0,0" />
-                                <Setter Property="Foreground" Value="{StaticResource BrushPrimary1}" />
-                                <Setter Property="HorizontalAlignment" Value="Left" />
-                            </Style>
-                        </Grid.Resources>
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Style="{StaticResource headerTextBox}"
-                            Text="{DynamicResource FilmView.Actor}" />
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Style="{StaticResource headerTextBox}"
-                            Text="{DynamicResource FilmView.FilmRole}" />
-
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Style="{StaticResource headerTextBox}"
-                            Text="{DynamicResource FilmView.RoleType}" />
-
-                        <ListBox
-                            x:Name="castLB"
-                            Grid.Row="1"
-                            Grid.ColumnSpan="3"
-                            HorizontalContentAlignment="Stretch"
-                            AlternationCount="2"
-                            Background="{StaticResource BrushPrimary1}"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Foreground="{StaticResource BrushPrimary2}"
-                            ItemsSource="{Binding Cast}"
-                            Style="{x:Null}">
-
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                    <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=castLB, Path=SelectedItem.Actor}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid MinWidth="200" Grid.IsSharedSizeScope="True">
-
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="150" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <TextBlock
-                                            Grid.Column="0"
-                                            HorizontalAlignment="Left"
-                                            FontSize="20">
-                                            <Run Text="{Binding Actor.Name}" /> <Run Text="{Binding Actor.Surname}" />
-                                        </TextBlock>
-
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Left"
-                                            FontSize="20"
-                                            Text="{Binding RoleName}" />
-
-                                        <TextBlock
-                                            Grid.Column="2"
-                                            HorizontalAlignment="Left"
-                                            FontSize="20"
-                                            Text="{Binding RoleType}" />
-
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-
-                    </Grid>
-                </Border>
-            </StackPanel>
-        </Grid>
+        <controls:FilmCastList Grid.Row="2" DataContext="{Binding FilmCastListViewModel}" />
 
         <Grid Grid.Row="3" Visibility="{Binding FilmReleased, Converter={StaticResource InverseBoolToVisConverter}}">
-            <controls:RateFilmPanel Background="{StaticResource BrushPrimary2}" DataContext="{Binding RateFilmPanel}" />
+            <controls:RateFilmPanel Background="{StaticResource BrushPrimary2}" DataContext="{Binding RateFilmPanelViewModel}" />
         </Grid>
 
         <Grid Grid.Row="4" Visibility="{Binding FilmReleased, Converter={StaticResource InverseBoolToVisConverter}}">
-            <controls:UserReviewsPanel DataContext="{Binding UserReviewsPanel}" />
+            <controls:UserReviewsPanel DataContext="{Binding UserReviewsPanelViewModel}" />
         </Grid>
     </Grid>
 </UserControl>

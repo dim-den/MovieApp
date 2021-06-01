@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.ReviewServices;
@@ -13,10 +14,11 @@ using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
-    public class RateFilmPanelViewModel : ViewModelBase 
+    public class RateFilmPanelViewModel : ViewModelBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public AsyncCommandBase RateFilmCommand { get; }
+        private readonly IAuthenticator _authentificator;
+        public ICommand RateFilmCommand { get; }
 
         private FilmReview _currentUserFilmReview;
         public FilmReview CurrentUserFilmReview
@@ -31,18 +33,26 @@ namespace MovieApp.WPF.ViewModels
             }
         }
 
-        public double FilmAvgScore => FilmReviewsCount > 0 ? _unitOfWork.FilmReviewRepository.GetFilmAvgScore(Film.ID) : 0.0f;
-        public int FilmReviewsCount => _unitOfWork.FilmReviewRepository.GetFilmReviewsCount(Film.ID);
+        public double FilmAvgScore => Film != null && FilmReviewsCount > 0 ? _unitOfWork.FilmReviewRepository.GetFilmAvgScore(Film.ID) : 0.0f;
+        public int FilmReviewsCount => Film != null ? _unitOfWork.FilmReviewRepository.GetFilmReviewsCount(Film.ID) : 0;
 
-        public Film Film { get; }
 
-        public RateFilmPanelViewModel(FilmReview currentUserFilmReview, Film film, IAuthenticator authentificator, IUnitOfWork unitOfWork)
+        private Film _film;
+        public Film Film
         {
-            _currentUserFilmReview = currentUserFilmReview;
-            _unitOfWork = unitOfWork;
-            Film = film;
+            get => _film;
+            set
+            {
+                _film = value;
+                OnPropertyChanged(nameof(Film));
+            }
+        }
 
-            RateFilmCommand = new UserRateFilmCommand(this, authentificator, new LeaveReviewService(unitOfWork));
+        public RateFilmPanelViewModel(IAuthenticator authentificator, IUnitOfWork unitOfWork, ILeaveReviewService leaveReviewService)
+        {
+            _unitOfWork = unitOfWork;
+
+            RateFilmCommand = new UserRateFilmCommand(this, authentificator, leaveReviewService);
         }
     }
 }

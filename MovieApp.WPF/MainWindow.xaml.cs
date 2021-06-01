@@ -21,11 +21,11 @@ namespace MovieApp.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(object dataContext)
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            DataContext = dataContext;
         }
 
         // pure UI logic and doesn't belong in a ViewModel, this is why not in MVVM way done

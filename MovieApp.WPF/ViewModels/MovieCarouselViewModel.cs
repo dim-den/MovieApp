@@ -19,11 +19,21 @@ namespace MovieApp.WPF.ViewModels
 {
     public class MovieCarouselViewModel : ViewModelBase
     {
+        private readonly IUnitOfWork _unitOfWork;
         public ICommand ChangeMovieCarouselCommand { get; }
         public ICommand ChangeViewCommand { get; }
 
-        private readonly ObservableCollection<Film> _films;
-        public ObservableCollection<Film> Films => _films;
+        private ObservableCollection<Film> _films;
+        public ObservableCollection<Film> Films
+        {
+            get => _films;
+            set
+            {
+                _films = value;
+                OnPropertyChanged(nameof(Films));
+            }
+        }
+
 
         private int _currentIndex;
         public int CurrentIndex
@@ -35,20 +45,19 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CurrentIndex));
                 OnPropertyChanged(nameof(CurrentFilm));
                 OnPropertyChanged(nameof(PosterImageData));
-                OnPropertyChanged(nameof(Title));
-                OnPropertyChanged(nameof(Year));
             }
         }
-        public Film CurrentFilm => _films[CurrentIndex];
-        public byte[] PosterImageData => CurrentFilm.PosterImageData;
-        public string Title => CurrentFilm.Title;
-        public int Year => CurrentFilm.ReleaseDate.Year;
+        public Film CurrentFilm => _films?[CurrentIndex];
+        public byte[] PosterImageData => CurrentFilm?.PosterImageData;
 
         private readonly DispatcherTimer _timer;
         public DispatcherTimer Timer => _timer;
-        public MovieCarouselViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore)
+        public MovieCarouselViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
-            _films = new ObservableCollection<Film>(filmStore.Entities);
+            _unitOfWork = unitOfWork;
+
+            ChangeViewCommand = changeViewCommand;
+
             _timer = new DispatcherTimer();
             CurrentIndex = 0;
 
@@ -57,8 +66,27 @@ namespace MovieApp.WPF.ViewModels
             Timer.Start();
 
             ChangeMovieCarouselCommand = new ChangeMovieCarouselCommand(this);
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
         }
+
+        public static MovieCarouselViewModel LoadMovieCarouselViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        {
+            MovieCarouselViewModel majorIndexViewModel = new MovieCarouselViewModel(unitOfWork, changeViewCommand);
+            majorIndexViewModel.LoadFilms();
+
+            return majorIndexViewModel;
+        }
+
+        private void LoadFilms()
+        {
+            _unitOfWork.FilmRepository.GetRandomReleasedFilms(5).ContinueWith(task =>
+            {
+                if(task.Exception == null)
+                {
+                    Films = new ObservableCollection<Film>(task.Result);
+                }
+            });
+        }
+
         private void TimerTick(object sender, EventArgs e)
         {
             ChangeMovieCarouselCommand.Execute(ChangeDirection.Right);

@@ -13,12 +13,12 @@ namespace MovieApp.WPF.Commands
 {
     public class SignOutCommand : ICommand
     {
-        private readonly INavigator _navigator;
         private readonly IAuthenticator _authenticator;
-        public SignOutCommand(INavigator navigator, IAuthenticator authenticator = null)
+        private readonly IRenavigator _renavigator;
+        public SignOutCommand(IAuthenticator authenticator, IRenavigator renavigator)
         {
-            _navigator = navigator;
             _authenticator = authenticator;
+            _renavigator = renavigator;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -31,8 +31,7 @@ namespace MovieApp.WPF.Commands
         public void Execute(object parameter)
         {
             _authenticator.Logout();
-            _navigator.CurrentViewModel = new LoginViewModel(_navigator, _authenticator);
-
+            _renavigator.Renavigate();
         }
     }
 }

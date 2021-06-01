@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
+using MovieApp.Domain.Services;
 using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
@@ -16,15 +17,43 @@ namespace MovieApp.WPF.ViewModels
 {
     public class UpcomingFilmsListViewModel : ViewModelBase
     {
-        public ICommand ChangeViewCommand { get; }
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ObservableCollection<Film> UpcomingFilms { get; }
+        public ICommand  ChangeViewCommand { get; }
 
-        public UpcomingFilmsListViewModel(INavigator navigator, IAuthenticator authentificator, IStore<Film> filmStore)
+        private ObservableCollection<Film> _upcomingFilms;
+        public ObservableCollection<Film> UpcomingFilms
         {
-            UpcomingFilms = new ObservableCollection<Film>(filmStore.Entities);
+            get => _upcomingFilms;
+            set
+            {
+                _upcomingFilms = value;
+                OnPropertyChanged(nameof(UpcomingFilms));
+            }
+        }
+        public UpcomingFilmsListViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        {
+            _unitOfWork = unitOfWork;
+            ChangeViewCommand = changeViewCommand;
+        }
 
-            ChangeViewCommand = new ChangeViewCommand(navigator, authentificator);
+        public static UpcomingFilmsListViewModel LoadUpcomingFilmsListViewModel(IUnitOfWork unitOfWork, ICommand changeViewCommand)
+        {
+            UpcomingFilmsListViewModel upcomingFilmsListViewModel = new UpcomingFilmsListViewModel(unitOfWork, changeViewCommand);
+            upcomingFilmsListViewModel.LoadFilms();
+
+            return upcomingFilmsListViewModel;
+        }
+
+        private void LoadFilms()
+        {
+            _unitOfWork.FilmRepository.GetUpcomingFilms().ContinueWith(task =>
+            {
+                if (task.Exception == null)
+                {
+                    UpcomingFilms = new ObservableCollection<Film>(task.Result.Take(4));
+                }
+            });
         }
     }
 }

@@ -34,7 +34,7 @@ namespace MovieApp.WPF.Commands
     public class UserReviewsFilterCommand : AsyncCommandBase
     {
 
-        private readonly IStore<FilmReview> _filmReviewsStore;
+        private readonly ObservableCollection<FilmReview> _filmReviews;
         private readonly UserRatingsViewModel _userRatingsViewModel;
 
         public override bool CanExecute(object parameter)
@@ -48,37 +48,37 @@ namespace MovieApp.WPF.Commands
 
             if ((int)filterReviewType >= 1 && (int)filterReviewType <= 10)
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviewsStore.Entities
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews
                 .Where(review => review.Score == (int)filterReviewType));
             }
             else if (filterReviewType == FilterReviewType.SortByDate)
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviewsStore.Entities.OrderByDescending(review => review.Date));
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews.OrderByDescending(review => review.Date));
             }
             else if (filterReviewType == FilterReviewType.SortByScore)
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviewsStore.Entities.OrderByDescending(review => review.Score));
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews.OrderByDescending(review => review.Score));
             }
             else if (filterReviewType == FilterReviewType.SortByTitle)
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviewsStore.Entities.OrderBy(review => review.Film.Title));            
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews.OrderBy(review => review.Film.Title));            
             }
             else if (filterReviewType == FilterReviewType.DateBetween)
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviewsStore.Entities
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews
                 .Where(review => review.Date.Date <= _userRatingsViewModel.ToDate.Value.Date &&
                                  review.Date.Date >= _userRatingsViewModel.FromDate.Value.Date));
             }
             else
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviewsStore.Entities);
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews);
             }
         }
 
-        public UserReviewsFilterCommand(UserRatingsViewModel userRatingsViewModel, IStore<FilmReview> filmReviewsStore)
+        public UserReviewsFilterCommand(UserRatingsViewModel userRatingsViewModel, ObservableCollection<FilmReview> filmReviews)
         {
             _userRatingsViewModel = userRatingsViewModel;
-            _filmReviewsStore = filmReviewsStore;
+            _filmReviews = filmReviews;
         }
 
     }
