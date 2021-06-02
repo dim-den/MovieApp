@@ -26,9 +26,9 @@ namespace MovieApp.EntityFramework
         public IFilmCastDataService FilmCastRepository => _filmCastDataService ?? (_filmCastDataService = new FilmCastDataService(_movieAppDbContext));
         public IActorDataService ActorRepository => _actorDataService ?? (_actorDataService = new ActorDataService(_movieAppDbContext));
 
-        public UnitOfWork()
+        public UnitOfWork(MovieAppDbContextFactory movieAppDbContextFactory)
         {
-            _movieAppDbContext = new MovieAppDbContext();
+            _movieAppDbContext = movieAppDbContextFactory.CreateDbContext();
         }
 
         public virtual void Dispose(bool disposing)

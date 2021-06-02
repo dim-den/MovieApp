@@ -11,8 +11,14 @@ namespace MovieApp.Domain.Services.EmailServices
 {
     public class EmailService : IEmailService
     {
-        private const string _login = "movieappwpf@gmail.com";
-        private const string _password = "MovieAppWPF123.";
+        private readonly string _login;
+        private readonly string _password;
+
+        public EmailService(string login, string password)
+        {
+            _login = login;
+            _password = password;
+        }
 
         public async Task<string> SendMessage(User user, string body, string subject, int codeLength)
         {

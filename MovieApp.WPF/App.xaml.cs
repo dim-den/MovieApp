@@ -22,6 +22,10 @@ using MovieApp.WPF.ViewModels.Factories;
 using MovieApp.WPF.Commands;
 using MovieApp.Domain.Models;
 using MovieApp.WPF.ViewModels.Builders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using MovieApp.WPF.HostBuilders;
 
 namespace MovieApp.WPF
 {
@@ -30,206 +34,52 @@ namespace MovieApp.WPF
     /// </summary>
     public partial class App : Application
     {
+        private readonly IHost _host;
+
+        public App()
+        {
+            SetAppCulture(new CultureInfo("en-US"));
+
+            _host = CreateHostBuilder().Build();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args = null)
+        {
+            return Host.CreateDefaultBuilder(args)
+                        .AddConfiguration()
+                        .AddDbContext()
+                        .AddServices()
+                        .AddStores()
+                        .AddViewModelBuilders()
+                        .AddViewModels()
+                        .AddViews();
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            var vCulture = new CultureInfo("en-EN");
+            _host.Start();
 
-            Thread.CurrentThread.CurrentCulture = vCulture;
-            Thread.CurrentThread.CurrentUICulture = vCulture;
-            CultureInfo.DefaultThreadCurrentCulture = vCulture;
-            CultureInfo.DefaultThreadCurrentUICulture = vCulture;
-
-            IServiceProvider serviceProvider = CreateServiceProvider();
-
-            Window window = serviceProvider.GetRequiredService<MainWindow>();
+            Window window = _host.Services.GetRequiredService<MainWindow>();
             window.Show();
 
             base.OnStartup(e);
         }
 
-        private IServiceProvider CreateServiceProvider()
+        private void SetAppCulture(CultureInfo cultureInfo)
         {
-            IServiceCollection services = new ServiceCollection();
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
-            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+        }
 
-            services.AddSingleton<IUserDataService, UserDataService>();
-            services.AddSingleton<IFilmReviewDataService, FilmReviewDataService>();
-            services.AddSingleton<IFilmDataService, FilmDataService>();
-            services.AddSingleton<IFilmCastDataService, FilmCastDataService>();
-            services.AddSingleton<IActorDataService, ActorDataService>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await _host.StopAsync();
+            _host.Dispose();
 
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<ILeaveReviewService, LeaveReviewService>();
-
-            services.AddSingleton<IViewModelFactory, ViewModelFactory>();
-
-            services.AddScoped<Account>();
-            services.AddScoped<INavigator, Navigator>();        
-            services.AddScoped<IAuthenticator, Authenticator>();
-
-            services.AddSingleton<ChangeViewCommand>();
-
-            services.AddSingleton<MovieCarouselViewModelBuilder>(services => MovieCarouselViewModelBuilder.Init(
-                  services.GetRequiredService<IUnitOfWork>(),
-                  services.GetRequiredService<ChangeViewCommand>()
-                  )
-                );
-
-            services.AddSingleton<ActorsSummaryViewModelBuilder>(services => ActorsSummaryViewModelBuilder.Init(
-                  services.GetRequiredService<IUnitOfWork>(),
-                  services.GetRequiredService<ChangeViewCommand>()
-                  )
-                );
-
-            services.AddSingleton<UpcomingFilmsListViewModelBuilder>(services => UpcomingFilmsListViewModelBuilder.Init(
-                  services.GetRequiredService<IUnitOfWork>(),
-                  services.GetRequiredService<ChangeViewCommand>()
-                  )
-                );
-
-            services.AddSingleton<HomeViewModelBuilder>(services => HomeViewModelBuilder.Init(
-                                                        services.GetRequiredService<MovieCarouselViewModelBuilder>(),
-                                                        services.GetRequiredService<ActorsSummaryViewModelBuilder>(),
-                                                        services.GetRequiredService<UpcomingFilmsListViewModelBuilder>())
-               );
-
-
-            services.AddSingleton<CreateViewModel<HomeViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<HomeViewModelBuilder>().SetCarouselFilmsCount(5).SetActorsCount(9).SetUpcomingFilmsCount(4).Build();
-            });
-
-            services.AddSingleton<Renavigator<HomeViewModel>>();
-
-            services.AddSingleton<LoginViewModel>(services => new LoginViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<ChangeViewCommand>(),
-                    services.GetRequiredService<Renavigator<HomeViewModel>>())
-                  );
-
-            services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<LoginViewModel>();
-            });
-
-            services.AddSingleton<Renavigator<LoginViewModel>>();
-
-            services.AddSingleton<RegisterViewModel>(services => new RegisterViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<ChangeViewCommand>(),
-                    services.GetRequiredService<Renavigator<HomeViewModel>>())
-                  );
-
-            services.AddSingleton<CreateViewModel<RegisterViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<RegisterViewModel>();
-            });
-
-            services.AddSingleton<PasswordRecoveryViewModel>(services => new PasswordRecoveryViewModel(
-                    services.GetRequiredService<IUnitOfWork>(),
-                    services.GetRequiredService<ChangeViewCommand>(),
-                    services.GetRequiredService<IEmailService>(),
-                    services.GetRequiredService<IPasswordHasher>())
-                  );
-
-            services.AddSingleton<CreateViewModel<PasswordRecoveryViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<PasswordRecoveryViewModel>();
-            });
-
-            services.AddScoped<AdminPanelViewModel>(services => new AdminPanelViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<IUnitOfWork>())
-                  );
-
-            services.AddSingleton<CreateViewModel<AdminPanelViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<AdminPanelViewModel>();
-            });
-
-            services.AddScoped<SettingsViewModel>(services => new SettingsViewModel(
-                   services.GetRequiredService<IAuthenticator>(),                   
-                   services.GetRequiredService<IUnitOfWork>(),
-                   services.GetRequiredService<IEmailService>())
-                 );
-
-            services.AddSingleton<CreateViewModel<SettingsViewModel>>(services =>
-            {
-                return () => services.GetRequiredService<SettingsViewModel>();
-            });
-
-            services.AddSingleton<ProfileViewModelBuilder>(services => ProfileViewModelBuilder.Init(
-                 services.GetRequiredService<IUnitOfWork>(),
-                 services.GetRequiredService<ChangeViewCommand>()
-                 )
-               );
-
-            services.AddTransient<CreateViewModelWithParam<ProfileViewModel, User>>(services =>
-            {
-                return param => services.GetRequiredService<ProfileViewModelBuilder>().SetUser(param).Build();
-            });
-
-            services.AddSingleton<ActorViewModelBuilder>(services => ActorViewModelBuilder.Init(
-                  services.GetRequiredService<IUnitOfWork>(),
-                  services.GetRequiredService<ChangeViewCommand>()
-                  )
-                );
-
-            services.AddTransient<CreateViewModelWithParam<ActorViewModel, Actor>>(services =>
-            {
-                return param => services.GetRequiredService<ActorViewModelBuilder>().SetActor(param).Build();
-            });
-
-            services.AddSingleton<RateFilmPanelViewModelBuilder>(services => RateFilmPanelViewModelBuilder.Init(
-                  services.GetRequiredService<IAuthenticator>(),
-                  services.GetRequiredService<IUnitOfWork>(),
-                  services.GetRequiredService<ILeaveReviewService>()
-                  )
-                );
-
-            services.AddSingleton<UserReviewsPanelViewModelBuilder>(services => UserReviewsPanelViewModelBuilder.Init(
-                 services.GetRequiredService<IUnitOfWork>(),
-                 services.GetRequiredService<IAuthenticator>(),
-                 services.GetRequiredService<ILeaveReviewService>(),
-                 services.GetRequiredService<ChangeViewCommand>()
-                 )
-               );
-
-            services.AddSingleton<FilmCastListViewModelBuilder>(services => FilmCastListViewModelBuilder.Init(
-                 services.GetRequiredService<IUnitOfWork>(),
-                 services.GetRequiredService<ChangeViewCommand>()
-                 )
-               );
-
-            services.AddSingleton<FilmViewModelBuilder>(services => FilmViewModelBuilder.Init(
-                                                          services.GetRequiredService<RateFilmPanelViewModelBuilder>(),
-                                                          services.GetRequiredService<UserReviewsPanelViewModelBuilder>(),
-                                                          services.GetRequiredService<FilmCastListViewModelBuilder>(),
-                                                          services.GetRequiredService<IUnitOfWork>(),
-                                                          services.GetRequiredService<IAuthenticator>())
-               );
-
-            services.AddTransient<CreateViewModelWithParam<FilmViewModel, Film>>(services =>
-            {
-                return param => services.GetRequiredService<FilmViewModelBuilder>().SetFilm(param).Build();  
-            });
-
-            services.AddSingleton<AppHeaderViewModel>(services => new AppHeaderViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<IUnitOfWork>(),
-                    services.GetRequiredService<ChangeViewCommand>(),
-                    services.GetRequiredService<Renavigator<LoginViewModel>>())
-                  );
-
-            services.AddScoped<MainViewModel>();
-
-            services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
-
-            return services.BuildServiceProvider();
-             
+            base.OnExit(e);
         }
     }
 }
