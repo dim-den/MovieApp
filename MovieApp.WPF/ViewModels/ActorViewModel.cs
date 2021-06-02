@@ -37,7 +37,7 @@ namespace MovieApp.WPF.ViewModels
             }
         }
 
-        public bool HasFilmCast => ActorFilmCast != null && ActorFilmCast.Count() > 0;
+        public bool HasFilmCast => ActorFilmCast?.Count() > 0;
 
         public string FilmingTime => HasFilmCast ? $"{ActorFilmCast.Min(f => f.Film.ReleaseDate).Year} - {ActorFilmCast.Max(f => f.Film.ReleaseDate).Year}" : "no info";
 

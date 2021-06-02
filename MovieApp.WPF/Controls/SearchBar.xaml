@@ -143,8 +143,7 @@
                                         FontStyle="Italic"
                                         FontWeight="Thin"
                                         Foreground="{StaticResource BrushPrimary4}">
-                                        <Run Text="{Binding Genre}" />
-                                        ,<Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
+                                        <Run Text="{Binding Genre}" />, <Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>
@@ -206,8 +205,7 @@
                                         FontStyle="Italic"
                                         FontWeight="Thin"
                                         Foreground="{StaticResource BrushPrimary4}">
-                                        <Run Text="{Binding Country}" />
-                                        ,<Run Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}, Mode=OneWay}" />
+                                        <Run Text="{Binding Country}" />, <Run Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}, Mode=OneWay}" />
                                         y.o.</TextBlock>
                                 </StackPanel>
                             </Grid>

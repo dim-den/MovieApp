@@ -31,7 +31,7 @@ namespace MovieApp.WPF.HostBuilders
                                                                                         .Build());
                 services.AddSingleton<CreateViewModel<RegisterViewModel>>(services => () => CreateRegisterViewModel(services));
                 services.AddSingleton<CreateViewModel<PasswordRecoveryViewModel>>(services => () => CreatePasswordRecoveryViewModel(services));
-                services.AddSingleton<CreateViewModel<AdminPanelViewModel>>(services => () => CreateAdminPanelViewModel(services));
+                services.AddTransient<CreateViewModel<AdminPanelViewModel>>(services => () => CreateAdminPanelViewModel(services));
                 services.AddSingleton<CreateViewModel<SettingsViewModel>>(services => () => CreateSettingsViewModel(services));
                 services.AddTransient<CreateViewModelWithParam<ProfileViewModel, User>>(services =>
                     (param) => services.GetRequiredService<ProfileViewModelBuilder>().SetUser(param).Build());

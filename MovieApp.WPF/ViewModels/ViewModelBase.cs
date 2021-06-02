@@ -10,9 +10,7 @@ namespace MovieApp.WPF.ViewModels
 
     public class ViewModelBase : INotifyPropertyChanged
     {
-        public virtual void Dispose()
-        {
-        }
+        public virtual void Dispose() { }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

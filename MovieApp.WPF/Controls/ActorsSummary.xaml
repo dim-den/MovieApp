@@ -13,103 +13,137 @@
     <UserControl.Resources>
         <converters:BdayToAgeConverter x:Key="BdayToAgeConverter" />
     </UserControl.Resources>
-    <Border
-        VerticalAlignment="Top"
-        Background="{StaticResource BrushPrimary3}"
-        BorderBrush="Transparent"
-        CornerRadius="8">
-        <StackPanel
-            Margin="5,0"
-            HorizontalAlignment="Center"
-            Orientation="Vertical">
-            <TextBlock
-                Margin="0,5,0,0"
+    <Grid>
+        <Border
+            VerticalAlignment="Top"
+            Background="{StaticResource BrushPrimary3}"
+            BorderBrush="Transparent"
+            CornerRadius="8">
+            <StackPanel
+                Margin="5,0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="24"
-                FontWeight="Medium"
-                Foreground="{StaticResource BrushPrimary1}"
-                Text="{DynamicResource ActorListing.PopularActors}" />
+                Orientation="Vertical">
+                <TextBlock
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="Medium"
+                    Foreground="{StaticResource BrushPrimary1}"
+                    Text="{DynamicResource ActorListing.PopularActors}" />
 
-            <ListBox
-                x:Name="actorsLB"
-                Margin="0,5"
-                Cursor="Hand"
-                ItemsSource="{Binding Actors}"
-                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox
+                    x:Name="actorsLB"
+                    Margin="0,5"
+                    Cursor="Hand"
+                    ItemsSource="{Binding Actors}"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding ChangeViewCommand}" CommandParameter="{Binding ElementName=actorsLB, Path=SelectedItem}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
 
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Margin="-8"
-                            Background="{StaticResource BrushPrimary1}"
-                            BorderThickness="0,5,0,0"
-                            CornerRadius="3">
-                            <StackPanel MinWidth="340   " Orientation="Vertical">
-                                <StackPanel Margin="5,5,5,0" Orientation="Horizontal">
-                                    <TextBlock
-                                        Margin="0,0,5,0"
-                                        FontSize="18"
-                                        FontWeight="Medium"
-                                        Foreground="{StaticResource BrushPrimary2}"
-                                        Text="{Binding Name}" />
-                                    <TextBlock
-                                        FontSize="18"
-                                        FontWeight="Medium"
-                                        Foreground="{StaticResource BrushPrimary2}"
-                                        Text="{Binding Surname}"
-                                        TextWrapping="Wrap" />
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="-8"
+                                Background="{StaticResource BrushPrimary1}"
+                                BorderThickness="0,5,0,0"
+                                CornerRadius="3">
+                                <StackPanel MinWidth="340   " Orientation="Vertical">
+                                    <StackPanel Margin="5,5,5,0" Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Foreground="{StaticResource BrushPrimary2}"
+                                            Text="{Binding Name}" />
+                                        <TextBlock
+                                            FontSize="18"
+                                            FontWeight="Medium"
+                                            Foreground="{StaticResource BrushPrimary2}"
+                                            Text="{Binding Surname}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        MinWidth="250"
+                                        Margin="15,0,0,4"
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontStyle="Italic"
+                                            Foreground="{StaticResource BrushPrimary4}"
+                                            Text="{Binding Country}" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontStyle="Italic"
+                                            Foreground="{StaticResource BrushPrimary4}"
+                                            Text="," />
+                                        <TextBlock
+                                            Margin="5,0,0,0"
+                                            FontSize="14"
+                                            FontStyle="Italic"
+                                            Foreground="{StaticResource BrushPrimary4}"
+                                            Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}}" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontStyle="Italic"
+                                            Foreground="{StaticResource BrushPrimary4}"
+                                            Text=" y.o." />
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel
-                                    MinWidth="250"
-                                    Margin="15,0,0,4"
-                                    Orientation="Horizontal">
-                                    <TextBlock
-                                        FontSize="14"
-                                        FontStyle="Italic"
-                                        Foreground="{StaticResource BrushPrimary4}"
-                                        Text="{Binding Country}" />
-                                    <TextBlock
-                                        FontSize="14"
-                                        FontStyle="Italic"
-                                        Foreground="{StaticResource BrushPrimary4}"
-                                        Text="," />
-                                    <TextBlock
-                                        Margin="5,0,0,0"
-                                        FontSize="14"
-                                        FontStyle="Italic"
-                                        Foreground="{StaticResource BrushPrimary4}"
-                                        Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}}" />
-                                    <TextBlock
-                                        FontSize="14"
-                                        FontStyle="Italic"
-                                        Foreground="{StaticResource BrushPrimary4}"
-                                        Text=" y.o." />
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
 
-        <Border.Effect>
-            <DropShadowEffect
-                BlurRadius="10"
-                Opacity="0.3"
-                ShadowDepth="5" />
-        </Border.Effect>
-    </Border>
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Opacity="0.3"
+                    ShadowDepth="5" />
+            </Border.Effect>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Actors}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+
+        </Border>
+
+        <ProgressBar
+            Width="150"
+            Margin="100"
+            VerticalAlignment="Top"
+            Foreground="{StaticResource BrushPrimary2}"
+            IsIndeterminate="True"
+            Value="0">
+            <ProgressBar.Style>
+                <Style BasedOn="{StaticResource MaterialDesignCircularProgressBar}" TargetType="ProgressBar">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Actors}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
+
+    </Grid>
 </UserControl>

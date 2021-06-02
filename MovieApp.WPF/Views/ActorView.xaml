@@ -163,6 +163,26 @@
             </Grid>
         </Grid>
 
+        <ProgressBar
+            Grid.Row="1"
+            Width="150"
+            Margin="100"
+            VerticalAlignment="Top"
+            Foreground="{StaticResource BrushPrimary2}"
+            IsIndeterminate="True"
+            Value="0">
+            <ProgressBar.Style>
+                <Style BasedOn="{StaticResource MaterialDesignCircularProgressBar}" TargetType="ProgressBar">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ActorFilmCast}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
+
         <Border
             Grid.Row="1"
             Margin="50"

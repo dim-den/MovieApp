@@ -24,10 +24,10 @@ namespace MovieApp.WPF.HostBuilders
 
                 services.AddTransient<ActorViewModelBuilder>(services => CreateActorViewModelBuilder(services));
 
-                services.AddSingleton<RateFilmPanelViewModelBuilder>(services => CreateRateFilmPanelViewModelBuilder(services));
-                services.AddSingleton<UserReviewsPanelViewModelBuilder>(services => CreateUserReviewsPanelViewModelBuilder(services));
-                services.AddSingleton<FilmCastListViewModelBuilder>(services => CreateFilmCastListViewModelBuilder(services));
-                services.AddSingleton<FilmViewModelBuilder>(services => CreateFilmViewModelBuilder(services));
+                services.AddTransient<RateFilmPanelViewModelBuilder>(services => CreateRateFilmPanelViewModelBuilder(services));
+                services.AddTransient<UserReviewsPanelViewModelBuilder>(services => CreateUserReviewsPanelViewModelBuilder(services));
+                services.AddTransient<FilmCastListViewModelBuilder>(services => CreateFilmCastListViewModelBuilder(services));
+                services.AddTransient<FilmViewModelBuilder>(services => CreateFilmViewModelBuilder(services));
             });
 
             return host;

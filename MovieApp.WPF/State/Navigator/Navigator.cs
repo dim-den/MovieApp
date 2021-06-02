@@ -16,6 +16,8 @@ namespace MovieApp.WPF.State.Navigator
             {
                 if (value != null)
                 {
+                    _currentViewModel?.Dispose();
+
                     _currentViewModel = value;
                     StateChanged?.Invoke();
                 }
