@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Microsoft.AspNet.Identity;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.EmailServices;
 using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -30,6 +23,7 @@ namespace MovieApp.WPF.ViewModels
         public string ExpectedVerificationCode { get; set; }
 
         private PasswordRecoveryStage _passwordRecoveryStage;
+
         public PasswordRecoveryStage PasswordRecoveryStage
         {
             get => _passwordRecoveryStage;
@@ -41,6 +35,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _username;
+
         public string Username
         {
             get
@@ -55,6 +50,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _verificationCode;
+
         public string VerificationCode
         {
             get
@@ -74,6 +70,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _password;
+
         public string Password
         {
             get
@@ -88,6 +85,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _confirmPassword;
+
         public string ConfirmPassword
         {
             get
@@ -102,12 +100,14 @@ namespace MovieApp.WPF.ViewModels
         }
 
         public MessageViewModel ErrorUsernameMessageViewModel { get; }
+
         public string ErrorUsernameMessage
         {
             set => ErrorUsernameMessageViewModel.Message = value;
         }
 
         public MessageViewModel ErrorPasswordMessageViewModel { get; }
+
         public string ErrorPasswordMessage
         {
             set => ErrorPasswordMessageViewModel.Message = value;
@@ -122,6 +122,5 @@ namespace MovieApp.WPF.ViewModels
             NextStepPasswordRecoveryCommand = new NextStepPasswordRecoveryCommand(this, unitOfWork, emailService);
             UpdateUserPasswordCommand = new UpdateUserPasswordCommand(this, unitOfWork, passwordHasher);
         }
-
     }
 }

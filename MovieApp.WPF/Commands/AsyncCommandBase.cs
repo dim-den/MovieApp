@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -35,9 +32,8 @@ namespace MovieApp.WPF.Commands
 
         public virtual bool CanExecute(object parameter)
         {
-            return !IsExecuting && ( MovieApp.EntityFramework.MovieAppDbContext.REMOTE_MODE ? NetworkState.IsInternetAvailable : true);
+            return !IsExecuting && (MovieApp.EntityFramework.MovieAppDbContext.REMOTE_MODE ? NetworkState.IsInternetAvailable : true);
         }
-
 
         public async void Execute(object parameter)
         {

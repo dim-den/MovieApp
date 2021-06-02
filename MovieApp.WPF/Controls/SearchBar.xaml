@@ -147,9 +147,7 @@
                                         ,<Run Text="{Binding ReleaseDate.Year, Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
-
                             </Grid>
-
 
                             <Border.Effect>
                                 <DropShadowEffect
@@ -212,7 +210,6 @@
                                         ,<Run Text="{Binding Bday, Converter={StaticResource BdayToAgeConverter}, Mode=OneWay}" />
                                         y.o.</TextBlock>
                                 </StackPanel>
-
                             </Grid>
 
                             <Border.Effect>

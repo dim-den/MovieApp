@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Win32;
 using MovieApp.WPF.ViewModels;
@@ -13,6 +9,7 @@ namespace MovieApp.WPF.Commands
     public class BrowseImageCommand : ICommand
     {
         private readonly AdminPanelViewModel _adminPanelViewModel;
+
         public BrowseImageCommand(AdminPanelViewModel adminPanelViewModel)
         {
             _adminPanelViewModel = adminPanelViewModel;
@@ -65,6 +62,5 @@ namespace MovieApp.WPF.Commands
                 }
             }
         }
-
     }
 }

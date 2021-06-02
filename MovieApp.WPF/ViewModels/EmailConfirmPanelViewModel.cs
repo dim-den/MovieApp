@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.EmailServices;
@@ -25,6 +20,7 @@ namespace MovieApp.WPF.ViewModels
         public string ExpectedVerificationCode { get; set; } = string.Empty;
 
         private string _verificationCode = string.Empty;
+
         public string VerificationCode
         {
             get => _verificationCode;

@@ -124,8 +124,7 @@
     <v:String x:Key="ActorView.Role">Role</v:String>
     <v:String x:Key="ActorView.NoFound">No films found</v:String>
 
-        <v:String x:Key="AppLanguagePanel.Language">Language</v:String>
-        <v:String x:Key="AppLanguagePanel.Russian">Russian</v:String>
-        <v:String x:Key="AppLanguagePanel.English">English</v:String>
-
+    <v:String x:Key="AppLanguagePanel.Language">Language</v:String>
+    <v:String x:Key="AppLanguagePanel.Russian">Russian</v:String>
+    <v:String x:Key="AppLanguagePanel.English">English</v:String>
 </ResourceDictionary>

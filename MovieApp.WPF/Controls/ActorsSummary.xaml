@@ -71,7 +71,6 @@
                                         Foreground="{StaticResource BrushPrimary2}"
                                         Text="{Binding Surname}"
                                         TextWrapping="Wrap" />
-
                                 </StackPanel>
                                 <StackPanel
                                     MinWidth="250"
@@ -103,7 +102,6 @@
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-
             </ListBox>
         </StackPanel>
 

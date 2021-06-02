@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using MovieApp.Domain.Models;
-using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -33,7 +27,6 @@ namespace MovieApp.WPF.Commands
 
     public class UserReviewsFilterCommand : AsyncCommandBase
     {
-
         private readonly ObservableCollection<FilmReview> _filmReviews;
         private readonly UserRatingsViewModel _userRatingsViewModel;
 
@@ -61,7 +54,7 @@ namespace MovieApp.WPF.Commands
             }
             else if (filterReviewType == FilterReviewType.SortByTitle)
             {
-                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews.OrderBy(review => review.Film.Title));            
+                _userRatingsViewModel.UserReviews = new ObservableCollection<FilmReview>(_filmReviews.OrderBy(review => review.Film.Title));
             }
             else if (filterReviewType == FilterReviewType.DateBetween)
             {
@@ -80,7 +73,5 @@ namespace MovieApp.WPF.Commands
             _userRatingsViewModel = userRatingsViewModel;
             _filmReviews = filmReviews;
         }
-
     }
 }
-

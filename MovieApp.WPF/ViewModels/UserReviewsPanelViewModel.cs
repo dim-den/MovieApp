@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.ReviewServices;
-using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -27,9 +18,10 @@ namespace MovieApp.WPF.ViewModels
         private string _reviewText = string.Empty;
 
         private ObservableCollection<FilmReview> _reviews;
+
         public ObservableCollection<FilmReview> Reviews
         {
-            get => _reviews; 
+            get => _reviews;
             set
             {
                 _reviews = value;
@@ -48,6 +40,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private FilmReview _currentUserFilmReview;
+
         public FilmReview CurrentUserFilmReview
         {
             get => _currentUserFilmReview;
@@ -59,6 +52,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private Film _film;
+
         public Film Film
         {
             get => _film;
@@ -83,6 +77,5 @@ namespace MovieApp.WPF.ViewModels
 
             InfoMessageViewModel = new MessageViewModel();
         }
-
     }
 }

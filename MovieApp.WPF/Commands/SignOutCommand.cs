@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using MovieApp.Domain.Services;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
 {
@@ -15,6 +9,7 @@ namespace MovieApp.WPF.Commands
     {
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _renavigator;
+
         public SignOutCommand(IAuthenticator authenticator, IRenavigator renavigator)
         {
             _authenticator = authenticator;

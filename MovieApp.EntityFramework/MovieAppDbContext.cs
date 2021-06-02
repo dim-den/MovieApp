@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MovieApp.Domain.Models;
 
 namespace MovieApp.EntityFramework
@@ -13,7 +12,8 @@ namespace MovieApp.EntityFramework
         public DbSet<Actor> Actors { get; set; }
         public DbSet<FilmCast> FilmCasts { get; set; }
 
-        public MovieAppDbContext(DbContextOptions options) : base(options) { }
-
+        public MovieAppDbContext(DbContextOptions options) : base(options)
+        {
+        }
     }
 }

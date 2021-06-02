@@ -1,12 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MovieApp.Domain.Models;
+﻿using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.ReviewServices;
 using MovieApp.WPF.State.Authentificator;
@@ -30,6 +22,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
             return this;
         }
+
         public static RateFilmPanelViewModelBuilder Init(IAuthenticator authenticator, IUnitOfWork unitOfWork, ILeaveReviewService leaveReviewService)
         {
             return new RateFilmPanelViewModelBuilder(authenticator, unitOfWork, leaveReviewService);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,7 +31,7 @@ namespace MovieApp.WPF.HostBuilders
                 string email_password = context.Configuration.GetValue<string>("email_password");
                 services.AddSingleton<EmailService>(new EmailService(email, email_password));
 
-                services.AddScoped<IAuthenticationService, AuthenticationService>();      
+                services.AddScoped<IAuthenticationService, AuthenticationService>();
                 services.AddScoped<IEmailService, EmailService>();
                 services.AddScoped<ILeaveReviewService, LeaveReviewService>();
             });

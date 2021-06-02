@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
-using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -22,6 +15,7 @@ namespace MovieApp.WPF.ViewModels
 
         private ObservableCollection<Film> _films;
         private ObservableCollection<Actor> _actors;
+
         public ObservableCollection<Film> Films
         {
             get => _films;
@@ -43,6 +37,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _searchText = string.Empty;
+
         public string SearchText
         {
             get => _searchText;
@@ -64,6 +59,7 @@ namespace MovieApp.WPF.ViewModels
                             f.Genre.ToLower().Contains(toFind))
                 .Take(6));
         }
+
         private void UpdateActorList(string toFind)
         {
             Actors = string.IsNullOrEmpty(toFind) ?
@@ -74,7 +70,7 @@ namespace MovieApp.WPF.ViewModels
                 .Take(4));
         }
 
-        public SearchBarViewModel(ICollection<Film> films, ICollection<Actor> actors, ICommand changeViewCommand )
+        public SearchBarViewModel(ICollection<Film> films, ICollection<Actor> actors, ICommand changeViewCommand)
         {
             _allFilms = films;
             _allActors = actors;

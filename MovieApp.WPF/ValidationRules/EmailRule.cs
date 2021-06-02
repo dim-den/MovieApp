@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace MovieApp.WPF.ValidationRules
@@ -24,7 +18,7 @@ namespace MovieApp.WPF.ValidationRules
                                           + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
 
             Match match = regexForEmail.Match(email);
-            if(!match.Success)
+            if (!match.Success)
                 return new ValidationResult(false, "wrong email");
 
             return ValidationResult.ValidResult;

@@ -105,7 +105,6 @@
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
-
                 </ListBox.ItemTemplate>
 
                 <ListBox.ItemsPanel>

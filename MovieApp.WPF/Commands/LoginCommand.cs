@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using MovieApp.Domain.Exceptions;
-using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
-using MovieApp.Domain.Services.AuthenticationServices;
-using MovieApp.EntityFramework;
-using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
-using MovieApp.WPF.ViewModels.Builders;
 
 namespace MovieApp.WPF.Commands
 {
@@ -36,7 +24,7 @@ namespace MovieApp.WPF.Commands
             _loginViewModel.ErrorMessage = string.Empty;
 
             try
-            {       
+            {
                 await _authenticator.Login(_loginViewModel.Username, _loginViewModel.Password);
 
                 _renavigator.Renavigate();

@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using MovieApp.Domain.Exceptions;
-using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.ViewModels;
 
@@ -20,6 +15,7 @@ namespace MovieApp.WPF.Commands
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthenticator _authenticator;
+
         public override bool CanExecute(object parameter)
         {
             return !string.IsNullOrEmpty(_adminPanelViewModel.DeleteEntityID) && _adminPanelViewModel.DeleteEntityID.All(char.IsDigit) && base.CanExecute(parameter);
@@ -32,7 +28,7 @@ namespace MovieApp.WPF.Commands
             try
             {
                 int index = (int)parameter;
-                int id = Convert.ToInt32(_adminPanelViewModel.DeleteEntityID);                
+                int id = Convert.ToInt32(_adminPanelViewModel.DeleteEntityID);
 
                 if (index == 0)
                 {
@@ -69,15 +65,14 @@ namespace MovieApp.WPF.Commands
 
                 await _unitOfWork.SaveAsync();
             }
-            catch(NotEnoughRightsException exception)
+            catch (NotEnoughRightsException exception)
             {
                 _adminPanelViewModel.ErrorMessage = $"Not enough rights to delete {exception.Changed}";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 _adminPanelViewModel.ErrorMessage = "Wrong entity ID to delete!";
             }
-
         }
 
         public DeleteEnitityCommand(AdminPanelViewModel adminPanelViewModel, IUnitOfWork unitOfWork, IAuthenticator authentificator)

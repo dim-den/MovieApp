@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
@@ -27,6 +23,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
             return this;
         }
+
         public static UpcomingFilmsListViewModelBuilder Init(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
             return new UpcomingFilmsListViewModelBuilder(unitOfWork, changeViewCommand);
@@ -36,6 +33,7 @@ namespace MovieApp.WPF.ViewModels.Builders
         {
             return _upcomingFilmsListViewModel;
         }
+
         private void LoadFilms(int count)
         {
             _unitOfWork.FilmRepository.GetUpcomingFilms().ContinueWith(task =>

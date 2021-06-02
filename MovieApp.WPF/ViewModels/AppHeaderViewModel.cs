@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
-using MovieApp.WPF.ViewModels.Factories;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -24,6 +14,7 @@ namespace MovieApp.WPF.ViewModels
         private readonly IUnitOfWork _unitOfWork;
 
         private SearchBarViewModel _searchBarViewModel;
+
         public SearchBarViewModel SearchBarViewModel
         {
             get => _searchBarViewModel;
@@ -36,7 +27,6 @@ namespace MovieApp.WPF.ViewModels
 
         public ICommand ChangeViewCommand { get; }
         public ICommand SignOutCommand { get; }
-
 
         public User CurrentUser => _authentificator.CurrentUser;
 
@@ -69,7 +59,6 @@ namespace MovieApp.WPF.ViewModels
                     SearchBarViewModel = new SearchBarViewModel(films, actors, ChangeViewCommand);
                 }
             });
-            
         }
 
         private void Authenticator_StateChanged()

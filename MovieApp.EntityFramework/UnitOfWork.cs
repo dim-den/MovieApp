@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Services;
 using MovieApp.EntityFramework.Services;
@@ -42,6 +39,7 @@ namespace MovieApp.EntityFramework
                 this.disposed = true;
             }
         }
+
         public int Save()
         {
             return _movieAppDbContext.SaveChanges();
@@ -55,7 +53,7 @@ namespace MovieApp.EntityFramework
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);  
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,7 +33,7 @@ namespace MovieApp.WPF.HostBuilders
                 services.AddSingleton<CreateViewModel<PasswordRecoveryViewModel>>(services => () => CreatePasswordRecoveryViewModel(services));
                 services.AddSingleton<CreateViewModel<AdminPanelViewModel>>(services => () => CreateAdminPanelViewModel(services));
                 services.AddSingleton<CreateViewModel<SettingsViewModel>>(services => () => CreateSettingsViewModel(services));
-                services.AddTransient<CreateViewModelWithParam<ProfileViewModel, User>>(services => 
+                services.AddTransient<CreateViewModelWithParam<ProfileViewModel, User>>(services =>
                     (param) => services.GetRequiredService<ProfileViewModelBuilder>().SetUser(param).Build());
 
                 services.AddTransient<CreateViewModelWithParam<ActorViewModel, Actor>>(services =>

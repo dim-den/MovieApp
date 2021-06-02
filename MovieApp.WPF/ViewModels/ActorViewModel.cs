@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.EntityFramework;
-using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -21,6 +12,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand ChangeViewCommand { get; }
 
         private Actor _actor;
+
         public Actor Actor
         {
             get => _actor;
@@ -32,6 +24,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private ObservableCollection<FilmCast> _actorFilmCast;
+
         public ObservableCollection<FilmCast> ActorFilmCast
         {
             get => _actorFilmCast;
@@ -54,6 +47,5 @@ namespace MovieApp.WPF.ViewModels
 
             ChangeViewCommand = changeViewCommand;
         }
-      
     }
 }

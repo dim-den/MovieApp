@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 
@@ -27,6 +22,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _oldPassword;
+
         public string OldPassword
         {
             get
@@ -42,6 +38,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _newPassword;
+
         public string NewPassword
         {
             get
@@ -57,6 +54,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _confirmPassword;
+
         public string ConfirmPassword
         {
             get

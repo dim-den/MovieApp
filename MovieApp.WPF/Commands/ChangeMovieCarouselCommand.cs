@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using MovieApp.Domain.Models;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -16,9 +9,11 @@ namespace MovieApp.WPF.Commands
         Left,
         Right
     }
+
     public class ChangeMovieCarouselCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
+
         private readonly MovieCarouselViewModel _movieCarouselViewModel;
 
         public bool CanExecute(object parameter)
@@ -30,11 +25,10 @@ namespace MovieApp.WPF.Commands
         {
             ChangeDirection direction = (ChangeDirection)parameter;
             int filmsCount = _movieCarouselViewModel.Films.Count;
-            
 
             if (direction == ChangeDirection.Left)
             {
-                if(_movieCarouselViewModel.CurrentIndex == 0)
+                if (_movieCarouselViewModel.CurrentIndex == 0)
                 {
                     _movieCarouselViewModel.CurrentIndex = filmsCount - 1;
                 }
@@ -57,7 +51,8 @@ namespace MovieApp.WPF.Commands
 
             _movieCarouselViewModel.Timer.Stop();
             _movieCarouselViewModel.Timer.Start();
-         }
+        }
+
         public ChangeMovieCarouselCommand(MovieCarouselViewModel movieCarouselViewModel)
         {
             _movieCarouselViewModel = movieCarouselViewModel;

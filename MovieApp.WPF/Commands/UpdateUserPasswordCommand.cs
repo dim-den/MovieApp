@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
-using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -22,8 +17,8 @@ namespace MovieApp.WPF.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return !string.IsNullOrEmpty(_passwordRecoveryViewModel.Password) 
-                && !string.IsNullOrEmpty(_passwordRecoveryViewModel.ConfirmPassword) 
+            return !string.IsNullOrEmpty(_passwordRecoveryViewModel.Password)
+                && !string.IsNullOrEmpty(_passwordRecoveryViewModel.ConfirmPassword)
                 && base.CanExecute(parameter);
         }
 
@@ -31,7 +26,7 @@ namespace MovieApp.WPF.Commands
         {
             _passwordRecoveryViewModel.ErrorPasswordMessage = string.Empty;
 
-            if(_passwordRecoveryViewModel.Password != _passwordRecoveryViewModel.ConfirmPassword)
+            if (_passwordRecoveryViewModel.Password != _passwordRecoveryViewModel.ConfirmPassword)
             {
                 _passwordRecoveryViewModel.ErrorPasswordMessage = "Password does not match confirm password.";
                 return;

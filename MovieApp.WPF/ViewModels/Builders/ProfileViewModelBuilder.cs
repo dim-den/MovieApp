@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels.Builders
 {
@@ -31,6 +23,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
             return this;
         }
+
         public static ProfileViewModelBuilder Init(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
             return new ProfileViewModelBuilder(unitOfWork, changeViewCommand);
@@ -47,8 +40,8 @@ namespace MovieApp.WPF.ViewModels.Builders
             {
                 if (task.Exception == null)
                 {
-                   _profileViewModel.UserFilmReviews = new ObservableCollection<FilmReview>(task.Result);
-                   _profileViewModel.UserRatingsViewModel = new UserRatingsViewModel(_profileViewModel.UserFilmReviews, _profileViewModel.ChangeViewCommand);
+                    _profileViewModel.UserFilmReviews = new ObservableCollection<FilmReview>(task.Result);
+                    _profileViewModel.UserRatingsViewModel = new UserRatingsViewModel(_profileViewModel.UserFilmReviews, _profileViewModel.ChangeViewCommand);
                 }
             });
         }

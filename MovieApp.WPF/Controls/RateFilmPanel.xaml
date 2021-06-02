@@ -258,7 +258,6 @@
                     </Button>
                     <TextBlock Text="10" />
                 </StackPanel>
-
             </StackPanel>
 
             <StackPanel

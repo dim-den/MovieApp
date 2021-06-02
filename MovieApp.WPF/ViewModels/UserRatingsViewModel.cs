@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
 using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -20,6 +12,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand ChangeViewCommand { get; }
 
         private ObservableCollection<FilmReview> _userReviews;
+
         public ObservableCollection<FilmReview> UserReviews
         {
             get
@@ -54,6 +47,7 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CanUserFilterByDate));
             }
         }
+
         public DateTime? ToDate
         {
             get
@@ -67,6 +61,7 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CanUserFilterByDate));
             }
         }
+
         public UserRatingsViewModel(ObservableCollection<FilmReview> filmReviewsStore, ICommand changeViewCommand)
         {
             FilterReviewsCommand = new UserReviewsFilterCommand(this, filmReviewsStore);

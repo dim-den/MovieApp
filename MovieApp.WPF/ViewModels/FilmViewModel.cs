@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.Domain.Services.ReviewServices;
-using MovieApp.EntityFramework;
-using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -22,6 +10,7 @@ namespace MovieApp.WPF.ViewModels
         private readonly IUnitOfWork _unitOfWork;
 
         private UserReviewsPanelViewModel _userReviewsPanelViewModel;
+
         public UserReviewsPanelViewModel UserReviewsPanelViewModel
         {
             get => _userReviewsPanelViewModel;
@@ -34,6 +23,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private RateFilmPanelViewModel _rateFilmPanelViewModel;
+
         public RateFilmPanelViewModel RateFilmPanelViewModel
         {
             get => _rateFilmPanelViewModel;
@@ -46,6 +36,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private FilmCastListViewModel _filmCastListViewModel;
+
         public FilmCastListViewModel FilmCastListViewModel
         {
             get => _filmCastListViewModel;
@@ -57,6 +48,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private Film _film;
+
         public Film Film
         {
             get => _film;
@@ -71,6 +63,7 @@ namespace MovieApp.WPF.ViewModels
         public int FilmReviewsCount => _unitOfWork.FilmReviewRepository.GetFilmReviewsCount(Film.ID);
 
         private FilmReview _currentUserFilmReview;
+
         public FilmReview CurrentUserFilmReview
         {
             get => _currentUserFilmReview;
@@ -90,7 +83,7 @@ namespace MovieApp.WPF.ViewModels
 
         public FilmViewModel(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;           
+            _unitOfWork = unitOfWork;
         }
 
         private void UserReview_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
-using MovieApp.EntityFramework;
-using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels
 {
@@ -23,6 +13,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand ChangeViewCommand { get; }
 
         private ObservableCollection<Film> _films;
+
         public ObservableCollection<Film> Films
         {
             get => _films;
@@ -34,6 +25,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private int _currentIndex;
+
         public int CurrentIndex
         {
             get => _currentIndex;
@@ -45,11 +37,13 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(PosterImageData));
             }
         }
+
         public Film CurrentFilm => _films?[CurrentIndex];
         public byte[] PosterImageData => CurrentFilm?.PosterImageData;
 
         private readonly DispatcherTimer _timer;
         public DispatcherTimer Timer => _timer;
+
         public MovieCarouselViewModel(ICommand changeViewCommand)
         {
             ChangeViewCommand = changeViewCommand;
@@ -62,7 +56,7 @@ namespace MovieApp.WPF.ViewModels
             Timer.Start();
 
             ChangeMovieCarouselCommand = new ChangeMovieCarouselCommand(this);
-        }        
+        }
 
         private void TimerTick(object sender, EventArgs e)
         {

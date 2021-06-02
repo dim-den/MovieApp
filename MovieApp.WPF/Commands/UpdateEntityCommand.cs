@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.AspNet.Identity;
 using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.Domain.Services.AuthenticationServices;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.ViewModels;
 
@@ -21,6 +17,7 @@ namespace MovieApp.WPF.Commands
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthenticator _authenticator;
+
         public override bool CanExecute(object parameter)
         {
             return !string.IsNullOrEmpty(_adminPanelViewModel.UpdateEntityID) && _adminPanelViewModel.UpdateEntityID.All(char.IsDigit) && base.CanExecute(parameter);
@@ -46,7 +43,7 @@ namespace MovieApp.WPF.Commands
                     }
 
                     if ((user.ClientType >= _authenticator.CurrentUser.ClientType ||
-                        _adminPanelViewModel.User.ClientType >= _authenticator.CurrentUser.ClientType) && 
+                        _adminPanelViewModel.User.ClientType >= _authenticator.CurrentUser.ClientType) &&
                         _authenticator.CurrentUser.ClientType != ClientType.SuperAdmin)
                     {
                         throw new NotEnoughRightsException(_authenticator.CurrentUser.ClientType, user.ClientType);
@@ -138,7 +135,7 @@ namespace MovieApp.WPF.Commands
                     var i = _adminPanelViewModel.Films.IndexOf(_adminPanelViewModel.Films.First(e => e.ID == id));
                     _adminPanelViewModel.Films[i] = res;
                 }
-                else if(index == 3)
+                else if (index == 3)
                 {
                     var updateFilmCast = _adminPanelViewModel.FilmCast;
                     var filmCast = await _unitOfWork.FilmCastRepository.Get(id);
@@ -220,7 +217,6 @@ namespace MovieApp.WPF.Commands
             {
                 _adminPanelViewModel.ErrorMessage = "Wrong values!";
             }
-
         }
 
         public UpdateEntityCommand(AdminPanelViewModel adminPanelViewModel, IUnitOfWork unitOfWork, IAuthenticator authentificator)

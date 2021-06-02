@@ -120,12 +120,10 @@
                                     HorizontalAlignment="Left"
                                     FontSize="20"
                                     Text="{Binding RoleType}" />
-
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
             </Grid>
         </Border>
     </StackPanel>

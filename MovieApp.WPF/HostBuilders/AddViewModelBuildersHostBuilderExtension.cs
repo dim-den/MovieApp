@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MovieApp.Domain.Services;
@@ -48,7 +44,7 @@ namespace MovieApp.WPF.HostBuilders
             return ActorsSummaryViewModelBuilder.Init(services.GetRequiredService<IUnitOfWork>(),
                                                       services.GetRequiredService<ChangeViewCommand>());
         }
-        
+
         private static UpcomingFilmsListViewModelBuilder CreateUpcomingFilmsListViewModelBuilder(IServiceProvider services)
         {
             return UpcomingFilmsListViewModelBuilder.Init(services.GetRequiredService<IUnitOfWork>(),
@@ -67,7 +63,7 @@ namespace MovieApp.WPF.HostBuilders
             return ProfileViewModelBuilder.Init(services.GetRequiredService<IUnitOfWork>(),
                                                 services.GetRequiredService<ChangeViewCommand>());
         }
-        
+
         private static ActorViewModelBuilder CreateActorViewModelBuilder(IServiceProvider services)
         {
             return ActorViewModelBuilder.Init(services.GetRequiredService<IUnitOfWork>(),

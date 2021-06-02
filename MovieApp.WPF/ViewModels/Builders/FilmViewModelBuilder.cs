@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MovieApp.Domain.Models;
+﻿using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels.Builders
 {
@@ -49,12 +41,13 @@ namespace MovieApp.WPF.ViewModels.Builders
 
             return this;
         }
-        public static FilmViewModelBuilder Init(RateFilmPanelViewModelBuilder rateFilmPanelViewModelBuilder, 
+
+        public static FilmViewModelBuilder Init(RateFilmPanelViewModelBuilder rateFilmPanelViewModelBuilder,
                                                 UserReviewsPanelViewModelBuilder userReviewsPanelViewModelBuilder,
                                                 FilmCastListViewModelBuilder filmCastListViewModelBuilder,
                                                 IUnitOfWork unitOfWork, IAuthenticator authenticator)
         {
-            return new FilmViewModelBuilder(rateFilmPanelViewModelBuilder, userReviewsPanelViewModelBuilder, 
+            return new FilmViewModelBuilder(rateFilmPanelViewModelBuilder, userReviewsPanelViewModelBuilder,
                                             filmCastListViewModelBuilder, unitOfWork, authenticator);
         }
 
@@ -74,7 +67,6 @@ namespace MovieApp.WPF.ViewModels.Builders
 
                     _filmViewModel.RateFilmPanelViewModel.CurrentUserFilmReview = currentUserFilmReview;
                     _filmViewModel.UserReviewsPanelViewModel.CurrentUserFilmReview = currentUserFilmReview;
-
                 }
             });
         }

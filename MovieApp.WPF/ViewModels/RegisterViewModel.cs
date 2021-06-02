@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using MovieApp.Domain.Services;
-using MovieApp.Domain.Services.AuthenticationServices;
+﻿using System.Windows.Input;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 
 namespace MovieApp.WPF.ViewModels
 {
-    public class RegisterViewModel : ViewModelBase 
+    public class RegisterViewModel : ViewModelBase
     {
         public ICommand ChangeViewCommand { get; }
 
         private string _email;
+
         public string Email
         {
             get
@@ -32,6 +26,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _username;
+
         public string Username
         {
             get
@@ -47,6 +42,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _password;
+
         public string Password
         {
             get
@@ -62,6 +58,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _confirmPassword;
+
         public string ConfirmPassword
         {
             get
@@ -77,6 +74,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _name;
+
         public string Name
         {
             get
@@ -92,6 +90,7 @@ namespace MovieApp.WPF.ViewModels
         }
 
         private string _surname;
+
         public string Surname
         {
             get
@@ -105,11 +104,14 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(CanRegister));
             }
         }
+
         public MessageViewModel ErrorMessageViewModel { get; }
+
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;
         }
+
         public bool CanRegister => !string.IsNullOrEmpty(Email) &&
                                    !string.IsNullOrEmpty(Username) &&
                                    !string.IsNullOrEmpty(Password) &&

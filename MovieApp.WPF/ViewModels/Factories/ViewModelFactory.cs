@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
-using MovieApp.EntityFramework;
-using MovieApp.WPF.State.Authentificator;
+﻿using MovieApp.Domain.Models;
 using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
-using MovieApp.WPF.ViewModels.Builders;
 
 namespace MovieApp.WPF.ViewModels.Factories
 {
@@ -25,14 +15,14 @@ namespace MovieApp.WPF.ViewModels.Factories
         private readonly CreateViewModel<RegisterViewModel> _createRegisterViewModel;
         private readonly CreateViewModel<SettingsViewModel> _createSettingsViewModel;
 
-        public ViewModelFactory(CreateViewModelWithParam<ActorViewModel, Actor> createActorViewModel, 
+        public ViewModelFactory(CreateViewModelWithParam<ActorViewModel, Actor> createActorViewModel,
                                 CreateViewModel<AdminPanelViewModel> createAdminViewModel,
-                                CreateViewModelWithParam<FilmViewModel, Film> createFilmViewModel, 
-                                CreateViewModel<HomeViewModel> createHomeViewModel, 
-                                CreateViewModel<LoginViewModel> createLoginViewModel, 
+                                CreateViewModelWithParam<FilmViewModel, Film> createFilmViewModel,
+                                CreateViewModel<HomeViewModel> createHomeViewModel,
+                                CreateViewModel<LoginViewModel> createLoginViewModel,
                                 CreateViewModel<PasswordRecoveryViewModel> createPasswordRecoveryViewModel,
-                                CreateViewModelWithParam<ProfileViewModel, User> createProfileViewModel, 
-                                CreateViewModel<RegisterViewModel> createRegisterViewModel, 
+                                CreateViewModelWithParam<ProfileViewModel, User> createProfileViewModel,
+                                CreateViewModel<RegisterViewModel> createRegisterViewModel,
                                 CreateViewModel<SettingsViewModel> createSettingsViewModel)
         {
             _createActorViewModel = createActorViewModel;

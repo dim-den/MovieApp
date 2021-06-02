@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.EmailServices;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
 
 namespace MovieApp.WPF.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        public ICommand ChangeImageCommand { get; set; }  
+        public ICommand ChangeImageCommand { get; set; }
 
         public PasswordChangePanelViewModel PasswordChangePanelViewModel { get; }
         public EmailConfirmPanelViewModel EmailConfirmPanelViewModel { get; }
         public AppLanguagePanelViewModel AppLanguagePanelViewModel { get; }
 
-        private readonly IAuthenticator _authentificator;      
+        private readonly IAuthenticator _authentificator;
 
         public User CurrentUser => _authentificator.CurrentUser;
-      
+
         public SettingsViewModel(IAuthenticator authentificator, IUnitOfWork unitOfWork, IEmailService emailService)
         {
             _authentificator = authentificator;

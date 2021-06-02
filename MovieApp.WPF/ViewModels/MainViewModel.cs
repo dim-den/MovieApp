@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.AspNet.Identity;
+﻿using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.Domain.Services.AuthenticationServices;
-using MovieApp.EntityFramework;
 using MovieApp.WPF.Commands;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.State.NetworkState;
-using MovieApp.WPF.State.Stores;
-using MovieApp.WPF.ViewModels.Factories;
 
 namespace MovieApp.WPF.ViewModels
-    {
+{
     public class MainViewModel : ViewModelBase
     {
         private readonly INavigator _navigator;
@@ -33,6 +22,7 @@ namespace MovieApp.WPF.ViewModels
         public User CurrentUser => _authenticator.CurrentUser;
 
         public AppHeaderViewModel AppHeaderViewModel { get; }
+
         public MainViewModel(INavigator navigator, IUnitOfWork unitOfWork, IAuthenticator authenticator,
                              ChangeViewCommand changeViewCommand, AppHeaderViewModel appHeaderViewModel)
         {
@@ -55,6 +45,7 @@ namespace MovieApp.WPF.ViewModels
         {
             OnPropertyChanged(nameof(CurrentViewModel));
         }
+
         private void Authenticator_StateChanged()
         {
             OnPropertyChanged(nameof(IsLoggedIn));

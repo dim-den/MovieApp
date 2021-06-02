@@ -181,7 +181,6 @@
                                             FontWeight="Thin"
                                             Foreground="{StaticResource BrushPrimary4}"
                                             Text="{Binding Date, StringFormat={}{0:dd MMMM yyyy, hh:mm}}" />
-
                                     </Grid>
 
                                     <Separator Margin="-10,10,-10,0" Background="{StaticResource BrushPrimary2}" />
@@ -205,7 +204,7 @@
                                         HorizontalAlignment="Right"
                                         FontSize="24"
                                         Foreground="{StaticResource BrushPrimary3}">
-                                        <Run Text="{DynamicResource UserReviewsPanel.UserScore}"/> <Run Text="{Binding Score}" />
+                                        <Run Text="{DynamicResource UserReviewsPanel.UserScore}" /> <Run Text="{Binding Score}" />
                                     </TextBlock>
                                 </StackPanel>
                             </Grid>

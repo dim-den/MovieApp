@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using MovieApp.Domain.Exceptions;
-using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
-using MovieApp.Domain.Services.AuthenticationServices;
-using MovieApp.EntityFramework;
 using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 using MovieApp.WPF.ViewModels;
-using MovieApp.WPF.ViewModels.Builders;
 
 namespace MovieApp.WPF.Commands
 {
@@ -62,6 +52,7 @@ namespace MovieApp.WPF.Commands
                 _registerViewModel.ErrorMessage = "Registration failed.";
             }
         }
+
         public RegisterCommand(RegisterViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
         {
             _registerViewModel = loginViewModel;

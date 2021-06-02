@@ -113,9 +113,7 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Text="{Binding VerificationCode, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
-
             </StackPanel>
-
         </StackPanel>
     </Border>
 </UserControl>

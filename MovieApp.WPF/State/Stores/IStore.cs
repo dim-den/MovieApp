@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 
@@ -19,6 +17,5 @@ namespace MovieApp.WPF.State.Stores
         Task LoadWithInclude(params Expression<Func<T, object>>[] includeProperties);
 
         Task LoadWithInclude(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties);
-
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,6 +26,7 @@ namespace MovieApp.WPF.Commands
                 case "ru-RU":
                     dict.Source = new Uri(String.Format(@"/Resources/Localization/lang.{0}.xaml", culture), UriKind.Relative);
                     break;
+
                 default:
                     dict.Source = new Uri(@"/Resources/Localization/lang.xaml", UriKind.Relative);
                     break;
@@ -38,7 +35,4 @@ namespace MovieApp.WPF.Commands
             Application.Current.Resources.MergedDictionaries.Add(dict);
         }
     }
-
-
 }
-

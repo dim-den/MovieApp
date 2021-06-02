@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
@@ -38,6 +33,7 @@ namespace MovieApp.WPF.ViewModels.Builders
         {
             return _filmCastListViewModel;
         }
+
         public void LoadFilmCast()
         {
             _unitOfWork.FilmCastRepository.GetWithInclude(f => f.FilmID == _filmCastListViewModel.Film.ID, f => f.Actor).ContinueWith(task =>

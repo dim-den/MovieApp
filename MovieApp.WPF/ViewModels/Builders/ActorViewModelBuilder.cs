@@ -1,16 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
 
 namespace MovieApp.WPF.ViewModels.Builders
 {
@@ -32,6 +24,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
             return this;
         }
+
         public static ActorViewModelBuilder Init(IUnitOfWork unitOfWork, ICommand changeViewCommand)
         {
             return new ActorViewModelBuilder(unitOfWork, changeViewCommand);

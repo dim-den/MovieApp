@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.AspNet.Identity;
 using MovieApp.Domain.Exceptions;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.AuthenticationServices;
-using MovieApp.WPF.State.Authentificator;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -18,6 +13,7 @@ namespace MovieApp.WPF.Commands
         private readonly AdminPanelViewModel _adminPanelViewModel;
 
         private readonly IUnitOfWork _unitOfWork;
+
         public override bool CanExecute(object parameter)
         {
             return base.CanExecute(parameter);

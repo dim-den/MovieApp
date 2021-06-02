@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
@@ -30,6 +25,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
             return this;
         }
+
         public static UserReviewsPanelViewModelBuilder Init(IUnitOfWork unitOfWork, IAuthenticator authenticator, ILeaveReviewService leaveReviewService, ICommand changeViewCommand)
         {
             return new UserReviewsPanelViewModelBuilder(unitOfWork, authenticator, leaveReviewService, changeViewCommand);
@@ -39,9 +35,9 @@ namespace MovieApp.WPF.ViewModels.Builders
         {
             return _userReviewsPanelViewModel;
         }
+
         private void LoadReviews()
         {
-
             _unitOfWork.FilmReviewRepository.GetWithInclude(r => r.FilmID == _userReviewsPanelViewModel.Film.ID && !string.IsNullOrEmpty(r.ReviewText), r => r.User).ContinueWith(task =>
             {
                 if (task.Exception == null)

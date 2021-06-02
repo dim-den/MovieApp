@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.Win32;
-using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
-using MovieApp.EntityFramework.Services;
 using MovieApp.WPF.State.Authentificator;
 
 namespace MovieApp.WPF.Commands
@@ -17,6 +10,7 @@ namespace MovieApp.WPF.Commands
     {
         private readonly IAuthenticator _authenticator;
         private readonly IUnitOfWork _unitOfWork;
+
         public ChangeImageCommand(IAuthenticator authenticator, IUnitOfWork unitOfWork)
         {
             _authenticator = authenticator;
@@ -59,7 +53,7 @@ namespace MovieApp.WPF.Commands
                     await _unitOfWork.UserRepository.Update(_authenticator.CurrentUser.ID, _authenticator.CurrentUser);
 
                     await _unitOfWork.SaveAsync();
-                }   
+                }
             }
         }
     }

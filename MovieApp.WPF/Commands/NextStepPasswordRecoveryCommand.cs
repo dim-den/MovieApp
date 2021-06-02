@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MovieApp.Domain.Models;
 using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.EmailServices;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
 using MovieApp.WPF.ViewModels;
 
 namespace MovieApp.WPF.Commands
@@ -53,7 +48,7 @@ namespace MovieApp.WPF.Commands
 
                     _passwordRecoveryViewModel.PasswordRecoveryStage = PasswordRecoveryStage.PrintVerificationCode;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     _passwordRecoveryViewModel.ErrorUsernameMessage = "An error occured while sending message, check for Internet connection";
                 }
@@ -62,7 +57,7 @@ namespace MovieApp.WPF.Commands
 
         public NextStepPasswordRecoveryCommand(PasswordRecoveryViewModel passwordRecoveryViewModel, IUnitOfWork unitOfWork, IEmailService email)
         {
-            _passwordRecoveryViewModel = passwordRecoveryViewModel;   
+            _passwordRecoveryViewModel = passwordRecoveryViewModel;
             _unitOfWork = unitOfWork;
             _emailService = email;
 

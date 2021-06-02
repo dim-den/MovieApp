@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MovieApp.Domain.Models;
-using MovieApp.Domain.Services;
-using MovieApp.EntityFramework;
-using MovieApp.WPF.Commands;
-using MovieApp.WPF.State.Authentificator;
-using MovieApp.WPF.State.Navigator;
-using MovieApp.WPF.State.Stores;
-using MovieApp.WPF.ViewModels.Factories;
 
 namespace MovieApp.WPF.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {
         private ObservableCollection<FilmReview> _userFilmReviews;
+
         public ObservableCollection<FilmReview> UserFilmReviews
         {
             get => _userFilmReviews;
@@ -30,10 +20,10 @@ namespace MovieApp.WPF.ViewModels
                 OnPropertyChanged(nameof(FilmsWatched));
                 OnPropertyChanged(nameof(AvgScore));
             }
-
         }
 
         private UserRatingsViewModel _userRatingsViewModel;
+
         public UserRatingsViewModel UserRatingsViewModel
         {
             get => _userRatingsViewModel;
@@ -47,6 +37,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand ChangeViewCommand { get; }
 
         private User _user;
+
         public User User
         {
             get => _user;
@@ -64,7 +55,7 @@ namespace MovieApp.WPF.ViewModels
         public int FilmsWatched => (HasReviews == true) ? UserFilmReviews.Count : 0;
 
         public double AvgScore => (HasReviews == true) ? UserFilmReviews.Average(u => u.Score) : 0.0;
-        
+
         public ProfileViewModel(ICommand changeViewCommand)
         {
             ChangeViewCommand = changeViewCommand;

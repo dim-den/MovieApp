@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MovieApp.Domain.Models
 {
@@ -12,6 +8,7 @@ namespace MovieApp.Domain.Models
         Admin,
         SuperAdmin
     }
+
     public class User : DbObject
     {
         public string Username { get; set; }

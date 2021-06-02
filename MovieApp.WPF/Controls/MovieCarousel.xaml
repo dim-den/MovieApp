@@ -42,7 +42,6 @@
                     RenderTransformOrigin="1,0.5"
                     Source="{Binding PosterImageData}"
                     Stretch="Fill" />
-
             </Border>
 
             <Border

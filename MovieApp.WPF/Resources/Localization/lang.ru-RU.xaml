@@ -127,5 +127,4 @@
     <v:String x:Key="AppLanguagePanel.Language">Язык</v:String>
     <v:String x:Key="AppLanguagePanel.Russian">Русский</v:String>
     <v:String x:Key="AppLanguagePanel.English">Английский, США</v:String>
-
 </ResourceDictionary>

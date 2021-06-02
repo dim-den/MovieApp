@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using MovieApp.Domain.Services;
 using MovieApp.Domain.Services.EmailServices;
 using MovieApp.WPF.ViewModels;
 
@@ -14,6 +10,7 @@ namespace MovieApp.WPF.Commands
         private int _verificationCodeLength;
         private readonly IEmailService _emailService;
         private readonly EmailConfirmPanelViewModel _emailConfirmPanelViewModel;
+
         public SendEmailConfirmCodeCommand(EmailConfirmPanelViewModel emailConfirmPanelViewModel, IEmailService emailService, int verificationCodeLength)
         {
             _emailService = emailService;
@@ -34,7 +31,7 @@ namespace MovieApp.WPF.Commands
             }
             catch (Exception)
             {
-               _emailConfirmPanelViewModel.ErrorMessage = "An error occured while sending message, check for Internet connection";
+                _emailConfirmPanelViewModel.ErrorMessage = "An error occured while sending message, check for Internet connection";
             }
         }
     }
