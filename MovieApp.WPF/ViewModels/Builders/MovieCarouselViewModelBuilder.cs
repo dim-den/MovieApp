@@ -35,7 +35,7 @@ namespace MovieApp.WPF.ViewModels.Builders
 
         private void LoadFilms(int count)
         {
-            _unitOfWork.FilmRepository.GetRandomReleasedFilms(5).ContinueWith(task =>
+            _unitOfWork.FilmRepository.GetRandomReleasedFilms(count).ContinueWith(task =>
             {
                 if (task.Exception == null)
                 {
