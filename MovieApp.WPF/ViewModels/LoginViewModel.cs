@@ -11,7 +11,7 @@ namespace MovieApp.WPF.ViewModels
         public ICommand LoginCommand { get; }
         public bool CanLogin => !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
 
-        private string _username = "dimden";
+        private string _username;
 
         public string Username
         {
@@ -27,7 +27,7 @@ namespace MovieApp.WPF.ViewModels
             }
         }
 
-        private string _password = "admin";
+        private string _password;
 
         public string Password
         {

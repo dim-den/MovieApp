@@ -16,7 +16,7 @@ namespace MovieApp.WPF.HostBuilders
                 string connectionString = remoteMode ? context.Configuration.GetConnectionString("remote") : context.Configuration.GetConnectionString("local");
 
                 services.AddDbContext<MovieAppDbContext>(o => o.UseSqlServer(connectionString));
-                services.AddSingleton<MovieAppDbContextFactory>(new MovieAppDbContextFactory(remoteMode, connectionString));
+                services.AddSingleton<MovieAppDbContextFactory>(new MovieAppDbContextFactory(connectionString));
             });
 
             return host;

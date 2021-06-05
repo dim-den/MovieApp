@@ -5,7 +5,6 @@ namespace MovieApp.EntityFramework
 {
     public class MovieAppDbContext : DbContext
     {
-        public static bool REMOTE_MODE;
         public DbSet<User> Users { get; set; }
         public DbSet<Film> Films { get; set; }
         public DbSet<FilmReview> FilmReviews { get; set; }

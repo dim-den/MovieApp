@@ -32,7 +32,7 @@ namespace MovieApp.WPF.Commands
 
         public virtual bool CanExecute(object parameter)
         {
-            return !IsExecuting && (MovieApp.EntityFramework.MovieAppDbContext.REMOTE_MODE ? NetworkState.IsInternetAvailable : true);
+            return !IsExecuting && NetworkState.IsInternetAvailable;
         }
 
         public async void Execute(object parameter)

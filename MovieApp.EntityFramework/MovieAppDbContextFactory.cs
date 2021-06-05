@@ -6,9 +6,8 @@ namespace MovieApp.EntityFramework
     {
         private readonly string _connectionString;
 
-        public MovieAppDbContextFactory(bool remoteMode, string connectionString)
+        public MovieAppDbContextFactory(string connectionString)
         {
-            MovieAppDbContext.REMOTE_MODE = remoteMode;
             _connectionString = connectionString;
         }
 
